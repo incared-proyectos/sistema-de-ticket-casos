@@ -1,0 +1,20 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import '~admin-lte/dist/css/adminlte.min.css';
+
+@import '~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css';
+@import '~admin-lte/plugins/daterangepicker/daterangepicker.css';
+@import '~admin-lte/plugins/summernote/summernote-bs4.css';
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.css";
+@import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
+@import '~bootstrap-select/dist/css/bootstrap-select.min.css';
+@import 'sweetalert2/src/sweetalert2.scss';
+

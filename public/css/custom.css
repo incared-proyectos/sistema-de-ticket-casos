@@ -1,0 +1,41 @@
+/*PERMISOS USUARIOS*/
+.item_permisos{
+	padding: 6px;
+	background:#3e1edbb8;
+	color:white;
+	border-radius: 5px;
+	margin: 5px;
+}
+.profile-img{
+  opacity: 1;
+  width: 150px;
+  height: 130px !important;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+  border-radius: 50%;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.content_img:hover .profile-img {
+  opacity: 0.3;
+}
+
+.content_img:hover .middle {
+  opacity: 1;
+}
+/*.text {
+  background-color: #4CAF50;
+  color: white;
+  font-size: 15px;
+  padding: 8px 15px;
+}*/
