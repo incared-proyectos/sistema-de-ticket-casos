@@ -28,9 +28,10 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+
 Vue.component(
-    'table-users',
-    require('./components/TableUsers.vue').default
+    'table-vue',
+    require('./components/TableVue.vue').default
 );
 Vue.component(
     'profile-sidebar',
@@ -40,6 +41,11 @@ Vue.component(
     'modal-profile',
     require('./components/ModalProfile.vue').default
 );
+Vue.component(
+    'ticket',
+    require('./components/Ticket.vue').default
+);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

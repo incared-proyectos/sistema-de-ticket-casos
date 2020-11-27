@@ -51,16 +51,17 @@ class PerfilController extends Controller
             $user = User::find($id);
             if ($request->hasFile('file')) {
                 $img_src = $user->img_src;
-                $exists = Storage::disk('public_uploads')->exists('profile/'.$id.'/'.$img_src);
-                if ($exists) {
-                    Storage::disk('public_uploads')->delete('profile/'.$id.'/'.$img_src);
-                }
                 if(!Storage::disk('public_uploads')->has('profile')){
                     Storage::disk('public_uploads')->makeDirectory('profile');
                     if (!Storage::disk('public_uploads')->has('profile/'.$id)) {
                         Storage::disk('public_uploads')->makeDirectory('profile/'.$id);
                     }
                 }
+                $exists = Storage::disk('public_uploads')->exists('profile/'.$id.'/'.$img_src);
+                if ($exists) {
+                    Storage::disk('public_uploads')->delete('profile/'.$id.'/'.$img_src);
+                }
+               
                 $files = $request->file('file');
                 $extension = $files->getClientOriginalExtension();
                 $allowedfileExtension=['jpg','png','jpeg','gif'];

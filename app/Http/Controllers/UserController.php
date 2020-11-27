@@ -9,6 +9,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Yajra\Datatables\Datatables;
 use App\Models\User;
+use App\Models\Categoria;
+use App\Models\Categorias_has_user;
 
 class UserController extends Controller
 {
@@ -18,33 +20,44 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
+
         $columns = array(
             array('data'=>'id'),
             array('data'=>'name'),
             array('data'=>'email'),
+            array('data'=>'categorias'),
             array('data'=>'action'),
         );
         $head = array(
             'ID',
             'Name',
             'Email',
+            'Categorias',
             'Action',
         );
         return view('users.index',[
             'columns'=>$columns,
             'head'=>$head ,
             'roles'=>Role::all(),
-            'permisos'=>Permission::all()
+            'categoria'=>Categoria::all()
         ]);
     }
     public function datatables(){
         $id = Auth()->id();
-        $table = Datatables::of(User::where('id','!=',$id)->get());
+        $table = Datatables::of(User::with('categorias')->where('id','!=',$id)->get());
         $table->addColumn('action', function($row){
             $url = url('usuarios').'/'.$row['id'];
             return view('layouts.buttons_datatables',['id'=>$row['id'],'url'=>$url]);
-        })->rawColumns(['action']);
+        })->editColumn('categorias', function($row){
+            if (count($row['categorias']) > 0) {
+                $message = '';
+                foreach ($row['categorias'] as $c) {
+                    $message .= view('layouts.categoria_datable',['nombre'=>$c->nombre]);
+                }
+                return $message;
+            }
+        })->rawColumns(['action','categorias']);
         return $table->make(true);
     }
 
@@ -72,7 +85,7 @@ class UserController extends Controller
             'email'     => 'required|unique:users',
             'password' => 'required',
             'rol' => 'required',
-            'permisos' => 'required',
+            'categorias' => 'required',
 
         ]);
         if ($validator->fails()) {
@@ -86,8 +99,11 @@ class UserController extends Controller
                 'password'=>Hash::make($all['password']),
             ]);
             $user->assignRole($all['rol']);    
-            for ($i=0; $i <count($all['permisos']) ; $i++) { 
-                $user->givePermissionTo($all['permisos'][$i]);
+            for ($i=0; $i <count($all['categorias']) ; $i++) { 
+                $categorias = new Categorias_has_user();
+                $categorias->categoria_id = $all['categorias'][$i];
+                $categorias->user_id = $user->id;
+                $categorias->save();
             }
             return response()->json(['success'=>'Usuario creado con exito','reload'=>1]);
         }
@@ -112,11 +128,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::with('roles','permissions')->find($id);
+        $user = User::with('roles','categorias')->find($id);
         return view('users.edit',[
             'user'=>$user,
             'roles'=>Role::all(),
-            'permisos'=>Permission::all()
+            'categorias'=>Categoria::all()
         ]);  
     }
 
@@ -135,7 +151,7 @@ class UserController extends Controller
             'name' => 'required',
             'email'     => 'required',
             'rol' => 'required',
-            'permisos' => 'required',
+            'categorias' => 'required',
 
         ]);
         if ($validator->fails()) {
@@ -148,10 +164,12 @@ class UserController extends Controller
                 $user->removeRole($all['rol_actually']);
             }
             $user->assignRole($all['rol']);
-            $user->revokePermissionTo(json_decode($all['permissions_actually']));
-
-            for ($i=0; $i <count($all['permisos']) ; $i++) { 
-                $user->givePermissionTo($all['permisos'][$i]);
+            $categorias = Categorias_has_user::where('user_id',$id)->delete();
+            for ($i=0; $i <count($all['categorias']) ; $i++) { 
+                $categorias = new Categorias_has_user();
+                $categorias->categoria_id = $all['categorias'][$i];
+                $categorias->user_id = $user->id;
+                $categorias->save();
             }
             return response()->json(['success'=>'Usuario actualizado con exito','reload'=>1]);
         }
@@ -165,14 +183,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::with('roles','permissions')->find($id);
+        $user = User::with('roles')->find($id);
         $rol = $user->roles[0]->name;
         $user->removeRole($rol);
-        $permission = array();
-        foreach ($user->permissions as $p) {
-            $permission[] = $p->name;
-        }
-        $user->revokePermissionTo($permission);
+        $categorias = Categorias_has_user::where('user_id',$id)->delete();
         if($user->delete()){ 
             return response()->json(['success'=>'Registro eliminado con exito','reload'=>1]);
         }

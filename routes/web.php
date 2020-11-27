@@ -27,15 +27,20 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/datatables/rol', [App\Http\Controllers\RolController::class, 'datatables']);
 
-	Route::get('/datatables/permisos', [App\Http\Controllers\PermissionController::class, 'datatables']);
+	Route::get('/datatables/categorias', [App\Http\Controllers\CategoriaController::class, 'datatables']);
 
-	Route::get('/datatables/tickets', [App\Http\Controllers\TicketController::class, 'datatables']);
+	Route::get('/datatables/tickets', [App\Http\Controllers\TicketController::class, 'filter_datatable']);
+
+	Route::get('/datatables/tickets_filter', [App\Http\Controllers\TicketController::class, 'filter_datatable']);
+
+	Route::get('/tickets_filter/{id}', [App\Http\Controllers\TicketController::class, 'filter_category']);
 
 	Route::resources([
 	    'usuarios' => App\Http\Controllers\UserController::class,
 	    'rol' => App\Http\Controllers\RolController::class,
-	    'permisos' => App\Http\Controllers\PermissionController::class,
+	    'categorias' => App\Http\Controllers\CategoriaController::class,
 	    'perfil' => App\Http\Controllers\PerfilController::class,
 	    'tickets' => App\Http\Controllers\TicketController::class,
+	    'api/mensaje' => App\Http\Controllers\MensajeController::class,
 	]);
 });

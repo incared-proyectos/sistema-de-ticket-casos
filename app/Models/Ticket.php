@@ -15,4 +15,7 @@ class Ticket extends Model
         'apertura',
         'users_id',
     ];
+    public function categorias(){
+        return $this->belongsToMany('App\Models\Categoria','Categorias_has_tickets');
+    }
 }

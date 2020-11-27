@@ -35,8 +35,8 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('permisos*')) ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('permisos*')) ? 'active' : '' }}">
+              <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) ? 'active' : '' }}">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
                     Usuarios
@@ -61,10 +61,10 @@
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="{{ url('/permisos')}}" class="nav-link {{ (request()->is('permisos*')) ? 'active' : '' }}">
+                    <a href="{{ url('/categorias')}}" class="nav-link {{ (request()->is('categorias*')) ? 'active' : '' }}">
                       <i class="fas fa-certificate"></i>
                       <p>
-                        Permisos
+                        Categorias
                       </p>
                     </a>
                   </li>

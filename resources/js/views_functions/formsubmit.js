@@ -28,7 +28,7 @@ window.addEventListener("load", function(event) {
 		    $('#table_id').DataTable().ajax.reload();
 		    $('#success_form').html(response.data.success).fadeIn(100);
 		  }
-		  $('#submit_form').trigger("reset"); 
+		  reset_forms();
 		})
 		.catch(function (error) {
 			$('#errors_form').html('');
@@ -43,6 +43,12 @@ window.addEventListener("load", function(event) {
 
 		});
 	});
+	function reset_forms(){
+		if ($('.item_select').length) {
+			$('.item_select').remove();
+		}
+		$('#submit_form').trigger("reset"); 
+	}
 	$(document).on("submit","#updated_form",function(event){
 		$.ajaxblock(event.currentTarget);
 	  	let method = $(event.currentTarget).attr('method');

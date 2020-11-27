@@ -27,6 +27,7 @@
         "admin-lte": "^3.0.5",
         "bootstrap-select": "^1.13.18",
         "datatables.net": "^1.10.22",
-        "sweetalert2": "^10.9.0"
+        "sweetalert2": "^10.9.0",
+        "vuex": "^3.6.0"
     }
 }

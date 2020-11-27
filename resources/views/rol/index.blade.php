@@ -15,7 +15,7 @@
                 <div class="card-body">
                     <button  class="btn btn-primary mb-2" data-toggle="modal" data-target="#createModal"><i class="fas fa-folder-plus"></i> Agregar</button>
                     <!--TABLA REALIZADA CON VUEJS Y DATATABLES LE PASAMOS LAS COLUMNAS Y HEAD PARA QUE SEA DINAMICA PARA CUALQUIER VISTA-->
-                    <table-users :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" ></table-users>
+                    <table-vue :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" ></table-vue>
                 </div>
               </div>
             </div>

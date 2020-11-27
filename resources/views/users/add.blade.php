@@ -49,12 +49,12 @@
               </select>
             </div>
             <div class="col-6">
-              <label for="exampleFormControlSelect1">Permisos</label>
+              <label for="exampleFormControlSelect1">Categorias </label>
               <select class="form-control change_select" id="change_select"  data-live-search="true" >
-                <option value="">Seleccionar Permiso.</option>
+                <option value="">Seleccionar Categoria.</option>
 
-                @foreach($permisos as $p)
-                  <option value="{{$p->name}}" data-id="{{$p->id}}">{{$p->name}}</option>
+                @foreach($categoria as $p)
+                  <option value="{{$p->nombre}}" data-id="{{$p->id}}">{{$p->nombre}}</option>
                 @endforeach
               </select>
             </div>
@@ -64,7 +64,7 @@
               
             </div>
             <div class="col-6 " >
-              <div class="row  justify-content-center" id="options_permisos">
+              <div class="row  justify-content-center" id="options_select">
                 
               </div>
             </div>

@@ -48,15 +48,15 @@
                 $rol_name=$r->name;
               }
             }
-            $permissions= array();
-            if (count($user->permissions) > 0) {
-              foreach ($user->permissions as $p) {
-                $permissions[] = $p->name;
+            $categorias_me= array();
+            if (count($user->categorias) > 0) {
+              foreach ($user->categorias as $c) {
+                $categorias_me[] = $c->nombre;
               }           
             }
           ?>
           <input type="hidden" name="rol_actually"  value="{{$rol_name}}">
-          <input type="hidden" name="permissions_actually"  value="{{json_encode($permissions)}}">
+          <input type="hidden" name="permissions_actually"  value="{{json_encode($categorias_me)}}">
           <div class="row">
             <div class="col-6">
               <label for="exampleFormControlSelect1">Roles</label>
@@ -68,11 +68,11 @@
             </div>
 
             <div class="col-6">
-              <label for="exampleFormControlSelect1">Permisos</label>
+              <label for="exampleFormControlSelect1">Categorias</label>
               <select class="form-control " id="change_select_updated"  data-live-search="true" >
-                <option value="">Seleccionar Permiso.</option>
-                @foreach($permisos as $p)
-                  <option value="{{$p->name}}" data-id="{{$p->id}}" >{{$p->name}}</option>
+                <option value="">Seleccionar Categorias.</option>
+                @foreach($categorias as $c)
+                  <option value="{{$c->nombre}}" data-id="{{$c->id}}" >{{$c->nombre}}</option>
                 @endforeach
               </select>
             </div>
@@ -82,9 +82,9 @@
               
             </div>
             <div class="col-6 " >
-              <div class="row  justify-content-center" id="options_permisos_updated">
-                @foreach($user->permissions as $p)
-                  <span class="item_permisos" id="item_update{{$p->id}}"><input type="hidden" name="permisos[]" value="{{$p->name}}"><i class="fab fa-adn"></i> {{$p->name}} <a href="#" class="delete_select text-white" data-id="{{$p->id}}"><i class="far fa-trash-alt"></i></a></span>
+              <div class="row  justify-content-center" id="options_select_updated">
+                @foreach($user->categorias as $c)
+                  <span class="item_select" id="item_update{{$c->id}}"><input type="hidden" name="categorias[]" value="{{$c->id}}"><i class="fab fa-adn"></i> {{$c->nombre}} <a href="#" class="delete_select text-white" data-id="{{$c->id}}"><i class="far fa-trash-alt"></i></a></span>
                 @endforeach
               </div>
             </div>

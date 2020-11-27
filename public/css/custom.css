@@ -1,5 +1,5 @@
 /*PERMISOS USUARIOS*/
-.item_permisos{
+.item_select{
 	padding: 6px;
 	background:#3e1edbb8;
 	color:white;
@@ -32,6 +32,18 @@
 
 .content_img:hover .middle {
   opacity: 1;
+}
+.card-details{
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.direct-chat-messages{
+  overflow: visible;
+  height: auto;
+
+}
+.direct-chat .card-body{
+  overflow: visible !important;
 }
 /*.text {
   background-color: #4CAF50;

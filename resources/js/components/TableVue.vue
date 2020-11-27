@@ -17,7 +17,7 @@
 </template>
 <script>
 export default {
-	props: ['columns','head'],
+	props: ['columns','head','id_filter','tipe'],
     data: function() {
       return {
         data: [],
@@ -46,6 +46,10 @@ export default {
 				        url: `${base_url_http}`,
 				        dataSrc: "data",
 				        type: "GET",
+				        "data":function (d) {
+				        	d.id_filter = me.id_filter
+				        	d.tipe = me.tipe
+		                },
 				        error: function(jqXHR, ajaxOptions, thrownError) {
 				        	alert(thrownError)
 				        	alert(jqXHR)

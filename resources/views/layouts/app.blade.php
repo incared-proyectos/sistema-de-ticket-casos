@@ -85,6 +85,8 @@
     @yield('scripts_before_init')
     <script>
         const app_base_url = "{{ url('/')}}";
+        const app_base_asset = "{{ asset('storage/profile')}}";
+        const app_avatar_default = "{{ asset('img')}}";
     </script>
      <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
