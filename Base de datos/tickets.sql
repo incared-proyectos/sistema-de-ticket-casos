@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-11-2020 a las 18:18:01
+-- Tiempo de generación: 27-11-2020 a las 20:59:23
 -- Versión del servidor: 10.1.36-MariaDB
 -- Versión de PHP: 7.3.18
 
@@ -25,6 +25,89 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `categorias`
+--
+
+CREATE TABLE `categorias` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
+(2, 'editar1', '2020-11-27 14:30:21', '2020-11-27 14:30:21'),
+(3, 'Creartickets', '2020-11-27 14:30:30', '2020-11-27 14:30:30'),
+(4, 'general', '2020-11-27 14:30:33', '2020-11-27 14:30:33'),
+(5, 'general2', '2020-11-27 14:30:35', '2020-11-27 14:30:35'),
+(6, 'editores', '2020-11-27 19:56:37', '2020-11-27 19:56:37');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias_has_tickets`
+--
+
+CREATE TABLE `categorias_has_tickets` (
+  `categoria_id` int(11) NOT NULL,
+  `ticket_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categorias_has_tickets`
+--
+
+INSERT INTO `categorias_has_tickets` (`categoria_id`, `ticket_id`) VALUES
+(2, 1),
+(2, 2),
+(3, 1),
+(3, 2),
+(4, 6);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias_has_users`
+--
+
+CREATE TABLE `categorias_has_users` (
+  `categoria_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `categorias_has_users`
+--
+
+INSERT INTO `categorias_has_users` (`categoria_id`, `user_id`) VALUES
+(2, 2),
+(2, 9),
+(2, 10),
+(2, 11),
+(2, 12),
+(2, 21),
+(3, 2),
+(3, 9),
+(3, 12),
+(3, 19),
+(3, 21),
+(4, 2),
+(4, 9),
+(4, 11),
+(4, 19),
+(4, 21),
+(5, 9),
+(5, 15),
+(5, 21),
+(6, 15);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `failed_jobs`
 --
 
@@ -37,6 +120,37 @@ CREATE TABLE `failed_jobs` (
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mensajes`
+--
+
+CREATE TABLE `mensajes` (
+  `id` int(11) NOT NULL,
+  `from_id` int(11) NOT NULL,
+  `mensaje` text NOT NULL,
+  `ticket_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `mensajes`
+--
+
+INSERT INTO `mensajes` (`id`, `from_id`, `mensaje`, `ticket_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 'asdasdasd', 1, '2020-11-26 20:01:37', '2020-11-26 20:01:37'),
+(2, 1, 'otras', 1, '2020-11-26 20:01:39', '2020-11-26 20:01:39'),
+(3, 1, 'como se ve el scroll', 1, '2020-11-26 20:01:43', '2020-11-26 20:01:43'),
+(4, 1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, '2020-11-26 20:03:25', '2020-11-26 20:03:25'),
+(5, 1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, '2020-11-26 20:04:16', '2020-11-26 20:04:16'),
+(6, 1, 'hola mundo', 1, '2020-11-26 20:05:36', '2020-11-26 20:05:36'),
+(7, 1, 'ultimo mensaje', 1, '2020-11-26 20:06:07', '2020-11-26 20:06:07'),
+(8, 1, 'Open ticket  resolve errors', 6, '2020-11-27 16:26:44', '2020-11-27 16:26:44'),
+(9, 1, 'Status ticket 2', 6, '2020-11-27 18:57:44', '2020-11-27 18:57:44'),
+(11, 1, 'ffff', 1, '2020-11-27 19:57:23', '2020-11-27 19:57:23');
 
 -- --------------------------------------------------------
 
@@ -83,17 +197,16 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 (1, 'App\\Models\\User', 10),
 (1, 'App\\Models\\User', 11),
 (1, 'App\\Models\\User', 12),
-(1, 'App\\Models\\User', 14),
 (1, 'App\\Models\\User', 15),
 (2, 'App\\Models\\User', 1),
+(2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 9),
 (2, 'App\\Models\\User', 10),
 (2, 'App\\Models\\User', 11),
 (2, 'App\\Models\\User', 12),
-(2, 'App\\Models\\User', 14),
 (2, 'App\\Models\\User', 15),
 (4, 'App\\Models\\User', 1),
-(4, 'App\\Models\\User', 14);
+(6, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -116,10 +229,11 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 9),
 (1, 'App\\Models\\User', 12),
 (1, 'App\\Models\\User', 15),
+(1, 'App\\Models\\User', 21),
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 10),
 (2, 'App\\Models\\User', 11),
-(2, 'App\\Models\\User', 14);
+(2, 'App\\Models\\User', 19);
 
 -- --------------------------------------------------------
 
@@ -155,7 +269,8 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 (1, 'edit', 'web', '2020-10-30 04:00:00', '2020-10-31 04:00:00'),
 (2, 'created2', 'web', '2020-10-30 04:00:00', '2020-11-02 20:40:22'),
 (4, 'visualizar', 'web', '2020-10-31 22:35:53', '2020-10-31 22:35:53'),
-(5, 'desplazar', 'web', '2020-10-31 22:35:59', '2020-10-31 22:35:59');
+(5, 'desplazar', 'web', '2020-10-31 22:35:59', '2020-10-31 22:35:59'),
+(6, 'sistemas', 'web', '2020-11-26 23:26:44', '2020-11-26 23:26:44');
 
 -- --------------------------------------------------------
 
@@ -176,7 +291,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'administrador', 'web', '2020-10-30 04:00:00', '2020-10-31 04:00:00'),
+(1, 'administrador2', 'web', '2020-10-30 04:00:00', '2020-11-27 23:55:03'),
 (2, 'user2', 'web', '2020-10-30 04:00:00', '2020-11-02 20:40:02'),
 (3, 'otros', 'web', '2020-11-02 19:47:00', '2020-11-02 19:47:00');
 
@@ -213,8 +328,9 @@ CREATE TABLE `tickets` (
 --
 
 INSERT INTO `tickets` (`id`, `codigo`, `titulo`, `descripcion`, `apertura`, `users_id`, `created_at`, `updated_at`) VALUES
-(1, '44556-CSFTTG', 'Perdida de claves', 'he perdido mi clave necesito recuperarla', 'Administrador', 1, '2020-11-01 00:00:00', '2020-11-27 00:00:00'),
-(2, '9877444', 'asdasd', 'asdasd', 'Pedro Avila', 2, '2020-11-02 13:10:33', '2020-11-02 13:10:33');
+(1, 'TK-00000001', 'Pruebas tickets', 'asdasd', 'Pedro Avila', 2, '2020-11-26 19:58:14', '2020-11-26 19:58:14'),
+(2, 'TK-00000002', 'Pruebas tickets2', 'asdasdasdasd', 'Pedro Avila', 2, '2020-11-26 20:09:33', '2020-11-26 20:09:33'),
+(6, 'TK-00000003', 'Pruebas tickets4', 'asdasdasd', 'Pedro Avila', 2, '2020-11-27 16:26:11', '2020-11-27 16:26:11');
 
 -- --------------------------------------------------------
 
@@ -242,18 +358,39 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `telefono`, `direccion`, `sede`, `img_src`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'VnKUtbxstZPZF7HG3bpNylMXWqqIaSNglVDKJ7dW.jpeg', NULL, '$2y$10$DjO43PWJEHJ8XwGuU28sqOdUDeOlkGz29vkZcFvR8oXyaoWdXQpE6', NULL, '2020-10-29 07:22:41', '2020-11-02 19:44:22'),
+(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'VnKUtbxstZPZF7HG3bpNylMXWqqIaSNglVDKJ7dW.jpeg', NULL, '$2y$10$NbbPhnVrYnXg.lsLA2haseF6y1ndmOTbO9Zb5Hf.WKcZO2WLELV9W', NULL, '2020-10-29 07:22:41', '2020-11-02 19:44:22'),
 (2, 'prueba', 'prueba@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$/sqdeCRQzSYJxsAHVe1gvunRDxtyArfw/MCcGT.ByZUOslw.rjA5e', NULL, '2020-10-29 23:16:13', '2020-10-29 23:16:13'),
 (9, 'pruebas', 'pruebas@gmail.com', NULL, 'asdasdasdq', NULL, NULL, NULL, '$2y$10$UnQqmSPA.6mw9Q0JUGqSdOl6BWOpgRS0MEg.JP4ex5cSlGj9urPyy', NULL, '2020-10-30 19:34:42', '2020-10-30 19:34:42'),
 (10, 'Jose Avila', 'avila@gmail.com', NULL, 'asdasd', NULL, NULL, NULL, '$2y$10$hp5pVU4rbyobZExcKMCQKe10kq.kk/awnfyGgTT7tQlAvoz1oS3tC', NULL, '2020-10-30 19:40:44', '2020-10-30 19:40:44'),
 (11, 'Antonio', 'antonio@gmail.com', NULL, 'adasda', NULL, NULL, NULL, '$2y$10$I7aGeQfsORgcnhBeVQhstu7X6ETgy6mQCHETQY5T6hNjm.djgWHaW', NULL, '2020-10-30 19:41:49', '2020-10-30 19:41:49'),
 (12, 'admin', 'admin@gmail.com', NULL, 'asdasdadasdas', NULL, NULL, NULL, '$2y$10$ObrQtZarDk6T7fkqznCViuA.1Evr2hkUU/.eaSkS4UbJqmXdYxdty', NULL, '2020-10-30 19:46:19', '2020-10-30 19:46:19'),
-(14, 'otros', 'otros@gmail.com', NULL, 'asdasdsad', 'asdasdasd', NULL, NULL, '$2y$10$1txOda0md0WKmUroV/aQpe5IA/Ce1y1w3yE0pUNGFTUluLP9KHNXi', NULL, '2020-10-30 23:19:14', '2020-10-30 23:38:55'),
-(15, 'Pedro Avila2', 'pedrojam1433@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, '$2y$10$1O4p4EZn9Mb23rEIGvyCueMwV8tpai.hVLuUy3f3t5s8uT7fbg/wS', NULL, '2020-11-02 20:43:01', '2020-11-02 20:43:01');
+(15, 'Pedro Avila2', 'pedrojam1433@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, '$2y$10$1O4p4EZn9Mb23rEIGvyCueMwV8tpai.hVLuUy3f3t5s8uT7fbg/wS', NULL, '2020-11-02 20:43:01', '2020-11-02 20:43:01'),
+(19, 'pruebas7', 'pruebas7@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, '$2y$10$B17gJ5N2gx7eBaJSGUrEuOGQByGAcir2DfdqutCQxmKnu03rUvj9q', NULL, '2020-11-27 21:52:54', '2020-11-27 21:52:54'),
+(21, 'pruebas25', 'pruebas25@gmail.com', NULL, 'asdasda', 'asdasd', NULL, NULL, '$2y$10$sCr8G75x0AvUp63/BnBOeeCMD4prUGLFxxrpYsSCRqGIOIHVMH70e', NULL, '2020-11-27 23:56:07', '2020-11-27 23:56:07');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `categorias_has_tickets`
+--
+ALTER TABLE `categorias_has_tickets`
+  ADD PRIMARY KEY (`categoria_id`,`ticket_id`),
+  ADD KEY `ticket_id` (`ticket_id`);
+
+--
+-- Indices de la tabla `categorias_has_users`
+--
+ALTER TABLE `categorias_has_users`
+  ADD PRIMARY KEY (`categoria_id`,`user_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indices de la tabla `failed_jobs`
@@ -261,6 +398,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `telefono`, `direccion`, `sede`, `im
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indices de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `migrations`
@@ -312,6 +455,7 @@ ALTER TABLE `role_has_permissions`
 --
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `codigo` (`codigo`),
   ADD KEY `users_id` (`users_id`);
 
 --
@@ -326,10 +470,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `categorias`
+--
+ALTER TABLE `categorias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mensajes`
+--
+ALTER TABLE `mensajes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -341,7 +497,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -353,17 +509,29 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `categorias_has_tickets`
+--
+ALTER TABLE `categorias_has_tickets`
+  ADD CONSTRAINT `categorias_has_tickets_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `categorias_has_users`
+--
+ALTER TABLE `categorias_has_users`
+  ADD CONSTRAINT `categorias_has_users_ibfk_1` FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `model_has_permissions`
