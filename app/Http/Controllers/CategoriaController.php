@@ -19,11 +19,15 @@ class CategoriaController extends Controller
         $columns = array(
             array('data'=>'id'),
             array('data'=>'nombre'),
+            array('data'=>'fecha_caducidad'),
+            array('data'=>'created_at'),
             array('data'=>'action'),
         );
         $head = array(
             'ID',
             'Nombre',
+            'Fecha de caducidad',
+            'Fecha de creacion',
             'Action',
         );
         return view('categoria.index',
@@ -69,7 +73,10 @@ class CategoriaController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
-            $role = Categoria::create(['nombre' => $all['nombre']]);
+            $role = Categoria::create([
+                'nombre' => $all['nombre'],
+                'fecha_caducidad' => $all['fecha_caducidad']
+            ]);
             return response()->json(['success'=>'Categoria creada con exito','reload'=>1]);
         }
     }
@@ -120,6 +127,7 @@ class CategoriaController extends Controller
             return response()->json(['error'=>array('La categoria '.$all['nombre'].' ya existe')],422);
         }else{
             $categoria->nombre = $all['nombre'];
+            $categoria->fecha_caducidad = $all['fecha_caducidad'];
             $categoria->save();
             return response()->json(['success'=>'Categoria actualizado con exito','reload'=>1]);
         }

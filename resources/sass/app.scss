@@ -6,6 +6,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import '~tempusdominus-bootstrap-4/src/sass/tempusdominus-bootstrap-4-build'; 
 
 @import '~admin-lte/dist/css/adminlte.min.css';
 
@@ -16,4 +17,5 @@
 @import "~datatables.net-buttons-bs4/css/buttons.bootstrap4.css";
 @import '~bootstrap-select/dist/css/bootstrap-select.min.css';
 @import 'sweetalert2/src/sweetalert2.scss';
+
 

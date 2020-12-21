@@ -35,6 +35,9 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/tickets_filter/{id}', [App\Http\Controllers\TicketController::class, 'filter_category']);
 
+	
+	Route::get('/status/ticket/{id}', [App\Http\Controllers\TicketController::class, 'change_status']);
+
 	Route::resources([
 	    'usuarios' => App\Http\Controllers\UserController::class,
 	    'rol' => App\Http\Controllers\RolController::class,

@@ -10,6 +10,7 @@ use App\Models\Categoria;
 use App\Models\Categorias_has_ticket;
 use App\Models\User;
 use Yajra\Datatables\Datatables;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -35,6 +36,9 @@ class TicketController extends Controller
             array('data'=>'titulo'),
             array('data'=>'apertura'),
             array('data'=>'categorias'),
+            array('data'=>'status_info'),
+            array('data'=>'fecha_caducidad'),
+            array('data'=>'created_at'),
             array('data'=>'action'),
         );
         $head = array(
@@ -43,6 +47,9 @@ class TicketController extends Controller
             'Titulo',
             'Apertura',
             'Categorias',
+            'Estatus',
+            'Fecha de caducidad',
+            'Fecha de creacion',
             'Action',
         );
         return array('columns'=>$columns,'head'=>$head);
@@ -73,8 +80,38 @@ class TicketController extends Controller
                 }
                 return $message;
             }
+        })->addColumn('status_info', function($row){
+            $url_status = url('status/ticket/'.$row['id']);
+            return view('layouts.status',['status'=>$row['status'],'id_ticket'=>$row['id'],'url_action'=>$url_status]);
+        })->editColumn('fecha_caducidad', function($row){
+            Carbon::setLocale('es');
+            $ticket = ticket::find($row['id']);
+
+            $fechaExpiracion = Carbon::parse($ticket->fecha_caducidad);
+
+            $diasDiferencia = $fechaExpiracion->diffForHumans();
+            //echo $diasDiferencia;
+            $fechaSistema   = new \DateTime();
+            $diaEntrega     = new \DateTime( $ticket->fecha_caducidad );// setear tus fechas aqui
+
+            $interval_now    = $fechaSistema->diff($diaEntrega);
+            $dias_restantes = $interval_now->format('%R%a');
+            if ($dias_restantes <  0) {
+                return 'Caducado';
+            }
+            return $diasDiferencia;
         })->rawColumns(['action','categorias']);
         return $table->make(true);
+    }
+    public function change_status($id){
+        $ticket = Ticket::find($id);
+
+        if ($ticket->status == 'active') {
+            $ticket->status = 'inactive';
+        }else{
+            $ticket->status = 'active';
+        }
+        $ticket->save();
     }
 
     /**
@@ -110,6 +147,7 @@ class TicketController extends Controller
                 $all['users_id'] = $user->id;
                 $all['apertura'] = Auth()->user()->name;
                 $all['codigo'] = $this->generate_cod_venta();
+                $all['status'] = 'active';
 
                 $ticket->fill($all)->save();
                 $id_last = Ticket::orderBy('id','DESC')->first();
@@ -195,6 +233,12 @@ class TicketController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
+            $info_message = Mensaje::create([
+                'from_id' => auth()->id(),
+                'mensaje' => 'Se ha actualizado la cabecera del archivo',
+                'ticket_id' => $ticket->id,
+                'notice_message' => 1,
+            ]);
             $ticket->fill($all)->save();
             $categorias = Categorias_has_ticket::where('ticket_id',$id)->delete();
             for ($i=0; $i <count($all['categorias']) ; $i++) { 

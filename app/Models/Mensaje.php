@@ -11,6 +11,9 @@ class Mensaje extends Model
     protected $fillable = [
         'from_id',
         'mensaje',
+        'file_src',
+        'img_src',
+        'notice_message',
         'ticket_id',
     ];
 }

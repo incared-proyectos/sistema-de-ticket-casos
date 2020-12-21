@@ -13,6 +13,7 @@
         "axios": "^0.19",
         "bootstrap": "^4.0.0",
         "cross-env": "^7.0",
+        "datetimepicker": "^0.1.39",
         "jquery": "^3.2",
         "laravel-mix": "^5.0.1",
         "lodash": "^4.17.19",
@@ -27,7 +28,9 @@
         "admin-lte": "^3.0.5",
         "bootstrap-select": "^1.13.18",
         "datatables.net": "^1.10.22",
+        "moment": "^2.29.1",
         "sweetalert2": "^10.9.0",
+        "tempusdominus-bootstrap-4": "^5.39.0",
         "vuex": "^3.6.0"
     }
 }

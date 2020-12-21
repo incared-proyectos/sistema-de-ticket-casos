@@ -4,14 +4,15 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Swal from 'sweetalert2/dist/sweetalert2.js'
-
 require('./bootstrap');
+var moment = require('moment');
 require('./views_functions/datatables_events.js');
 require('./views_functions/formsubmit.js');
 require('./views_functions/users/functions.js');
 
 import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';
 import 'bootstrap-select/dist/js/bootstrap-select.min.js';
+
 
 
 window.Vue = require('vue');

@@ -26,7 +26,7 @@
           </div>
           <hr>
           <div class="row mt-2">
-            <div class="col-12">
+            <div class="col-6">
                 <label for="exampleFormControlSelect1">Categorias </label>
                 <select class="form-control change_select" id="change_select"  data-live-search="true" >
                   <option value="">Seleccionar Categoria.</option>
@@ -35,6 +35,10 @@
                     <option value="{{$p->nombre}}" data-id="{{$p->id}}">{{$p->nombre}}</option>
                   @endforeach
                 </select>
+            </div>
+            <div class="col-6">
+              <label for="">Caducidad</label>
+              <input type="text" class="form-control datetimepicker-input datetimepicker" id="datetimepicker" data-toggle="datetimepicker" data-target="#datetimepicker5" name="fecha_caducidad" />
             </div>
           </div>
           <div class="row">

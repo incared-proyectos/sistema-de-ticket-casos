@@ -14,9 +14,14 @@
         <form action="{{ url('categorias') }}" method="POST" id="submit_form">
 
           <div class="row">
-            <div class="col-12 ">
+            <div class="col-6 ">
               <label for="">Nombre</label>
               <input type="text" name="nombre" class="form-control">
+            </div>
+            <div class="col-6 ">
+              <label for="">Fecha</label>
+              <input type="text" class="form-control datetimepicker-input datetimepicker" id="datetimepicker" data-toggle="datetimepicker" data-target="#datetimepicker5" name="fecha_caducidad" />
+
             </div>
           </div>
           <hr>

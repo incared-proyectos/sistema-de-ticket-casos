@@ -58,6 +58,9 @@ export default {
 				    },
 				    columns: me.columns,
 				    'createdRow': function( row, data, dataIndex ) {
+						if (data.fecha_caducidad === 'Caducado') {
+				    		$(row).attr('class','alert-danger-status')
+				    	}
 			            $(row).attr( 'id','codenv'+data.id );
 			        }
 				});

@@ -31,5 +31,13 @@
 @section('scripts_before_init')
   <script>
     const base_url_http = "{{ url('datatables/categorias')}}";
+    window.addEventListener("load", function(event) {
+      $('.datetimepicker').datetimepicker({
+         format: 'YYYY-MM-DD HH:mm',
+         sideBySide: true,
+        locate: 'it'
+      });
+
+    });
   </script>
 @endsection

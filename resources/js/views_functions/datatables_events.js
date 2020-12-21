@@ -11,7 +11,14 @@ window.addEventListener("load", function(event) {
 			$.ajaxunblock();
 		 	$('#response_edit').html(response.data);
 		 	$('#editModal').modal('show');
-
+		 	if ($('.datetimepicker').length > 0) {
+			 	$('.datetimepicker').datetimepicker({
+			        format: 'YYYY-MM-DD HH:mm',
+			        sideBySide: true,
+			        Default: false,
+			        locate: 'it'
+			    });
+		 	}
 		})	
 		.catch(function (error) {
 			$('#errors_form').html('');
@@ -24,6 +31,30 @@ window.addEventListener("load", function(event) {
 	      	}
 		});
 	});
+	$(document).on("click",".row_status",function(event){
+		$.ajaxblock('body','fixed');
+		let url = $(this).attr('data-url');
+		event.preventDefault();
+		axios({
+		  method:'GET',
+		  url: url,
+		})
+		.then(function (response) {
+			$('#table_id').DataTable().ajax.reload();
+			$.ajaxunblock();
+		})	
+		.catch(function (error) {
+			$('#errors_form').html('');
+		    if (error.response.status == 422){
+	        	$.each(error.response.data.error, function(index, val) {
+	        		$('#errors_form').append(`<div>* ${val}</div>`).fadeIn(100);
+	        	});
+	      	}else if (error.response.status == 500) {
+	        	alert(error.response.data.message)
+	      	}
+		});
+	});
+
 	$(document).on("click",".row_delete",function(event){
 		event.preventDefault();
 		swal.fire({

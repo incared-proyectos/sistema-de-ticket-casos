@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Mensaje;
 use App\Models\User;
+use App\Models\Ticket;
 use DB;
 
 class MensajeController extends Controller
@@ -47,6 +49,43 @@ class MensajeController extends Controller
         }else{
 
             $mensaje = new Mensaje();
+            if(!Storage::disk('public_uploads')->has('ticket')){
+                Storage::disk('public_uploads')->makeDirectory('ticket');
+                if (!Storage::disk('public_uploads')->has('ticket/'.$all['ticket_id'])) {
+                    Storage::disk('public_uploads')->makeDirectory('ticket/'.$all['ticket_id']);
+                }
+            }
+            $ticket = Ticket::find($all['ticket_id']);
+            if ($request->hasFile('file_archive')) {
+                
+                $exists = Storage::disk('public_uploads')->exists('ticket/'.$ticket->id.'/'.$ticket->file_src);
+                if ($exists) {
+                    Storage::disk('public_uploads')->delete('ticket/'.$ticket->id.'/'.$ticket->file_src);
+                }
+
+                $files = $request->file('file_archive');
+
+                $name = $files->store('ticket/'.$ticket->id,['disk' => 'public_uploads']);
+                $nom_img = explode('/',$name);
+                $all['file_src'] = $nom_img[2];
+            }
+            if ($request->hasFile('file_image')) {
+      
+                $exists = Storage::disk('public_uploads')->exists('ticket/'.$ticket->id.'/'.$ticket->file_src);
+                if ($exists) {
+                    Storage::disk('public_uploads')->delete('ticket/'.$ticket->id.'/'.$ticket->file_src);
+                }
+
+                $files = $request->file('file_image');
+                $extension = $files->getClientOriginalExtension();
+                $allowedfileExtension=['jpg','png','jpeg','gif'];
+                $check=in_array($extension,$allowedfileExtension);
+                if ($check) {
+                    $name = $files->store('ticket/'.$ticket->id,['disk' => 'public_uploads']);
+                    $nom_img = explode('/',$name);
+                    $all['img_src'] = $nom_img[2];
+                }
+            }
             $all['from_id'] = auth()->id();
             if($mensaje->fill($all)->save()){
                 return $this->query_message($all['ticket_id']);
@@ -61,6 +100,9 @@ class MensajeController extends Controller
         DB::raw("IF(`from_id` =$userId,TRUE,FALSE) as escribe_active"),
         'from_id',
         'mensaje',
+        'img_src',
+        'file_src',
+        'notice_message',
         'created_at')->where('ticket_id',$id)->get();
         $query->map(function($q){
             $user_from = User::find($q->from_id);
@@ -75,6 +117,9 @@ class MensajeController extends Controller
         DB::raw("IF(`from_id` =$userId,TRUE,FALSE) as escribe_active"),
         'from_id',
         'mensaje',
+        'img_src',
+        'file_src',
+        'notice_message',
         'created_at')->where('ticket_id',$id)->orderBy('created_at','DESC')->first();
         $user = User::find($query->from_id);
         $query->from_user =  (!empty($user)) ? $user : '' ;

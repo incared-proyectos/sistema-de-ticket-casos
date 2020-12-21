@@ -13,6 +13,8 @@ class Ticket extends Model
         'titulo',
         'descripcion',
         'apertura',
+        'fecha_caducidad',
+        'status',
         'users_id',
     ];
     public function categorias(){

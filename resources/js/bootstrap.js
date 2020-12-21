@@ -14,8 +14,12 @@ try {
 	require('datatables.net-bs4');
 	
 	require('datatables.net-buttons-bs4');
+	
+	window.moment = require('moment');
+    window.datetimepicker = require('tempusdominus-bootstrap-4');
 
     require('bootstrap');
+
     require('admin-lte');
 
 

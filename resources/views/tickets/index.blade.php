@@ -43,6 +43,13 @@
     const base_url_http = "{{ url('datatables/tickets')}}";
     document.addEventListener('DOMContentLoaded', function(event) {
       $('select').selectpicker();
+      $('.datetimepicker').datetimepicker({
+        format: 'YYYY-MM-DD HH:mm',
+        sideBySide: true,
+        Default: false,
+        locate: 'it'
+      });
     });
+
   </script>
 @endsection

@@ -13,9 +13,13 @@
         <div class="alert alert-success" id="success_form_update" style="display: none"></div>
         <form action="{{ url('categorias/'.$categoria->id) }}" method="PUT" id="updated_form">
           <div class="row">
-            <div class="col-12 ">
+            <div class="col-6 ">
               <label for="">Nombre</label>
               <input type="text" name="nombre" class="form-control" value="{{$categoria->nombre}}">
+            </div>
+            <div class="col-6 ">
+              <label for="">Fecha</label>
+              <input type="text" class="form-control datetimepicker-input datetimepicker" id="datetimepicker" data-toggle="datetimepicker" data-target="#datetimepicker5" name="fecha_caducidad" value="{{$categoria->fecha_caducidad}}" />
             </div>
           </div>
           <hr>
