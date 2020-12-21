@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-11-2020 a las 20:59:23
--- Versión del servidor: 10.1.36-MariaDB
--- Versión de PHP: 7.3.18
+-- Tiempo de generación: 21-12-2020 a las 18:12:24
+-- Versión del servidor: 10.4.17-MariaDB
+-- Versión de PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -31,6 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categorias` (
   `id` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
+  `fecha_caducidad` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -39,12 +39,14 @@ CREATE TABLE `categorias` (
 -- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categorias` (`id`, `nombre`, `created_at`, `updated_at`) VALUES
-(2, 'editar1', '2020-11-27 14:30:21', '2020-11-27 14:30:21'),
-(3, 'Creartickets', '2020-11-27 14:30:30', '2020-11-27 14:30:30'),
-(4, 'general', '2020-11-27 14:30:33', '2020-11-27 14:30:33'),
-(5, 'general2', '2020-11-27 14:30:35', '2020-11-27 14:30:35'),
-(6, 'editores', '2020-11-27 19:56:37', '2020-11-27 19:56:37');
+INSERT INTO `categorias` (`id`, `nombre`, `fecha_caducidad`, `created_at`, `updated_at`) VALUES
+(2, 'editar1', NULL, '2020-11-27 14:30:21', '2020-11-27 14:30:21'),
+(3, 'Creartickets', NULL, '2020-11-27 14:30:30', '2020-11-27 14:30:30'),
+(4, 'general', NULL, '2020-11-27 14:30:33', '2020-11-27 14:30:33'),
+(5, 'general2', NULL, '2020-11-27 14:30:35', '2020-11-27 14:30:35'),
+(6, 'editores', '2020-12-15 17:55:00', '2020-11-27 19:56:37', '2020-12-15 21:26:08'),
+(7, 'Creacion de usuario', '2020-12-24 16:55:00', '2020-12-15 14:38:03', '2020-12-16 20:13:08'),
+(8, 'crearotros', '2020-12-15 17:26:00', '2020-12-15 21:26:17', '2020-12-15 21:26:17');
 
 -- --------------------------------------------------------
 
@@ -64,8 +66,10 @@ CREATE TABLE `categorias_has_tickets` (
 INSERT INTO `categorias_has_tickets` (`categoria_id`, `ticket_id`) VALUES
 (2, 1),
 (2, 2),
+(2, 7),
 (3, 1),
 (3, 2),
+(3, 7),
 (4, 6);
 
 -- --------------------------------------------------------
@@ -98,6 +102,7 @@ INSERT INTO `categorias_has_users` (`categoria_id`, `user_id`) VALUES
 (4, 2),
 (4, 9),
 (4, 11),
+(4, 15),
 (4, 19),
 (4, 21),
 (5, 9),
@@ -118,7 +123,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -131,7 +136,10 @@ CREATE TABLE `mensajes` (
   `id` int(11) NOT NULL,
   `from_id` int(11) NOT NULL,
   `mensaje` text NOT NULL,
+  `file_src` text DEFAULT NULL,
+  `img_src` text DEFAULT NULL,
   `ticket_id` int(11) NOT NULL,
+  `notice_message` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -140,17 +148,15 @@ CREATE TABLE `mensajes` (
 -- Volcado de datos para la tabla `mensajes`
 --
 
-INSERT INTO `mensajes` (`id`, `from_id`, `mensaje`, `ticket_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 'asdasdasd', 1, '2020-11-26 20:01:37', '2020-11-26 20:01:37'),
-(2, 1, 'otras', 1, '2020-11-26 20:01:39', '2020-11-26 20:01:39'),
-(3, 1, 'como se ve el scroll', 1, '2020-11-26 20:01:43', '2020-11-26 20:01:43'),
-(4, 1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, '2020-11-26 20:03:25', '2020-11-26 20:03:25'),
-(5, 1, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 1, '2020-11-26 20:04:16', '2020-11-26 20:04:16'),
-(6, 1, 'hola mundo', 1, '2020-11-26 20:05:36', '2020-11-26 20:05:36'),
-(7, 1, 'ultimo mensaje', 1, '2020-11-26 20:06:07', '2020-11-26 20:06:07'),
-(8, 1, 'Open ticket  resolve errors', 6, '2020-11-27 16:26:44', '2020-11-27 16:26:44'),
-(9, 1, 'Status ticket 2', 6, '2020-11-27 18:57:44', '2020-11-27 18:57:44'),
-(11, 1, 'ffff', 1, '2020-11-27 19:57:23', '2020-11-27 19:57:23');
+INSERT INTO `mensajes` (`id`, `from_id`, `mensaje`, `file_src`, `img_src`, `ticket_id`, `notice_message`, `created_at`, `updated_at`) VALUES
+(35, 1, 'gg', NULL, NULL, 6, NULL, '2020-12-21 16:36:02', '2020-12-21 16:36:02'),
+(36, 1, 'ff', NULL, NULL, 6, NULL, '2020-12-21 16:36:20', '2020-12-21 16:36:20'),
+(37, 1, '22', NULL, NULL, 6, NULL, '2020-12-21 17:07:33', '2020-12-21 17:07:33'),
+(38, 1, '44', NULL, NULL, 6, NULL, '2020-12-21 17:07:56', '2020-12-21 17:07:56'),
+(39, 1, '33', NULL, NULL, 6, NULL, '2020-12-21 17:08:14', '2020-12-21 17:08:14'),
+(40, 1, '33', NULL, NULL, 6, NULL, '2020-12-21 17:08:46', '2020-12-21 17:08:46'),
+(41, 1, '555', NULL, NULL, 6, NULL, '2020-12-21 17:08:56', '2020-12-21 17:08:56'),
+(42, 1, 'archivos necesarios', '4Xbw8X8Ozz8Uwf8efz8fPAGe3zIoa3h4JcGwiODv.pdf', 'VLtInm2mgsrkGtPKK5rmJpA2oVldayLy2rRne4eF.jpeg', 6, NULL, '2020-12-21 17:09:12', '2020-12-21 17:09:12');
 
 -- --------------------------------------------------------
 
@@ -319,6 +325,8 @@ CREATE TABLE `tickets` (
   `descripcion` text NOT NULL,
   `apertura` varchar(100) NOT NULL,
   `users_id` int(11) NOT NULL,
+  `status` varchar(20) DEFAULT NULL,
+  `fecha_caducidad` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -327,10 +335,11 @@ CREATE TABLE `tickets` (
 -- Volcado de datos para la tabla `tickets`
 --
 
-INSERT INTO `tickets` (`id`, `codigo`, `titulo`, `descripcion`, `apertura`, `users_id`, `created_at`, `updated_at`) VALUES
-(1, 'TK-00000001', 'Pruebas tickets', 'asdasd', 'Pedro Avila', 2, '2020-11-26 19:58:14', '2020-11-26 19:58:14'),
-(2, 'TK-00000002', 'Pruebas tickets2', 'asdasdasdasd', 'Pedro Avila', 2, '2020-11-26 20:09:33', '2020-11-26 20:09:33'),
-(6, 'TK-00000003', 'Pruebas tickets4', 'asdasdasd', 'Pedro Avila', 2, '2020-11-27 16:26:11', '2020-11-27 16:26:11');
+INSERT INTO `tickets` (`id`, `codigo`, `titulo`, `descripcion`, `apertura`, `users_id`, `status`, `fecha_caducidad`, `created_at`, `updated_at`) VALUES
+(1, 'TK-00000001', 'Pruebas tickets', 'asdasd', 'Pedro Avila', 2, 'active', '2020-12-18 17:35:00', '2020-11-26 19:58:14', '2020-12-18 19:27:38'),
+(2, 'TK-00000002', 'Pruebas tickets2', 'asdasdasdasd', 'Pedro Avila', 2, 'active', NULL, '2020-11-26 20:09:33', '2020-12-16 20:38:30'),
+(6, 'TK-00000003', 'Pruebas tickets4', 'asdasdasd', 'Pedro Avila', 2, 'inactive', '2020-12-01 17:50:00', '2020-11-27 16:26:11', '2020-12-18 21:23:44'),
+(7, 'TK-00000004', 'asdasd', 'asdasdasdasd', 'Pedro Avila', 2, 'active', '2020-12-26 14:35:00', '2020-12-16 18:37:39', '2020-12-17 18:42:17');
 
 -- --------------------------------------------------------
 
@@ -358,7 +367,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `telefono`, `direccion`, `sede`, `img_src`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'VnKUtbxstZPZF7HG3bpNylMXWqqIaSNglVDKJ7dW.jpeg', NULL, '$2y$10$NbbPhnVrYnXg.lsLA2haseF6y1ndmOTbO9Zb5Hf.WKcZO2WLELV9W', NULL, '2020-10-29 07:22:41', '2020-11-02 19:44:22'),
+(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'VnKUtbxstZPZF7HG3bpNylMXWqqIaSNglVDKJ7dW.jpeg', NULL, '$2y$10$e0L5HbchjCfUntOnrePV5Oih2HLgnlnS7U4Xv5WPID.djS9fJWMMu', NULL, '2020-10-29 07:22:41', '2020-11-02 19:44:22'),
 (2, 'prueba', 'prueba@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$/sqdeCRQzSYJxsAHVe1gvunRDxtyArfw/MCcGT.ByZUOslw.rjA5e', NULL, '2020-10-29 23:16:13', '2020-10-29 23:16:13'),
 (9, 'pruebas', 'pruebas@gmail.com', NULL, 'asdasdasdq', NULL, NULL, NULL, '$2y$10$UnQqmSPA.6mw9Q0JUGqSdOl6BWOpgRS0MEg.JP4ex5cSlGj9urPyy', NULL, '2020-10-30 19:34:42', '2020-10-30 19:34:42'),
 (10, 'Jose Avila', 'avila@gmail.com', NULL, 'asdasd', NULL, NULL, NULL, '$2y$10$hp5pVU4rbyobZExcKMCQKe10kq.kk/awnfyGgTT7tQlAvoz1oS3tC', NULL, '2020-10-30 19:40:44', '2020-10-30 19:40:44'),
@@ -473,7 +482,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `failed_jobs`
@@ -485,7 +494,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
