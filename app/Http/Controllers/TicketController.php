@@ -11,7 +11,8 @@ use App\Models\Categorias_has_ticket;
 use App\Models\User;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
-
+use Mpdf;
+use DB;
 class TicketController extends Controller
 {
     /**
@@ -53,6 +54,50 @@ class TicketController extends Controller
             'Action',
         );
         return array('columns'=>$columns,'head'=>$head);
+    }
+    public function query_messages($id){
+        $userId = auth()->id();
+        $query = Mensaje::select(
+            'id',
+        DB::raw("IF(`from_id` =$userId,TRUE,FALSE) as escribe_active"),
+        'from_id',
+        'mensaje',
+        'img_src',
+        'file_src',
+        'notice_message',
+        'created_at')->where('ticket_id',$id)->get();
+        $query->map(function($q){
+            $user_from = User::find($q->from_id);
+            $q->from_user = (!empty($user_from)) ? $user_from : '';
+        });
+        return $query;
+    }
+    public function export_pdf($id){
+        $ticket = Ticket::find($id);
+        $mensajes = $this->query_messages($id);
+        $user = User::find($ticket->users_id);
+        /*Ajustamos las  medidas, orientacio y formato  de las paginas*/
+        $mpdf = new \Mpdf\Mpdf([
+            'margin_left' => 6,
+            'margin_right' => 6,
+            'margin_top' => 35,
+            'margin_bottom' => 10,
+            'margin_header' => 5,
+            'margin_footer' => 5,
+            'mode' => 'utf-8', 
+            'format' => 'A4',
+            'orientation' => 'P'
+        ]);
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Ticket resolved");
+        $mpdf->SetAuthor("Acme Trading Co.");
+        $mpdf->SetWatermarkText("");   // anulada
+        $mpdf->showWatermarkText = true;
+        $mpdf->watermark_font = 'DejaVuSansCondensed';
+        $mpdf->watermarkTextAlpha = 0.1;
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->WriteHTML(view('export_pdf.ticket',['ticket'=>$ticket,'mensajes'=>$mensajes,'user'=>$user]));
+        $mpdf->Output('resolvedticket'.$id.'.pdf', 'I');
     }
     public function filter_datatable(Request $request){
         $tipe = $request->get('tipe');

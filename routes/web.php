@@ -35,8 +35,9 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/tickets_filter/{id}', [App\Http\Controllers\TicketController::class, 'filter_category']);
 
-	
 	Route::get('/status/ticket/{id}', [App\Http\Controllers\TicketController::class, 'change_status']);
+
+	Route::get('/print/ticket/{id}', [App\Http\Controllers\TicketController::class, 'export_pdf']);
 
 	Route::resources([
 	    'usuarios' => App\Http\Controllers\UserController::class,
