@@ -165,14 +165,27 @@
               width: 40px;
             }
 
-            .right .direct-chat-img {
-              float: right;
+            .right  {
+              float: right; margin-top: 7px;
             }
-
-            .direct-chat-infos {
-              display: block;
+            .float-right{
+              float: right: 
+            }
+            .float-left{
+              float: left: 
+            }
+            .direct-chat-infos-right {
+              width: 100%;
               font-size: 0.875rem;
-              margin-bottom: 2px;
+              display: flex;
+              justify-content: center;
+              text-align: right ;
+            }
+            .direct-chat-infos {
+              width: 100%;
+              font-size: 0.875rem;
+              display: flex;
+              justify-content: center;
             }
 
             .direct-chat-name {
@@ -243,22 +256,6 @@
         </htmlpageheader>
         <htmlpagefooter name="myfooter">
 
-        <div>
-            <table class="items" style="font-size: 9pt; border-collapse: collapse; " cellpadding="8" width="100%" align="center">
-                <tr><td height=80px width="100%" align="center">
-                 	<div style="margin-bottom:10px;" width="100%">
-
-        </div>
-        </td>
-        </tr>
-                   
-        </table>
-
-                </div>
-        <div style="border-top: 1px solid #000000; font-size: 9pt; text-align: center; padding-top: 3mm; ">
-        <p style="text-align:center; margin_bottom:5px;"></p>
-        <p style="text-align:right;">Pag {PAGENO} of {nb}</p>
-        </div>
         </htmlpagefooter>
 
 
@@ -311,32 +308,29 @@
         <div class="caja-message">
             <div class="content-messages">
                 @foreach($mensajes as $item)
-                <div  class="direct-chat-msg {{ $item->escribe_active ? 'right': '' }}">
-                    <div class="direct-chat-infos clearfix">
-                      <span class=" {{$item->escribe_active ? 'float-right' : 'float-left' }} ">{{$item->from_user->name}}</span>
-                      <span class=" {{$item->escribe_active ? 'float-left' : 'float-right' }}">{{$item->created_at}}</span>
+                <div  class="direct-chat-msg {{ $item->escribe_active ? 'right': '' }} ">
+                    <div class="{{$item->escribe_active ? 'direct-chat-infos-right' : 'direct-chat-infos' }}">
+                      <span class=" {{$item->escribe_active ? 'float-right' : 'float-left' }} " style="text-align:right; width: 100%; ">{{$item->from_user->name}}</span>
+                      <span class=" {{$item->escribe_active ? 'float-left' : 'float-right' }}" style="display: block;">{{$item->created_at}}</span>
                     </div>
                     <!-- /.direct-chat-infos -->
-                    <img class="direct-chat-img" src=" {{ $item->from_user->img_src !== null  ? asset('storage/profile/'.$item->from_user->id.'/'.$item->from_user->img_src.'') : asset('img/avatar5.png')}}" alt="message user image" >
+                    <img class="direct-chat-img {{ $item->escribe_active ? 'right': '' }}"    src=" {{ $item->from_user->img_src !== null  ? asset('storage/profile/'.$item->from_user->id.'/'.$item->from_user->img_src.'') : asset('img/avatar5.png')}}" alt="message user image" >
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       @if(!empty($item->notice_message))
                         <p  class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i> {{$item->mensaje}}</p>
                       @else
                         <p class="mb-0">{{$item->mensaje}}</p>
-
                       @endif
                       @if(!empty($item->img_src) OR  !empty($item->file_src))
                           <hr class="mt-0 mb-0">
                           <div class="row justify-content-center p-2" >
                             <div class="col-7">
-                                @if(!empty($item->img_src))
-                                <img src="asset('storage/ticket/'.$ticket->id.'/'.$item->img_src.')" alt="" class="img-thumbnail" width="100px">
-                                @endif
-                                <a href="asset('storage/ticket/'.$ticket->id.'/'.$item->file_src.')" id="url_file" class="box-link-ticket"><i class="fas fa-paperclip"></i> {{$item->file_src}}</a>
-
+                              @if(!empty($item->img_src))
+                              <img src="asset('storage/ticket/'.$ticket->id.'/'.$item->img_src.')" alt="" class="img-thumbnail" width="100px">
+                              @endif
+                              <a href="asset('storage/ticket/'.$ticket->id.'/'.$item->file_src.')" id="url_file" class="box-link-ticket"><i class="fas fa-paperclip"></i> {{$item->file_src}}</a>
                             </div>
-
                           </div>
                       @endif
                     </div>

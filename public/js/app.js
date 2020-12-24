@@ -101381,8 +101381,8 @@ window.addEventListener("load", function (event) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\2020\elvis\tickets\tickets\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\2020\elvis\tickets\tickets\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\casos\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\casos\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

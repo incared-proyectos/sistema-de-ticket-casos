@@ -193,7 +193,6 @@ class TicketController extends Controller
                 $all['apertura'] = Auth()->user()->name;
                 $all['codigo'] = $this->generate_cod_venta();
                 $all['status'] = 'active';
-
                 $ticket->fill($all)->save();
                 $id_last = Ticket::orderBy('id','DESC')->first();
                 for ($i=0; $i <count($all['categorias']) ; $i++) { 
