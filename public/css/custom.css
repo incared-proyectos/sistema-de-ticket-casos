@@ -132,6 +132,28 @@
   text-align: center;
   justify-content: center;
 }
+/*Content search*/
+.row-search{
+  position: absolute;
+  width: 100%;
+  z-index: 9999;
+}
+.list-search{
+  background: #171617f0;  
+  margin: 0px;
+  list-style: none;
+  color: white;
+  padding: 0px;
+}
+.list-search li {
+  border-bottom: 1px solid white;
+  padding: 3px;
+  cursor: pointer;
+}
+.list-search li:hover{
+  background: #e3e3ec3b;
+}
+/*//*/
 /*Fin spineer*/
 /*.text {
   background-color: #4CAF50;

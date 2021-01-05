@@ -60,6 +60,12 @@ class UserController extends Controller
         })->rawColumns(['action','categorias']);
         return $table->make(true);
     }
+    public function search(Request $request){
+        $all = $request->all();
+            $users = User::where('name','like','%'.$all['search'].'%')->where('email','like','%'.$all['search'].'%')->get();
+        
+        return $users;
+    }
 
     /**
      * Show the form for creating a new resource.

@@ -48,6 +48,6 @@ class User extends Authenticatable
     ];
     //Relacionamos con la tabla pivot de categorias para los usuarios y sus categorias.....
     public function categorias(){
-        return $this->belongsToMany('App\Models\Categoria','Categorias_has_users');
+        return $this->belongsToMany('App\Models\Categoria','categorias_has_users');
     }
 }

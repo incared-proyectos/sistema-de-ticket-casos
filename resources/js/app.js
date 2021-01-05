@@ -9,13 +9,14 @@ var moment = require('moment');
 require('./views_functions/datatables_events.js');
 require('./views_functions/formsubmit.js');
 require('./views_functions/users/functions.js');
-
+import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';
 import 'bootstrap-select/dist/js/bootstrap-select.min.js';
 
 
 
 window.Vue = require('vue');
+Vue.use( CKEditor );
 
 /**
  * The following block of code may be used to automatically register your
@@ -45,6 +46,11 @@ Vue.component(
 Vue.component(
     'ticket',
     require('./components/Ticket.vue').default
+);
+
+Vue.component(
+    'search-tickets',
+    require('./components/SearchUserTicket.vue').default
 );
 
 /**

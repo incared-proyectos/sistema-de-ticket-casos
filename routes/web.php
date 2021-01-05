@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/usuarios/datatables', [App\Http\Controllers\UserController::class, 'datatables']);
 
+	Route::post('/usuarios/search', [App\Http\Controllers\UserController::class, 'search']);
+
 	Route::get('/datatables/rol', [App\Http\Controllers\RolController::class, 'datatables']);
 
 	Route::get('/datatables/categorias', [App\Http\Controllers\CategoriaController::class, 'datatables']);
@@ -38,6 +40,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::get('/status/ticket/{id}', [App\Http\Controllers\TicketController::class, 'change_status']);
 
 	Route::get('/print/ticket/{id}', [App\Http\Controllers\TicketController::class, 'export_pdf']);
+
 
 	Route::resources([
 	    'usuarios' => App\Http\Controllers\UserController::class,

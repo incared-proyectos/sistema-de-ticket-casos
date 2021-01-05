@@ -36,14 +36,14 @@
 	            <img class="direct-chat-img" :src="item.from_user.img_src !== null  ? `${asset_img}/profile/${item.from_user.id}/${item.from_user.img_src}` : `${asset_img_default}/avatar5.png`" alt="message user image" >
 	            <!-- /.direct-chat-img -->
 	            <div class="direct-chat-text">
-	              <p v-if="item.notice_message==1" class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i> {{item.mensaje}}</p>
-	              <p v-else-if="item.notice_message==null" class="mb-0">{{item.mensaje}}</p>
+	              <p v-if="item.notice_message==1" class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i>   {{item.mensaje}}</p>
+	              <p v-else-if="item.notice_message==null" class="mb-0" v-html="item.mensaje"></p>
 	              <div v-if="item.img_src !== null || item.file_src !== null">
 		              <hr class="mt-0 mb-0">
 		              <div class="row justify-content-center p-2" >
 		              	<div class="col-7">
-		              		<img v-if="item.img_src !== null" :src="`${asset_img}/ticket/${id_ticket}/${item.img_src}`" alt="" class="img-thumbnail" width="100px">
-		              		<a :href="`${asset_img}/ticket/${id_ticket}/${item.file_src}`" id="url_file" class="box-link-ticket"><i class="fas fa-paperclip"></i> {{item.file_src}}</a>
+		              		<a href="#" @click="img_full" :data-src="`${asset_img}/ticket/${id_ticket}/${item.img_src}`"><img v-if="item.img_src !== null" :src="`${asset_img}/ticket/${id_ticket}/${item.img_src}`" alt="" class="img-thumbnail" width="100px"></a>
+		              		<a :href="`${asset_img}/ticket/${id_ticket}/${item.file_src}`" v-if="item.file_src !== null" id="url_file" class="box-link-ticket"><i class="fas fa-paperclip"></i> {{item.file_src}}</a>
 
 		              	</div>
 
@@ -61,12 +61,15 @@
 	      <!-- /.card-body -->
 	    <div class="card-footer">
 	    	<form action="" @submit.prevent="submit_mensaje" id="formticket">
-	          <div class="input-group">
-	            <input type="text" name="mensaje" id="mensaje" placeholder="Escrbir mensaje ..." class="form-control">
+	          <div class="row">
+	          	<div class="col-11">
+	          		<ckeditor :editor="editor" v-model="editorData" :config="editorConfig"></ckeditor>
+	          		<input type="hidden" name="mensaje" :value="editorData">
+	           	</div>
 	            <input type="hidden" name="ticket_id" :value="id_ticket">
-	            <span class="input-group-append">
-	              <button type="button" class="btn btn-primary" >Enviar</button>
-	            </span>
+	            <div class="col-1">
+	              <button type="button" class="btn btn-primary"  @click="submit_mensaje" >Enviar</button>
+	            </div>
 	          </div>
 	          <div class="row mt-2">
 	          	<div class="col-12 text-center">  
@@ -78,6 +81,7 @@
 
 
 	          	</div>
+
 	          </div>
 	            <b>Upload Files</b>
 	          	<hr class="mt-0 pt-0">
@@ -86,13 +90,29 @@
 		          		<img :src="url_img" alt="" class="img-thumbnail">
 		          	</div>
 		          	<div class="col-3" v-if="url_file!==''">
-		          		<a :href="url_file" id="url_file" class="box-link-ticket"><i class="fas fa-paperclip"></i> {{file_name}}</a>
+		          		<a :href="url_file" id="url_file" class="box-link-ticket" ><i class="fas fa-paperclip"></i> {{file_name}}</a>
 		          	</div>
 	          	</div>
           	</form>
 	    </div>
        </div>	      
+		<!-- Modal -->
+		<div class="modal fade" id="fullimgModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel"></h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       	<img :src="imgmodal" alt="" style="width:100%;">
+		      </div>	
 
+		    </div>
+		  </div>
+		</div>
 
       	<!-- /.card-footer-->
 
@@ -102,6 +122,8 @@
 
 <script>
 import LoaderTicket from './LoaderTicket.vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 export default {
 	props:['id_ticket','ticket','mensaje_count'],
     data: function() {
@@ -112,10 +134,18 @@ export default {
         url_file:'',
         file_name:'',
         asset_img_default:'',
-        loader_status:''
+        loader_status:'',
+        editor: ClassicEditor,
+        editorData: '',
+        imgmodal:'',
+        editorConfig: {
+                    // The configuration of the editor.
+        }
+
       };
     },
     created() {
+
     	axios.get(`${app_base_url}/api/mensaje/${this.id_ticket}`)
         .then((response)=> {
           this.mensajes = response.data;
@@ -155,8 +185,8 @@ export default {
     	   let form = document.getElementById('formticket');
 		   let formData = new FormData(form);
 		   let me = this;
-		   let mensaje = $('#mensaje');
 		   event.preventDefault();
+
 		   axios({
 			  method: 'POST',
 			  url: `${app_base_url}/api/mensaje`,
@@ -167,12 +197,12 @@ export default {
 			})
 		    .then(function (response) {
       			me.mensajes.push(response.data);
-	        	mensaje.val('');
-	        	event.target.reset();
 	        	me.url_file = '';
 	        	me.url_img = '';
 	        	me.file_name = '';
 	        	me.loader_status = '';
+	        	me.editorData = '';
+	        	document.getElementById("formticket").reset(); 
 	        	me.bottom();
     		
 
@@ -189,6 +219,10 @@ export default {
 		      	}
 		      	me.loader_status = 'inactive';
 			});
+		},
+		img_full(event){
+			this.imgmodal = $(event.currentTarget).attr('data-src');
+			$('#fullimgModal').modal('show');
 		},
     	bottom(){
     		setTimeout(function(){

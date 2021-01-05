@@ -25,6 +25,8 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^24.0.0",
+        "@ckeditor/ckeditor5-vue2": "^1.0.5",
         "admin-lte": "^3.0.5",
         "bootstrap-select": "^1.13.18",
         "datatables.net": "^1.10.22",

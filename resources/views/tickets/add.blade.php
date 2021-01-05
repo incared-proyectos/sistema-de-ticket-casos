@@ -19,10 +19,9 @@
               <label for="">Titulo</label>
               <input type="text" name="titulo" class="form-control" placeholder="titulo del ticket">
             </div>
-          <div class="col-6 ">
-              <label for="">Usuario o email</label>
-              <input type="text" name="user" class="form-control" placeholder="Ingrese a quien se le asignara">
-            </div>
+            <div class="col-6">
+          		<search-tickets></search-tickets>
+          	</div>
           </div>
           <hr>
           <div class="row mt-2">
