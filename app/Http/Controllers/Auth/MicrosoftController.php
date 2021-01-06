@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Microsoft\Graph\Graph;
 use Microsoft\Graph\Model;
-
+use Auth;
+use Hash;
+use Str;
+use App\Models\User;
 class MicrosoftController extends Controller
 {
   public function signin()
@@ -23,8 +26,7 @@ class MicrosoftController extends Controller
     ]);
 
     $authUrl = $oauthClient->getAuthorizationUrl();
-    print_r($authUrl);
-    exit();
+
     // Save client state so we can validate in callback
     session(['oauthState' => $oauthClient->getState()]);
 
@@ -35,8 +37,7 @@ class MicrosoftController extends Controller
   public function callback(Request $request)
   {
 
-    echo "hola";
-    exit();
+
     // Validate state
     $expectedState = session('oauthState');
     $request->session()->forget('oauthState');
@@ -81,10 +82,18 @@ class MicrosoftController extends Controller
           ->setReturnType(Model\User::class)
           ->execute();
 
-        // TEMPORARY FOR TESTING!
-        return redirect('/')
-          ->with('error', 'Access token received')
-          ->with('errorDetail', 'User:'.$user->getDisplayName().', Token:'.$accessToken->getToken());
+        if ($user = User::where('email', $user->getuserPrincipalName())->first()) { 
+          return $this->authAndRedirect($user); // Login y redirección
+        }else{
+          $user = User::create([
+            // 'token' => $user->token;
+            'name' => $user->getgivenName(),
+            'email' => $user->getuserPrincipalName(),
+            'password' => Hash::make(Str::random(24)),
+          ]);
+          return $this->authAndRedirect($user); // Login y redirección
+        }
+
       }
       catch (League\OAuth2\Client\Provider\Exception\IdentityProviderException $e) {
         return redirect('/')
@@ -93,8 +102,14 @@ class MicrosoftController extends Controller
       }
     }
 
+
     return redirect('/')
       ->with('error', $request->query('error'))
       ->with('errorDetail', $request->query('error_description'));
   }
+  public function authAndRedirect($user) {
+    Auth::login($user);
+    return redirect('/home');
+  }
+
 }

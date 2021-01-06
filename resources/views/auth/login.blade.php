@@ -67,17 +67,17 @@
                         <hr>
                         <div class="row justify-content-center">
                             <div class="col-6">
-                                <a href="{{ url('google/auth/redirect') }}" class="btn btn-danger btn-block">Google</a>
+                                <a href="{{ url('google/auth/redirect') }}" class="btn btn-danger btn-block"><i class="fab fa-google"></i> Google</a>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-6">
-                                <a href="{{ url('facebook/auth/redirect') }}" class="btn btn-primary btn-block">Facebook</a>
+                                <a href="{{ url('facebook/auth/redirect') }}" class="btn btn-primary btn-block"><i class="fab fa-facebook-f"></i> Facebook</a>
                             </div>
                         </div>
                         <div class="row justify-content-center mt-2">
                             <div class="col-6">
-                                <a href="{{ url('microsoft/signin') }}" class="btn btn-warning btn-block">Microsoft</a>
+                                <a href="{{ url('microsoft/signin') }}" class="btn btn-warning btn-block"><i class="fab fa-microsoft"></i> Microsoft</a>
                             </div>
                         </div>
                     </form>
