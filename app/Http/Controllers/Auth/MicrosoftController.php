@@ -81,9 +81,11 @@ class MicrosoftController extends Controller
         $user = $graph->createRequest('GET', '/me?$select=displayName,mail,mailboxSettings,userPrincipalName')
           ->setReturnType(Model\User::class)
           ->execute();
-
-        if ($user = User::where('email', $user->getuserPrincipalName())->first()) { 
-          return $this->authAndRedirect($user); // Login y redirección
+        
+        $user_firts = User::where('email', $user->getuserPrincipalName())->first();
+     
+        if (!empty($user_firts)) { 
+          return $this->authAndRedirect($user_firts); // Login y redirecci贸n
         }else{
           $user = User::create([
             // 'token' => $user->token;
@@ -91,7 +93,7 @@ class MicrosoftController extends Controller
             'email' => $user->getuserPrincipalName(),
             'password' => Hash::make(Str::random(24)),
           ]);
-          return $this->authAndRedirect($user); // Login y redirección
+          return $this->authAndRedirect($user); // Login y redirecci贸n
         }
 
       }
