@@ -26,6 +26,7 @@ class User extends Authenticatable
         'sede',
         'img_src',
         'password',
+        'provider'
     ];
 
     /**

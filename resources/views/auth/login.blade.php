@@ -64,6 +64,22 @@
                                 @endif
                             </div>
                         </div>
+                        <hr>
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <a href="{{ url('google/auth/redirect') }}" class="btn btn-danger btn-block">Google</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-6">
+                                <a href="{{ url('facebook/auth/redirect') }}" class="btn btn-primary btn-block">Facebook</a>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center mt-2">
+                            <div class="col-6">
+                                <a href="{{ url('microsoft/signin') }}" class="btn btn-warning btn-block">Microsoft</a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

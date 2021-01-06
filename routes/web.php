@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,21 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('login/{provider}/callback', [App\Http\Controllers\Auth\LoginController::class, 'handleProviderCallback'])->name('social.callback');
+
+Route::get('google/auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('facebook/auth/redirect', function () {
+    return Socialite::driver('facebook')->redirect();
+});
+
+Route::get('/microsoft/signin', [App\Http\Controllers\Auth\MicrosoftController::class, 'signin']);
+Route::get('/microsoft/callback', [App\Http\Controllers\Auth\MicrosoftController::class, 'callback']);
+
+
 Route::group(['middleware' => 'auth'], function() {
 
 

@@ -13,8 +13,11 @@
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.0",
+        "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
+        "league/oauth2-client": "^2.6",
+        "microsoft/microsoft-graph": "^1.25",
         "mpdf/mpdf": "^8.0",
         "spatie/laravel-permission": "^3.17",
         "yajra/laravel-datatables-oracle": "~9.0"
