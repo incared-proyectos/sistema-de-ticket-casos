@@ -20,4 +20,7 @@ class Ticket extends Model
     public function categorias(){
         return $this->belongsToMany('App\Models\Categoria','categorias_has_tickets');
     }
+    public function users(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

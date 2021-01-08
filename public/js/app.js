@@ -2524,6 +2524,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -88371,10 +88374,17 @@ var render = function() {
         _c("loader-ticket", { attrs: { status: _vm.loader_status } }),
         _vm._v(" "),
         _c("div", { staticClass: " card-details row" }, [
-          _c("div", { staticClass: "col-6 " }, [
+          _c("div", { staticClass: "col-12 " }, [
             _c("h3", { staticClass: "text-left card-title " }, [
               _vm._v("Apertura: "),
               _c("b", [_vm._v(_vm._s(_vm.ticket.apertura))])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-12 " }, [
+            _c("h3", { staticClass: "text-left card-title " }, [
+              _vm._v("Usuario asignado: "),
+              _c("b", [_vm._v(_vm._s(_vm.ticket.users.name))])
             ])
           ])
         ]),

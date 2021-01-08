@@ -227,7 +227,9 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {   $ticket = Ticket::find($id);
+    {   
+        $ticket = Ticket::with('users')->find($id);
+
         $mensaje_count = Mensaje::where('ticket_id',$id)->count();
         return view('tickets.view',['id'=>$id,'ticket'=>$ticket,'mensaje_count'=>$mensaje_count]);
     }

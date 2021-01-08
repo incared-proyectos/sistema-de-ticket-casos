@@ -5,8 +5,11 @@
 	    	<loader-ticket  :status="loader_status" ></loader-ticket>
 
           <div class=" card-details row">
-            <div class="col-6 ">
+            <div class="col-12 ">
               <h3 class="text-left card-title ">Apertura: <b>{{ticket.apertura}}</b></h3>
+            </div>
+            <div class="col-12 ">
+              <h3 class="text-left card-title ">Usuario asignado: <b>{{ticket.users.name}}</b></h3>
             </div>
           </div>
           <div class="card-header">
