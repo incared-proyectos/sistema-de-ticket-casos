@@ -1,10 +1,10 @@
 /*PERMISOS USUARIOS*/
 .item_select{
-	padding: 6px;
+	padding: 3px;
 	background:#3e1edbb8;
 	color:white;
 	border-radius: 5px;
-	margin: 5px;
+  display: inline-block;
 }
 .profile-img{
   opacity: 1;
