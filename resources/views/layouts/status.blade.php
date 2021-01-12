@@ -1,13 +1,20 @@
-@if($status == 'active')
-	<span class="status_label status_label_success row_status" data-id="{{$id_ticket}}" data-url="{{$url_action}}">
-		Active
-	</span>
-@elseif($status == 'inactive')
-	<span class="status_label status_label_danger row_status" data-id="{{$id_ticket}}" data-url="{{$url_action}}">
-		Inactive
-	</span>
-@else
-	<span class="status_label status_label_non row_status" data-id="{{$id_ticket}}" data-url="{{$url_action}}">
-		sin status
-	</span>
-@endif
+
+<?php $color_active = ''; ?>
+@foreach($estatus as $es)
+	@if($es->nombre == $status)
+		<?php $color_active = $es->color; ?>
+	@endif
+@endforeach
+<button type="button" style="background: {{$color_active}} ;border:0px;" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+   {{$status}}
+</button>
+<div class="dropdown-menu">
+	@foreach($estatus as $es)
+		@if($es->nombre == $status)
+
+		@else
+			<a class="dropdown-item row_status" href="#" data-ticket="{{$id_ticket}}" data-id="{{$es->id}}" data-url="{{$url_action}}">{{$es->nombre}}</a>
+		@endif 
+	@endforeach
+</div>
+

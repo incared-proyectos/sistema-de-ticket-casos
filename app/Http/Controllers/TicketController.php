@@ -9,10 +9,12 @@ use App\Models\Mensaje;
 use App\Models\Categoria;
 use App\Models\Categorias_has_ticket;
 use App\Models\User;
+use App\Models\Estatu;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
 use Mpdf;
 use DB;
+use Spatie\Activitylog\Models\Activity;
 class TicketController extends Controller
 {
     /**
@@ -114,6 +116,7 @@ class TicketController extends Controller
     }
     public function datatables($ticket){
         $table = Datatables::of($ticket);
+        $estatus = Estatu::all();
         $table->addColumn('action', function($row){
             $url = url('tickets').'/'.$row['id'];
             return view('layouts.buttons_datatables',['id'=>$row['id'],'url'=>$url,'ticket'=>'1']);
@@ -125,9 +128,9 @@ class TicketController extends Controller
                 }
                 return $message;
             }
-        })->addColumn('status_info', function($row){
-            $url_status = url('status/ticket/'.$row['id']);
-            return view('layouts.status',['status'=>$row['status'],'id_ticket'=>$row['id'],'url_action'=>$url_status]);
+        })->addColumn('status_info', function($row) use ($estatus){
+            $url_status = url('status/ticket');
+            return view('layouts.status',['status'=>$row['status'],'id_ticket'=>$row['id'],'url_action'=>$url_status,'estatus'=>$estatus]);
         })->editColumn('fecha_caducidad', function($row){
             Carbon::setLocale('es');
             $ticket = ticket::find($row['id']);
@@ -148,14 +151,11 @@ class TicketController extends Controller
         })->rawColumns(['action','categorias']);
         return $table->make(true);
     }
-    public function change_status($id){
-        $ticket = Ticket::find($id);
-
-        if ($ticket->status == 'active') {
-            $ticket->status = 'inactive';
-        }else{
-            $ticket->status = 'active';
-        }
+    public function change_status(Request $request){
+        $all = $request->all();
+        $ticket = Ticket::find($all['id_ticket']);
+        $estatus = Estatu::find($all['id_status']);
+        $ticket->status = $estatus->nombre;
         $ticket->save();
     }
 
@@ -254,11 +254,7 @@ class TicketController extends Controller
      */
     public function edit($id)
     {
-        $categorias = Categoria::all();
-        return view('tickets.edit',[
-            'ticket'=>Ticket::with('categorias')->find($id),
-            'categorias'=>$categorias
-        ]);  
+        return Ticket::with('users','categorias')->find($id);
     }
 
     /**
@@ -279,21 +275,58 @@ class TicketController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
-            $info_message = Mensaje::create([
-                'from_id' => auth()->id(),
-                'mensaje' => 'Se ha actualizado la cabecera del archivo',
-                'ticket_id' => $ticket->id,
-                'notice_message' => 1,
-            ]);
-            $ticket->fill($all)->save();
-            $categorias = Categorias_has_ticket::where('ticket_id',$id)->delete();
-            for ($i=0; $i <count($all['categorias']) ; $i++) { 
-                $categorias = new Categorias_has_ticket();
-                $categorias->categoria_id = $all['categorias'][$i];
-                $categorias->ticket_id = $id;
-                $categorias->save();
+            if (!empty($all['user'])) {
+                $user = User::where('email',$all['user'])->orWhere('name',$all['user'])->first();
+    
+                if (empty($user)) {
+                    return response()->json(['error'=>array('El usuario no existe')],422); 
+                }
+                $all['users_id'] = $user->id;
             }
-          
+
+            $campos = '';
+            $id_ticket = $ticket->id;
+            $ticket->fill($all)->save();
+            if ($request->input('check_categories_log') == 1) {
+                $campos.='<b> Categorias </b> | ';
+                $categorias = Categorias_has_ticket::where('ticket_id',$id)->delete();
+                for ($i=0; $i <count($all['categorias']) ; $i++) { 
+                    $categorias = new Categorias_has_ticket();
+                    $categorias->categoria_id = $all['categorias'][$i];
+                    $categorias->ticket_id = $id;
+                    $categorias->save();
+                }
+            }
+            $activity = Activity::where('subject_id',$id_ticket)->orderBy('created_at','DESC')->first();
+
+            $atributos = array(  
+                array('name' => 'titulo' , 'title'=>'Titulo'),
+                array('name' => 'descripcion' , 'title'=>'Descripcion'),
+                array('name' => 'apertura' , 'title'=>'Apertura'),
+                array('name' => 'fecha_caducidad' , 'title'=>'Fecha de caducidad'),
+                array('name' => 'status' , 'title'=>'Estatus del ticket'),
+                array('name' => 'users_id' , 'title'=>'Usuario asignado')
+            );
+            if (!empty($activity)) {
+                if ($activity->created_at->timestamp == time()) {       
+                    foreach ($atributos as $k) {
+                        $name_attr =  $k['name'];
+                        if (isset($activity->changes['attributes'][$name_attr])) {
+                            $campos .= '<b>'.$k['title'].'</b> |';
+                        }
+                    }
+                }
+            }
+            if (!empty($campos)) {
+                $info_message = Mensaje::create([
+                    'from_id' => auth()->id(),
+                    'mensaje' => 'Se ha actualizado el ticket, actualizacion: '.$campos,
+                    'ticket_id' => $id_ticket,
+                    'notice_message' => 1,
+                ]);
+            }
+
+            
             return response()->json(['success'=>'Ticket actualizado con exito','reload'=>1]);
         }
     }

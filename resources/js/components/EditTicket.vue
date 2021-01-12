@@ -1,17 +1,6 @@
-<!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog " role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar Ticket</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="alert alert-danger" id="errors_form_update" style="display: none"></div>
-        <div class="alert alert-success" id="success_form_update" style="display: none"></div>
-        <form action="" data-action="{{ url('tickets') }}" method="PUT" id="updated_form">
+<template>
+	<div>
+		<form action="" data-action="" method="PUT" id="updated_form">
 
           <div class="row">
             <div class="col-6 ">
@@ -19,7 +8,7 @@
               <input type="text" name="titulo" id="titulo_input" class="form-control" placeholder="titulo del ticket"  readonly="">
             </div>
             <div class="col-6 text-center">
-              <search-tickets></search-tickets>
+              <search-user></search-user>
               <br>
               <span class="item_select" id="user_selected" ></span>
             </div>
@@ -31,9 +20,7 @@
                 <select class="form-control change_select" id="change_select_updated"  data-live-search="true" data-two="on">
                   <option value="">Seleccionar Categoria.</option>
 
-                  @foreach($categorias as $p)
-                    <option value="{{$p->nombre}}" data-id="{{$p->id}}">{{$p->nombre}}</option>
-                  @endforeach
+                    <option v-for="item in categorias" :value="item.nombre" data-id="item.id">{item.nombre}</option>
                 </select>
             </div>
             <div class="col-6 " >
@@ -64,8 +51,42 @@
             </div>
           </div>
         </form>
-      </div>
+	</div>
+</template>
 
-    </div>
-  </div>
-</div>
+<script>
+
+import SearchUser from './SearchUserTicket.vue';
+
+export default {
+	props: ['categorias'],
+    data: function() {
+      return {   
+      	search_list:null,
+      	search_value:'',
+      };
+    },
+    created() {
+     
+    },
+    mounted(){
+    	
+
+    },
+
+    methods: {
+    
+    },
+    created () {
+       document.addEventListener('click', this.documentClick)
+    },
+    destroyed () {
+	   document.removeEventListener('click', this.documentClick)
+	},
+
+    components: {
+    	SearchUser
+    }
+  }
+
+</script>

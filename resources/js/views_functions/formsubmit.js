@@ -64,8 +64,13 @@ window.addEventListener("load", function(event) {
 		  $('#errors_form_update').fadeOut(100);
 		  if (typeof response.data.reload !== 'undefined') {
 		    $('#table_id').DataTable().ajax.reload();
-		    $('#success_form_update').html(response.data.success).fadeIn(100);
 		  }
+		  swal.fire(
+			'Actualizacion realizada con exito!',
+			'Click para continuar!',
+			'success'
+		  )
+		  $('#editModal').modal('hide');
 		})
 		.catch(function (error) {
 			$('#errors_form_update').html('');

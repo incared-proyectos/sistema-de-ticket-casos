@@ -34,10 +34,17 @@ window.addEventListener("load", function(event) {
 	$(document).on("click",".row_status",function(event){
 		$.ajaxblock('body','fixed');
 		let url = $(this).attr('data-url');
+		let id_ticket = $(this).attr('data-ticket');
+		let id_status = $(this).attr('data-id');
 		event.preventDefault();
 		axios({
-		  method:'GET',
+		  method:'POST',
 		  url: url,
+		  data:{
+		  	id_ticket,
+		  	id_status,
+
+		  }
 		})
 		.then(function (response) {
 			$('#table_id').DataTable().ajax.reload();

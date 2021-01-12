@@ -22,6 +22,7 @@ window.addEventListener("load", function(event) {
 		$(document).on("change","#change_select_updated",function(event){
 			let id_select = $(this).find('option:selected').attr('data-id');
 			let name_select = $(this).val();
+			$('#check_categories').val(1);
 			if ($(`#item_update${id_select}`).length <= 0 && name_select !== '') {
 				$('#options_select_updated').append(` 
 					<span class="item_select" id="item_update${id_select}"><input type="hidden" name="categorias[]" value="${id_select}"><i class="fab fa-adn"></i> ${name_select} <a href="#" class="delete_select text-white" data-id="${id_select}""><i class="far fa-trash-alt"></i></a></span>
@@ -35,7 +36,11 @@ window.addEventListener("load", function(event) {
 			if ($(`#item${id_select}`).length > 0) {
 				$(`#item${id_select}`).remove();
 			}else if ($(`#item_update${id_select}`).length > 0) {
+				$('#check_categories').val(1);
 				$(`#item_update${id_select}`).remove();
+			}else{
+				$(`#check_categories`).remove();
+
 			}
 		});
 	}

@@ -79,6 +79,15 @@
                 </a>
 
               </li>
+              <li class="nav-item">
+                <a href="{{ url('/estatus')}}" class="nav-link {{ (request()->is('estatus*')) ? 'active' : '' }}" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Estatus Ticket
+                  </p>
+                </a>
+
+              </li>
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

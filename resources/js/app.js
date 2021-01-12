@@ -7,6 +7,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 require('./bootstrap');
 var moment = require('moment');
 require('./views_functions/datatables_events.js');
+require('./views_functions/users/ticket.js');
 require('./views_functions/formsubmit.js');
 require('./views_functions/users/functions.js');
 import CKEditor from '@ckeditor/ckeditor5-vue2';
@@ -52,6 +53,11 @@ Vue.component(
     'search-tickets',
     require('./components/SearchUserTicket.vue').default
 );
+/*
+Vue.component(
+    'edit-tickets',
+    require('./components/EditTicket.vue').default
+);*/
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

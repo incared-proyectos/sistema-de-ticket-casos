@@ -12258,7 +12258,7 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
 }
 
 .swal2-popup.swal2-toast .swal2-styled {
-  margin: 0 0.3125em;
+  margin: 0.125em 0.3125em;
   padding: 0.3125em 0.625em;
   font-size: 1em;
 }
@@ -12573,7 +12573,7 @@ body.tempusdominus-bootstrap-datetimepicker-widget-day-click {
 
 .swal2-styled {
   margin: 0.3125em;
-  padding: 0.625em 2em;
+  padding: 0.625em 1.1em;
   box-shadow: none;
   font-weight: 500;
 }

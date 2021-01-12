@@ -39,8 +39,8 @@
 	            <img class="direct-chat-img" :src="item.from_user.img_src !== null  ? `${asset_img}/profile/${item.from_user.id}/${item.from_user.img_src}` : `${asset_img_default}/avatar5.png`" alt="message user image" >
 	            <!-- /.direct-chat-img -->
 	            <div class="direct-chat-text">
-	              <p v-if="item.notice_message==1" class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i>   {{item.mensaje}}</p>
-	              <p v-else-if="item.notice_message==null" class="mb-0" v-html="item.mensaje"></p>
+	              <p v-if="item.notice_message==1" class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i>   <span v-html="item.mensaje"></span></p>
+	              <p v-else-if="item.notice_message==null" class="mb-0" ></p>
 	              <div v-if="item.img_src !== null || item.file_src !== null">
 		              <hr class="mt-0 mb-0">
 		              <div class="row justify-content-center p-2" >

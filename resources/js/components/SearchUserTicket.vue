@@ -1,7 +1,7 @@
 <template>
 	<div >
         <label for="">Usuario o email</label>
-	      <input type="text" name="user" class="form-control" id="user_input" placeholder="Ingrese a quien se le asignara" @keyup="search" >
+	      <input type="text" name="user"  class="form-control user_input" placeholder="Ingrese a quien se le asignara" v-model="search_value" @keyup="search"  >
 	      <div class="row row-search" v-if="search_list !== null">
 	      	<div class="col-12">
 	      		<div class="content-search">
@@ -20,13 +20,14 @@ export default {
     data: function() {
       return {   
       	search_list:null,
+      	search_value:'',
       };
     },
     created() {
-     
+
     },
     mounted(){
-    	
+
 
     },
 
@@ -64,7 +65,7 @@ export default {
 		},
 		user_list(event){
 	    	let email = $(event.currentTarget).attr('data-email');
-	    	$('#user_input').val(email);
+	    	this.search_value = email;
 	    	this.search_list = null; 
     	},
     	documentClick(e){

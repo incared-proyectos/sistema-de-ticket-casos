@@ -49,11 +49,13 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/datatables/tickets', [App\Http\Controllers\TicketController::class, 'filter_datatable']);
 
+	Route::get('/datatables/estatus', [App\Http\Controllers\EstatusController::class, 'datatables']);
+
 	Route::get('/datatables/tickets_filter', [App\Http\Controllers\TicketController::class, 'filter_datatable']);
 
 	Route::get('/tickets_filter/{id}', [App\Http\Controllers\TicketController::class, 'filter_category']);
 
-	Route::get('/status/ticket/{id}', [App\Http\Controllers\TicketController::class, 'change_status']);
+	Route::post('/status/ticket', [App\Http\Controllers\TicketController::class, 'change_status']);
 
 	Route::get('/print/ticket/{id}', [App\Http\Controllers\TicketController::class, 'export_pdf']);
 
@@ -65,5 +67,6 @@ Route::group(['middleware' => 'auth'], function() {
 	    'perfil' => App\Http\Controllers\PerfilController::class,
 	    'tickets' => App\Http\Controllers\TicketController::class,
 	    'api/mensaje' => App\Http\Controllers\MensajeController::class,
+	    'estatus' => App\Http\Controllers\EstatusController::class,
 	]);
 });
