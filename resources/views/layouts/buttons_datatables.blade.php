@@ -3,7 +3,7 @@
 
 	<a href="#" class="btn btn-primary btn-sm row_edit_ticket" data-id="{{$id}}" data-url="{{$url}}/edit"><i class="fas fa-edit"></i></a>
 
-	<a href="{{url('print/ticket/'.$id)}}" class="btn btn-info  btn-sm " >Prin</a>
+	<a href="{{url('print/ticket/'.$id)}}" class="btn btn-info  btn-sm " ><i class="fas fa-print"></i></a>
 @else 
 	<a href="#" class="btn btn-primary btn-sm row_edit" data-id="{{$id}}" data-url="{{$url}}/edit"><i class="fas fa-edit"></i></a>
 @endif
