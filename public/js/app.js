@@ -88974,7 +88974,10 @@ var render = function() {
                           })
                         ])
                       : item.notice_message == null
-                      ? _c("p", { staticClass: "mb-0" })
+                      ? _c("div", {
+                          staticClass: "mb-0",
+                          domProps: { innerHTML: _vm._s(item.mensaje) }
+                        })
                       : _vm._e(),
                     _vm._v(" "),
                     item.img_src !== null || item.file_src !== null
