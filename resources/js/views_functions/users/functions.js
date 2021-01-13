@@ -12,7 +12,7 @@ window.addEventListener("load", function(event) {
 		$(document).on("change","#change_select",function(event){
 			let id_select = $(this).find('option:selected').attr('data-id');
 			let name_select = $(this).val();
-			if ($(`#item${id_select}`).length <= 0) {
+			if ($(`#item${id_select}`).length <= 0 && name_select !== '' ) {
 				$('#options_select').append(` 
 					<span class="item_select" id="item${id_select}"><input type="hidden" name="categorias[]" value="${id_select}"><i class="fab fa-adn"></i> ${name_select} <a href="#" class="delete_select text-white" data-id="${id_select}""><i class="far fa-trash-alt"></i></a></span>
 				`);

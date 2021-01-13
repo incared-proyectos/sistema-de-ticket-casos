@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Ticket;
 use App\Models\Mensaje;
+use App\Mail\SendTicket;
 use App\Models\Categoria;
 use App\Models\Categorias_has_ticket;
 use App\Models\User;
@@ -204,6 +206,10 @@ class TicketController extends Controller
             }else{
                 return response()->json(['error'=>array('El usuario no existe')],422);
             }
+
+            $mail = Mail::to($user->email)->send(new SendTicket($all));
+            $all['apertura_email'] = true;
+            $mail = Mail::to(Auth()->user()->email)->send(new SendTicket($all));
             return response()->json(['success'=>'Ticket creado con exito','reload'=>1]);
         }
     }

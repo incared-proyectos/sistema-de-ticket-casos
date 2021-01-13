@@ -102235,7 +102235,7 @@ window.addEventListener("load", function (event) {
       var id_select = $(this).find('option:selected').attr('data-id');
       var name_select = $(this).val();
 
-      if ($("#item".concat(id_select)).length <= 0) {
+      if ($("#item".concat(id_select)).length <= 0 && name_select !== '') {
         $('#options_select').append(" \n\t\t\t\t\t<span class=\"item_select\" id=\"item".concat(id_select, "\"><input type=\"hidden\" name=\"categorias[]\" value=\"").concat(id_select, "\"><i class=\"fab fa-adn\"></i> ").concat(name_select, " <a href=\"#\" class=\"delete_select text-white\" data-id=\"").concat(id_select, "\"\"><i class=\"far fa-trash-alt\"></i></a></span>\n\t\t\t\t"));
       }
     }); //Para  la plantilla de  updated
