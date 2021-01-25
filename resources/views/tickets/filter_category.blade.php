@@ -24,7 +24,8 @@
                   </div>
                   <hr>
                     <!--TABLA REALIZADA CON VUEJS Y DATATABLES LE PASAMOS LAS COLUMNAS Y HEAD PARA QUE SEA DINAMICA PARA CUALQUIER VISTA-->
-                    <table-vue :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" :id_filter="{{$id_filter}}" tipe="filter_category" ></table-vue>
+                    <table-ticket :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" :id_filter="{{$id_filter}}" :estatus="{{ json_encode($status)}}"   tipe="filter_category" ></table-ticket>
+
                 </div>
               </div>
             </div>

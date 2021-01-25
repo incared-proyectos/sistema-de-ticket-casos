@@ -22,9 +22,9 @@
                       @endforeach
                     </div>
                   </div>
-                  <hr>
+               
                     <!--TABLA REALIZADA CON VUEJS Y DATATABLES LE PASAMOS LAS COLUMNAS Y HEAD PARA QUE SEA DINAMICA PARA CUALQUIER VISTA-->
-                    <table-vue :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" tipe="all" ></table-vue>
+                    <table-ticket :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" :estatus="{{ json_encode($status)}}" tipe="all" ></table-ticket>
                 </div>
               </div>
             </div>

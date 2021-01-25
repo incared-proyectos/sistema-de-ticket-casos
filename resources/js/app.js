@@ -37,6 +37,10 @@ Vue.component(
     require('./components/TableVue.vue').default
 );
 Vue.component(
+    'table-ticket',
+    require('./components/TableVueTicket.vue').default
+);
+Vue.component(
     'profile-sidebar',
     require('./components/ProfileSidebar.vue').default
 );

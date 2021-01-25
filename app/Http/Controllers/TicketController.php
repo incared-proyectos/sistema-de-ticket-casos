@@ -13,6 +13,7 @@ use App\Models\Categorias_has_ticket;
 use App\Models\User;
 use App\Models\Estatu;
 use Yajra\Datatables\Datatables;
+use App\Models\Cron_job_mail;
 use Carbon\Carbon;
 use Mpdf;
 use DB;
@@ -31,7 +32,8 @@ class TicketController extends Controller
         return view('tickets.index',[
             'columns'=> $heads['columns'],
             'head'=>$heads['head'],
-            'categorias'=>$categorias
+            'categorias'=>$categorias,
+            'status'=>Estatu::all()
         ]);
     }
     public function head_datatables(){
@@ -105,13 +107,21 @@ class TicketController extends Controller
     }
     public function filter_datatable(Request $request){
         $tipe = $request->get('tipe');
+        $status = $request->get('status');
         if ($tipe == 'all') {
-            return $this->datatables(Ticket::all());
+            $ticket = (empty($status)) ? Ticket::all() : Ticket::where('status',$status)->get();
+            return $this->datatables($ticket);
         }else if ($tipe == 'filter_category') {
             $id =  $request->get('id_filter');
-            $ticket = ticket::whereHas('categorias', function ($query) use ($id) {
-                return $query->where('categoria_id', '=', $id);
-            })->get();
+            if (empty($status)) {
+                $ticket = ticket::whereHas('categorias', function ($query) use ($id) {
+                    return $query->where('categoria_id', '=', $id);
+                })->get();
+            }else{
+                $ticket = ticket::whereHas('categorias', function ($query) use ($id) {
+                    return $query->where('categoria_id', '=', $id);
+                })->where('status',$status)->get();  
+            }
             return $this->datatables($ticket);
         }
 
@@ -150,7 +160,7 @@ class TicketController extends Controller
                 return 'Caducado';
             }
             return $diasDiferencia;
-        })->rawColumns(['action','categorias']);
+        })->rawColumns(['action','categorias','status_info']);
         return $table->make(true);
     }
     public function change_status(Request $request){
@@ -196,20 +206,27 @@ class TicketController extends Controller
                 $all['codigo'] = $this->generate_cod_venta();
                 $all['status'] = 'active';
                 $ticket->fill($all)->save();
-                $id_last = Ticket::orderBy('id','DESC')->first();
+                $ticket_last = Ticket::orderBy('id','DESC')->first();
                 for ($i=0; $i <count($all['categorias']) ; $i++) { 
                     $categorias = new Categorias_has_ticket();
                     $categorias->categoria_id = $all['categorias'][$i];
-                    $categorias->ticket_id = $id_last->id;
+                    $categorias->ticket_id = $ticket_last->id;
                     $categorias->save();
                 }
             }else{
                 return response()->json(['error'=>array('El usuario no existe')],422);
             }
 
-            $mail = Mail::to($user->email)->send(new SendTicket($all));
             $all['apertura_email'] = true;
-            $mail = Mail::to(Auth()->user()->email)->send(new SendTicket($all));
+            
+            $cron = new Cron_job_mail();
+            $cron->mensaje = $all['titulo'];
+            $cron->ticket_codigo = $ticket_last->codigo;
+            $cron->from_email = auth()->user()->email;
+            $cron->from_name = auth()->user()->name;
+            $cron->to_email = $user->email;
+            $cron->to_name = $user->name;
+            $cron->save();
             return response()->json(['success'=>'Ticket creado con exito','reload'=>1]);
         }
     }
@@ -247,6 +264,7 @@ class TicketController extends Controller
             'columns'=> $heads['columns'],
             'head'=>$heads['head'],
             'categorias'=>$categorias,
+            'status'=>Estatu::all(),
             'id_filter'=>$id
         ]);
     }
