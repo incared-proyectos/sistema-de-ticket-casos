@@ -40,11 +40,11 @@ class SendMail extends Command
     public function handle()
     {
 
-        $jobs = Cron_job_mail::all();
+        $jobs = Cron_job_mail::take(4)->get();
         foreach ($jobs as $c) {
             $mail = Mail::to($c->to_email)->send(new SendMailL($c));
-            //$cron_email = Cron_job_mail::find($c->id);
-            //$cron_email->delete();
+            $cron_email = Cron_job_mail::find($c->id);
+            $cron_email->delete();
         }
 
         $this->info('Envio realizado con exito ');

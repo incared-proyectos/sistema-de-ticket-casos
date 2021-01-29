@@ -14,15 +14,11 @@
         <form action="" data-action="{{ url('tickets') }}" method="PUT" id="updated_form">
 
           <div class="row">
-            <div class="col-6 ">
+            <div class="col-12 ">
               <label for="">Titulo</label>
               <input type="text" name="titulo" id="titulo_input" class="form-control" placeholder="titulo del ticket"  readonly="">
             </div>
-            <div class="col-6 text-center">
-              <search-tickets></search-tickets>
-              <br>
-              <span class="item_select" id="user_selected" ></span>
-            </div>
+            
           </div>
           <hr>
           <div class="row mt-2">

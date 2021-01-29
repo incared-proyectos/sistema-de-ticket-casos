@@ -55,6 +55,10 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/tickets_filter/{id}', [App\Http\Controllers\TicketController::class, 'filter_category']);
 
+	Route::post('/ticket/user_asigne', [App\Http\Controllers\TicketController::class, 'delete_user_asigne']);
+
+	Route::post('/ticket/save_users', [App\Http\Controllers\TicketController::class, 'save_ticket_view']);
+
 	Route::post('/status/ticket', [App\Http\Controllers\TicketController::class, 'change_status']);
 
 	Route::get('/print/ticket/{id}', [App\Http\Controllers\TicketController::class, 'export_pdf']);

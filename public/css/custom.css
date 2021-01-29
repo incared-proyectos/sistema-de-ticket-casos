@@ -69,6 +69,9 @@
   border-color:#f7c6c5;
 
 }
+.alert-success-status{
+  background-color: rgba(160, 202, 108, 0.76) !important;
+}
 .box-link-ticket{
   padding: 10px;
 

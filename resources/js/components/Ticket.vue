@@ -1,6 +1,30 @@
 <template>
 	<div>
-
+		<div class="modal fade" id="createTicket" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalLabel">Ticket usuarios</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		      	<div v-if="success !== ''" class="alert alert-success">{{success}}</div>
+		      	<form action="" @submit.prevent="save_users" >
+		      		<input type="hidden" name="id_ticket" :value="ticket.id">
+		        	<search-user tipe="edit" ></search-user>
+		        	<div class="row mt-2">
+		        		<div class="col-12 text-center">
+		        			<button class="btn btn-primary">Guardar</button>
+		        		</div>
+		        	</div>
+		        </form>
+		      </div>
+		      
+		    </div>
+		  </div>
+		</div>
 	    <div class="card direct-chat direct-chat-primary">
 	    	<loader-ticket  :status="loader_status" ></loader-ticket>
 
@@ -9,7 +33,11 @@
               <h3 class="text-left card-title ">Apertura: <b>{{ticket.apertura}}</b></h3>
             </div>
             <div class="col-12 ">
-              <h3 class="text-left card-title ">Usuario asignado: <b>{{ticket.users.name}}</b></h3>
+              <h3 class="text-left card-title ">Usuarios asignados: </h3>	      
+              	<span id="user_selected" class="item_select" v-for="(item,key) in items_json_ticket" :key="key">{{item.name}}
+              		<a href="#" style="color:white;" @click.prevent="delete_item_ticket()" :data-id="item.id" :data-email="item.email" :data-key="key"><i class="fas fa-trash"></i></a>
+              </span>
+              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createTicket"><i class="fas fa-plus-square"></i></a>
             </div>
           </div>
           <div class="card-header">
@@ -22,6 +50,7 @@
             <br>
        
          </div>
+
         <!-- /.card-header -->
 	    <div class="card-body">
 
@@ -126,6 +155,8 @@
 <script>
 import LoaderTicket from './LoaderTicket.vue';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import SearchUser from './SearchUserTicket.vue';
+import {mapState,mapMutations} from "vuex";
 
 export default {
 	props:['id_ticket','ticket','mensaje_count'],
@@ -141,6 +172,9 @@ export default {
         editor: ClassicEditor,
         editorData: '',
         imgmodal:'',
+        success:'',
+        users_json:null,
+        users_selected:[],
         editorConfig: {
                     // The configuration of the editor.
         }
@@ -158,8 +192,28 @@ export default {
         this.asset_img = app_base_asset;
         this.asset_img_default = app_avatar_default;
 
+
+    },
+    computed:{
+    	...mapState(['items_json_ticket']),
     },
     mounted(){
+    	this.users_json = JSON.parse(this.ticket.users_asigne_json);
+    	this.$store.dispatch('loadItemsTicket', JSON.parse(this.ticket.users_asigne_json))
+
+    	this.$on('users_json', function(event){
+    		let users_json_array = (this.users_json !== null) ? Object.values(this.users_json) : []; 
+    		let me = this;
+    		$.each(event, function(index, val) {
+    			let users_in_array = users_json_array.filter(user => user.email == val.email);
+	          	if (users_in_array.length == 0) {
+	          		users_json_array.push(val);
+	          		me.users_json = users_json_array;
+    				me.$store.dispatch('loadItemsTicket', users_json_array)
+	          	}
+    		});
+        });
+
     },
     methods: {
     	opendeFolder(tipe){
@@ -182,6 +236,39 @@ export default {
 
       		this.url_img = URL.createObjectURL(file);
 
+		},
+		save_users(event){
+  		   this.loader_status = 'active';
+		   let me = this;
+		   let id_ticket = this.ticket.id;
+		   event.preventDefault();
+
+		   axios({
+			  method: 'POST',
+			  url: `${app_base_url}/ticket/save_users`,
+			  data: {
+			  	id_ticket,
+			  	users_js: this.users_json
+			  },
+			})
+		    .then(function (response) {
+	        	me.success = response.data.success
+    		 	me.loader_status = '';
+    			me.$store.dispatch('loadItems', [])
+		    })
+		   .catch(function (error) {
+		   		me.loader_status = 'inactive';
+
+			    if (error.response.status == 422){
+		        	$.each(error.response.data.error, function(index, val) {
+		        		me.errors.push({
+		        			val
+		        		})
+		        	});
+		      	}else if (error.response.status == 500) {
+		        	alert(error.response.data.message)
+		      	}
+			});
 		},
     	submit_mensaje(event){
     	   this.loader_status = 'active';
@@ -227,6 +314,35 @@ export default {
 			this.imgmodal = $(event.currentTarget).attr('data-src');
 			$('#fullimgModal').modal('show');
 		},
+		delete_item_ticket(){
+			this.loader_status = 'active';
+			let llave = $(event.currentTarget).attr('data-key');
+      		this.users_json.splice(llave, 1);
+    		this.$store.dispatch('loadItemsTicket', this.users_json)
+
+			let me = this;
+			let id = $(event.currentTarget).attr('data-id');
+			let email = $(event.currentTarget).attr('data-email');
+			let ticket_id = this.ticket.id;
+			let json_users = this.users_json;
+			let formData = {
+				id,
+				email,
+				ticket_id,
+				json_users
+			}
+			axios({
+			  method: 'POST',
+			  url: `${app_base_url}/ticket/user_asigne`,
+			  data: formData,
+			})
+		    .then(function (response) {
+      			me.loader_status = '';
+
+		    })
+		
+
+		},
     	bottom(){
     		setTimeout(function(){
 	    		var element = document.querySelector("body");
@@ -238,6 +354,7 @@ export default {
     },
     components: {
     	LoaderTicket,
+    	SearchUser
     }
   }
 

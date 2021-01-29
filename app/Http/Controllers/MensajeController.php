@@ -89,15 +89,17 @@ class MensajeController extends Controller
             }
             $all['from_id'] = auth()->id();
 
-            $user = User::find($ticket->users_id);
-            $cron = new Cron_job_mail();
-            $cron->mensaje = $all['mensaje'];
-            $cron->ticket_codigo = $ticket->codigo;
-            $cron->from_email = auth()->user()->email;
-            $cron->from_name = auth()->user()->name;
-            $cron->to_email = $user->email;
-            $cron->to_name = $user->name;
-            $cron->save();
+            $json_users = json_decode($ticket->users_asigne_json);
+            foreach ($json_users as $us) {
+                $cron = new Cron_job_mail();
+                $cron->mensaje = $all['mensaje'];
+                $cron->ticket_codigo = $ticket->codigo;
+                $cron->from_email = auth()->user()->email;
+                $cron->from_name = auth()->user()->name;
+                $cron->to_email = $us->email;
+                $cron->to_name = $us->name;
+                $cron->save();
+            }
             if($mensaje->fill($all)->save()){
                 return $this->query_message($all['ticket_id']);
             }

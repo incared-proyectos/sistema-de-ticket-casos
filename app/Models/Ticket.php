@@ -19,6 +19,7 @@ class Ticket extends Model
         'fecha_caducidad',
         'status',
         'users_id',
+        'users_asigne_json',
     ];
 
     protected static $logAttributes = [        
@@ -28,7 +29,7 @@ class Ticket extends Model
         'apertura',
         'fecha_caducidad',
         'status',
-        'users_id',
+        'users_asigne_json',
     ];
 
     protected static $logOnlyDirty = true;

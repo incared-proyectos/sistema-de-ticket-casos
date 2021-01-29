@@ -50,6 +50,23 @@ export default {
         $(function () {
 		    //$('#table_id').DataTable();
 		    if (base_url_http !== '') {
+
+		    	    // Setup - add a text input to each footer cell
+			    $('#table_id thead tr').clone(true).appendTo( '#table_id thead' );
+			    $('#table_id thead tr:eq(1) th').each( function (i) {
+			        var title = $(this).text();
+			        $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+			 
+			        $( 'input', this ).on( 'keyup change', function () {
+			            if ( me.instance_datatable.column(i).search() !== this.value ) {
+			                me.instance_datatable
+			                    .column(i)
+			                    .search( this.value )
+			                    .draw();
+			            }
+			        } );
+			    } );
+			 
 			    
 			    me.instance_datatable = $('#table_id').DataTable({
 			    	orderCellsTop: true,
@@ -76,8 +93,13 @@ export default {
 						if (data.fecha_caducidad === 'Caducado') {
 				    		$(row).attr('class','alert-danger-status')
 				    	}
+				    	if (data.status === 'Realizado' || data.status === 'Completado') {
+				    		$(row).attr('class','alert-success-status')
+				    	}
 			            $(row).attr( 'id','codenv'+data.id );
-			        }
+			        },
+			        "order": [[ 0, "desc" ]]
+
 				});
 
 

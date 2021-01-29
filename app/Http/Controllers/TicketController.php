@@ -43,6 +43,7 @@ class TicketController extends Controller
             array('data'=>'titulo'),
             array('data'=>'apertura'),
             array('data'=>'categorias'),
+            array('data'=>'users_ticket'),
             array('data'=>'status_info'),
             array('data'=>'fecha_caducidad'),
             array('data'=>'created_at'),
@@ -54,6 +55,7 @@ class TicketController extends Controller
             'Titulo',
             'Apertura',
             'Categorias',
+            'Asignados',
             'Estatus',
             'Fecha de caducidad',
             'Fecha de creacion',
@@ -143,6 +145,14 @@ class TicketController extends Controller
         })->addColumn('status_info', function($row) use ($estatus){
             $url_status = url('status/ticket');
             return view('layouts.status',['status'=>$row['status'],'id_ticket'=>$row['id'],'url_action'=>$url_status,'estatus'=>$estatus]);
+        })->addColumn('users_ticket', function($row) use ($estatus){
+            return view('layouts.user_tickets',['ticket'=>$row ]);
+        })->editColumn('created_at', function($row){
+             setlocale(LC_TIME, 'es_ES');
+             Carbon::setLocale('es');            
+            $fecha = $row['created_at'];
+
+            return '<small>'.$fecha->format('l j F Y H:i:s').'</small>';
         })->editColumn('fecha_caducidad', function($row){
             Carbon::setLocale('es');
             $ticket = ticket::find($row['id']);
@@ -160,7 +170,7 @@ class TicketController extends Controller
                 return 'Caducado';
             }
             return $diasDiferencia;
-        })->rawColumns(['action','categorias','status_info']);
+        })->rawColumns(['action','categorias','status_info','created_at']);
         return $table->make(true);
     }
     public function change_status(Request $request){
@@ -168,6 +178,7 @@ class TicketController extends Controller
         $ticket = Ticket::find($all['id_ticket']);
         $estatus = Estatu::find($all['id_status']);
         $ticket->status = $estatus->nombre;
+        $ticket->status_color = $estatus->color;
         $ticket->save();
     }
 
@@ -193,42 +204,58 @@ class TicketController extends Controller
         $ticket = new Ticket();
         $validator = Validator::make($all,[
             'titulo' => 'required',
-            'user'   => 'required',
+            'users_asigne_json'   => 'required',
+            'descripcion',
+            'categorias',
 
         ]);
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
-            $user = User::where('email',$all['user'])->first();
-            if (!empty($user)) {
-                $all['users_id'] = $user->id;
-                $all['apertura'] = Auth()->user()->name;
-                $all['codigo'] = $this->generate_cod_venta();
-                $all['status'] = 'active';
-                $ticket->fill($all)->save();
-                $ticket_last = Ticket::orderBy('id','DESC')->first();
-                for ($i=0; $i <count($all['categorias']) ; $i++) { 
-                    $categorias = new Categorias_has_ticket();
-                    $categorias->categoria_id = $all['categorias'][$i];
-                    $categorias->ticket_id = $ticket_last->id;
-                    $categorias->save();
-                }
-            }else{
-                return response()->json(['error'=>array('El usuario no existe')],422);
+            $all['users_id'] = 1;
+            $all['apertura'] = Auth()->user()->name;
+            $all['codigo'] = $this->generate_cod_venta();
+            $all['status'] = 'Activo';
+            $all['status_color'] = '#c1ffff';
+            $ticket->fill($all)->save();
+            $ticket_last = Ticket::orderBy('id','DESC')->first();
+            for ($i=0; $i <count($all['categorias']) ; $i++) { 
+                $categorias = new Categorias_has_ticket();
+                $categorias->categoria_id = $all['categorias'][$i];
+                $categorias->ticket_id = $ticket_last->id;
+                $categorias->save();
             }
+            
+            
 
             $all['apertura_email'] = true;
-            
-            $cron = new Cron_job_mail();
-            $cron->mensaje = $all['titulo'];
-            $cron->ticket_codigo = $ticket_last->codigo;
-            $cron->from_email = auth()->user()->email;
-            $cron->from_name = auth()->user()->name;
-            $cron->to_email = $user->email;
-            $cron->to_name = $user->name;
-            $cron->save();
+            $ap_users = json_decode($all['users_asigne_json']);
+            foreach ($ap_users as $user) {
+                # code...
+                $cron = new Cron_job_mail();
+                $cron->mensaje = $all['titulo'];
+                $cron->ticket_codigo = $ticket_last->codigo;
+                $cron->from_email = auth()->user()->email;
+                $cron->from_name = auth()->user()->name;
+                $cron->to_email = $user->email;
+                $cron->to_name = $user->name;
+                $cron->save();
+            }
             return response()->json(['success'=>'Ticket creado con exito','reload'=>1]);
+
+
         }
+    }
+    public function save_ticket_view(Request $request){
+        $all = $request->all();
+        $ticket = Ticket::find($all['id_ticket']);
+        if (!empty($ticket)) {
+            $ticket->users_asigne_json = $all['users_js'];
+            $ticket->save();
+        }
+            
+        
+        return response()->json(['success'=>'Ticket actualizado con exito','reload'=>1]);
     }
     public function generate_cod_venta(){
         $mensaje  = Ticket::orderBy('id','DESC')->first();
@@ -299,14 +326,7 @@ class TicketController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
-            if (!empty($all['user'])) {
-                $user = User::where('email',$all['user'])->orWhere('name',$all['user'])->first();
-    
-                if (empty($user)) {
-                    return response()->json(['error'=>array('El usuario no existe')],422); 
-                }
-                $all['users_id'] = $user->id;
-            }
+            
 
             $campos = '';
             $id_ticket = $ticket->id;
@@ -361,6 +381,22 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function delete_user_asigne(Request $request){
+        $all = $request->all();
+        $find = ticket::find($all['ticket_id']);
+        if (!empty($find)) {
+            $users_asigne = json_decode($find->users_asigne_json,true);
+            foreach ($users_asigne as $k => $v) {
+                if ($v['email'] == $all['email']) {
+                    unset($users_asigne[$k]); 
+                }
+            }
+            $find->users_asigne_json = $all['json_users'];
+            $find->save();
+        }
+       // return response()->json(['success'=>'Registro eliminado con exito','reload'=>1]);
+
+    }
     public function destroy($id)
     {
         $ticket = Ticket::find($id);
