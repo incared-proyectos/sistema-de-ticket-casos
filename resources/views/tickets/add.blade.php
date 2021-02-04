@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog " role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Crear Ticket</h5>
@@ -31,7 +31,11 @@
                   <option value="">Seleccionar Categoria.</option>
 
                   @foreach($categorias as $p)
-                    <option value="{{$p->nombre}}" data-id="{{$p->id}}">{{$p->nombre}}</option>
+                    @foreach($cat_user as $cc)
+                      @if($p->nombre == $cc->nombre)
+                        <option value="{{$p->nombre}}" data-id="{{$p->id}}">{{$p->nombre}}</option>
+                      @endif
+                    @endforeach
                   @endforeach
                 </select>
             </div>

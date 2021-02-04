@@ -2087,8 +2087,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   created: function created() {
     this.user_object = JSON.parse(this.user);
+    console.log(this.user);
 
-    if (this.user_object.img_src !== '') {
+    if (this.user_object.img_src !== null) {
       this.img_src = "".concat(this.user_img, "/").concat(this.user_object.id, "/").concat(this.user_object.img_src);
     } else {
       this.img_src = this.img_default;
@@ -2476,14 +2477,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'head', 'id_filter', 'tipe', 'estatus'],
   data: function data() {
@@ -2754,18 +2747,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['id_ticket', 'ticket', 'mensaje_count'],
+  props: ['id_ticket', 'ticket', 'mensaje_count', 'status', 'role_user'],
   data: function data() {
     return {
       mensajes: [],
       asset_img: '',
       url_img: '',
       url_file: '',
+      url_status: '',
       file_name: '',
       asset_img_default: '',
       loader_status: '',
@@ -2782,6 +2788,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
+    this.url_status = "".concat(app_base_url, "/status/ticket");
     axios.get("".concat(app_base_url, "/api/mensaje/").concat(this.id_ticket)).then(function (response) {
       _this.mensajes = response.data;
 
@@ -2811,6 +2818,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
   },
   methods: {
+    change_status: function change_status(event) {
+      $.ajaxblock('body', 'fixed');
+      var url = $(event.currentTarget).attr('data-url');
+      var id_ticket = $(event.currentTarget).attr('data-ticket');
+      var id_status = $(event.currentTarget).attr('data-id');
+      event.preventDefault();
+      axios({
+        method: 'POST',
+        url: url,
+        data: {
+          id_ticket: id_ticket,
+          id_status: id_status
+        }
+      }).then(function (response) {
+        location.reload();
+        $.ajaxunblock();
+      })["catch"](function (error) {
+        if (error.response.status == 422) {
+          alert(error.response.data.error);
+        } else if (error.response.status == 500) {
+          alert(error.response.data.message);
+        }
+      });
+    },
     opendeFolder: function opendeFolder(tipe) {
       if (tipe == 'file') {
         this.$refs.attachment.click();
@@ -89206,65 +89237,6 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "row justify-content-center mt-3" }, [
-      _c("div", { staticClass: "col-12 text-center" }, [
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.status_active,
-                expression: "status_active"
-              }
-            ],
-            attrs: { name: "sta", id: "status" },
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.status_active = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                _vm.filter_datatable
-              ]
-            }
-          },
-          _vm._l(_vm.estatus, function(item) {
-            return _c(
-              "option",
-              {
-                key: item.id,
-                attrs: { value: "" },
-                domProps: { value: item.nombre }
-              },
-              [_vm._v(_vm._s(item.nombre))]
-            )
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "ml-2 btn btn-primary btn-sm",
-            attrs: { href: "#" },
-            on: { click: _vm.reset_datatable }
-          },
-          [_vm._v("Reset Filters")]
-        )
-      ])
-    ]),
-    _vm._v(" "),
     _c("div", { staticClass: "table-responsive" }, [
       _c(
         "table",
@@ -89385,7 +89357,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-12 " },
+            { staticClass: "col-6 " },
             [
               _c("h3", { staticClass: "text-left card-title " }, [
                 _vm._v("Usuarios asignados: ")
@@ -89401,33 +89373,104 @@ var render = function() {
                   },
                   [
                     _vm._v(_vm._s(item.name) + "\n              \t\t"),
-                    _c(
-                      "a",
-                      {
-                        staticStyle: { color: "white" },
-                        attrs: {
-                          href: "#",
-                          "data-id": item.id,
-                          "data-email": item.email,
-                          "data-key": key
-                        },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.delete_item_ticket()
-                          }
-                        }
-                      },
-                      [_c("i", { staticClass: "fas fa-trash" })]
-                    )
+                    _vm.role_user === "administrador" ||
+                    _vm.role_user === "tecnico"
+                      ? _c(
+                          "a",
+                          {
+                            staticStyle: { color: "white" },
+                            attrs: {
+                              href: "#",
+                              "data-id": item.id,
+                              "data-email": item.email,
+                              "data-key": key
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.delete_item_ticket()
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-trash" })]
+                        )
+                      : _vm._e()
                   ]
                 )
               }),
               _vm._v(" "),
-              _vm._m(2)
+              _vm.role_user === "administrador" || _vm.role_user === "tecnico"
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        href: "#",
+                        "data-toggle": "modal",
+                        "data-target": "#createTicket"
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-plus-square" })]
+                  )
+                : _vm._e()
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _vm.role_user === "administrador" || _vm.role_user === "tecnico"
+            ? _c("div", { staticClass: "col-6 text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary dropdown-toggle",
+                    style: { background: _vm.ticket.status_color, border: 0 },
+                    attrs: { type: "button", "data-toggle": "dropdown" }
+                  },
+                  [
+                    _vm._v(
+                      "\n            \t\t" +
+                        _vm._s(_vm.ticket.status) +
+                        "\n\t\t\t\t"
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "dropdown-menu" },
+                  _vm._l(_vm.status, function(item) {
+                    return item.nombre !== _vm.ticket.status
+                      ? _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item ",
+                            attrs: {
+                              href: "#",
+                              "data-url": _vm.url_status,
+                              "data-ticket": _vm.ticket.id,
+                              "data-id": item.id
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.change_status($event)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t " +
+                                _vm._s(item.nombre) +
+                                "\n\t\t\t\t\t"
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  }),
+                  0
+                )
+              ])
+            : _vm._e()
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "card-header" }, [
@@ -89762,7 +89805,7 @@ var render = function() {
           { staticClass: "modal-dialog", attrs: { role: "document" } },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c("img", {
@@ -89812,23 +89855,6 @@ var staticRenderFns = [
         _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Guardar")])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "btn btn-primary",
-        attrs: {
-          href: "#",
-          "data-toggle": "modal",
-          "data-target": "#createTicket"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-plus-square" })]
-    )
   },
   function() {
     var _vm = this
@@ -103495,14 +103521,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!**************************************************!*\
   !*** ./resources/js/components/ModalProfile.vue ***!
   \**************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ModalProfile_vue_vue_type_template_id_99759fb2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ModalProfile.vue?vue&type=template&id=99759fb2& */ "./resources/js/components/ModalProfile.vue?vue&type=template&id=99759fb2&");
 /* harmony import */ var _ModalProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ModalProfile.vue?vue&type=script&lang=js& */ "./resources/js/components/ModalProfile.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ModalProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ModalProfile_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -103532,7 +103559,7 @@ component.options.__file = "resources/js/components/ModalProfile.vue"
 /*!***************************************************************************!*\
   !*** ./resources/js/components/ModalProfile.vue?vue&type=script&lang=js& ***!
   \***************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -104233,15 +104260,42 @@ window.addEventListener("load", function (event) {
       if ($("#item".concat(id_select)).length <= 0 && name_select !== '') {
         $('#options_select').append(" \n\t\t\t\t\t<span class=\"item_select\" id=\"item".concat(id_select, "\"><input type=\"hidden\" name=\"categorias[]\" value=\"").concat(id_select, "\"><i class=\"fab fa-adn\"></i> ").concat(name_select, " <a href=\"#\" class=\"delete_select text-white\" data-id=\"").concat(id_select, "\"\"><i class=\"far fa-trash-alt\"></i></a></span>\n\t\t\t\t"));
       }
+    });
+    $(document).on("change", "#change_select_permissions", function (event) {
+      var id_select = $(this).find('option:selected').attr('data-id');
+      var name_select = $(this).val();
+
+      if ($("#item_permiso".concat(id_select)).length <= 0 && name_select !== '') {
+        $('#options_select_permission').append(" \n\t\t\t\t\t<span class=\"item_select\" id=\"item_permiso".concat(id_select, "\"><input type=\"hidden\" name=\"permisos[]\" value=\"").concat(name_select, "\"><i class=\"fab fa-adn\"></i> ").concat(name_select, " <a href=\"#\" class=\"delete_select_permisos text-white\" data-id=\"").concat(id_select, "\"\"><i class=\"far fa-trash-alt\"></i></a></span>\n\t\t\t\t"));
+      }
+    });
+    $(document).on("change", "#change_select_permissions_update", function (event) {
+      var id_select = $(this).find('option:selected').attr('data-id');
+      var name_select = $(this).val();
+
+      if ($("#item_update_permiso".concat(id_select)).length <= 0 && name_select !== '') {
+        $('#options_select_permission_update').append(" \n\t\t\t\t\t<span class=\"item_select\" id=\"item_permiso".concat(id_select, "\"><input type=\"hidden\" name=\"permisos[]\" value=\"").concat(name_select, "\"><i class=\"fab fa-adn\"></i> ").concat(name_select, " <a href=\"#\" class=\"delete_select_permisos text-white\" data-id=\"").concat(id_select, "\"\"><i class=\"far fa-trash-alt\"></i></a></span>\n\t\t\t\t"));
+      }
     }); //Para  la plantilla de  updated
 
     $(document).on("change", "#change_select_updated", function (event) {
       var id_select = $(this).find('option:selected').attr('data-id');
-      var name_select = $(this).val();
-      $('#check_categories').val(1);
+      var name_select = $(this).val(); //$('#check_categories').val(1);
 
       if ($("#item_update".concat(id_select)).length <= 0 && name_select !== '') {
         $('#options_select_updated').append(" \n\t\t\t\t\t<span class=\"item_select\" id=\"item_update".concat(id_select, "\"><input type=\"hidden\" name=\"categorias[]\" value=\"").concat(id_select, "\"><i class=\"fab fa-adn\"></i> ").concat(name_select, " <a href=\"#\" class=\"delete_select text-white\" data-id=\"").concat(id_select, "\"\"><i class=\"far fa-trash-alt\"></i></a></span>\n\t\t\t\t"));
+      }
+    });
+    $(document).on("click", ".delete_select_permisos", function (event) {
+      var id_select = $(this).attr('data-id');
+      event.preventDefault();
+
+      if ($("#item_permiso".concat(id_select)).length > 0) {
+        $("#item_permiso".concat(id_select)).remove();
+      } else if ($("#item_update_permiso".concat(id_select)).length > 0) {
+        //$('#check_categories').val(1);
+        $("#item_update_permiso".concat(id_select)).remove();
+      } else {//$(`#check_categories`).remove();
       }
     }); //Para eliminar los items seleccionados de permisos 
 
@@ -104259,6 +104313,23 @@ window.addEventListener("load", function (event) {
       }
     });
   }
+
+  $(document).on("click", ".sidebarchange", function (event) {
+    axios({
+      method: 'get',
+      url: "".concat(app_base_url, "/perfil/sidebar")
+    }).then(function (response) {})["catch"](function (error) {
+      if (error.response.status == 422) {
+        $.each(error.response.data.error, function (index, val) {
+          me.errors.push({
+            val: val
+          });
+        });
+      } else if (error.response.status == 500) {
+        alert(error.response.data.message);
+      }
+    });
+  });
 });
 
 /***/ }),

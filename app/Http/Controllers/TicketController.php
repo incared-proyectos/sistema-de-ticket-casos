@@ -27,13 +27,17 @@ class TicketController extends Controller
      */
     public function index()
     {
+
         $heads = $this->head_datatables();
         $categorias = Categoria::all();
+        $user = User::with('categorias')->find(auth()->id());
+      
         return view('tickets.index',[
             'columns'=> $heads['columns'],
             'head'=>$heads['head'],
             'categorias'=>$categorias,
-            'status'=>Estatu::all()
+            'status'=>Estatu::all(),
+            'cat_user'=>$user->categorias
         ]);
     }
     public function head_datatables(){
@@ -109,25 +113,24 @@ class TicketController extends Controller
     }
     public function filter_datatable(Request $request){
         $tipe = $request->get('tipe');
-        $status = $request->get('status');
         if ($tipe == 'all') {
-            $ticket = (empty($status)) ? Ticket::all() : Ticket::where('status',$status)->get();
+            $ticket =  Ticket::where('apertura_id',auth()->id())->orWhere(DB::raw('JSON_EXTRACT(`users_asigne_json`, "$[0].id")'),auth()->id())->get();
+         
             return $this->datatables($ticket);
         }else if ($tipe == 'filter_category') {
             $id =  $request->get('id_filter');
-            if (empty($status)) {
-                $ticket = ticket::whereHas('categorias', function ($query) use ($id) {
-                    return $query->where('categoria_id', '=', $id);
-                })->get();
-            }else{
-                $ticket = ticket::whereHas('categorias', function ($query) use ($id) {
-                    return $query->where('categoria_id', '=', $id);
-                })->where('status',$status)->get();  
-            }
+        
+            $ticket = Ticket::whereHas('categorias', function ($query) use ($id) {
+                return $query->where('categoria_id', '=', $id);
+            })->where(function ($query) {
+                $query->where('apertura_id', auth()->id())
+                ->orWhere(DB::raw('JSON_EXTRACT(`users_asigne_json`, "$[0].id")'),auth()->id());
+            })->get();
             return $this->datatables($ticket);
         }
 
     }
+   
     public function datatables($ticket){
         $table = Datatables::of($ticket);
         $estatus = Estatu::all();
@@ -214,6 +217,7 @@ class TicketController extends Controller
         }else{
             $all['users_id'] = 1;
             $all['apertura'] = Auth()->user()->name;
+            $all['apertura_id'] = auth()->id();
             $all['codigo'] = $this->generate_cod_venta();
             $all['status'] = 'Activo';
             $all['status_color'] = '#c1ffff';
@@ -278,21 +282,34 @@ class TicketController extends Controller
      */
     public function show($id)
     {   
-        $ticket = Ticket::with('users')->find($id);
+        $ticket = Ticket::with('users')
+        ->where('id',$id)
+        ->where(function ($query) {
+            $query->where('apertura_id', auth()->id())->orWhere(DB::raw('JSON_EXTRACT(`users_asigne_json`, "$[0].id")'),auth()->id());
+        })->find($id);
+        if (!empty($ticket)) {
+            # code...
+            $user = User::find(auth()->id());
+            $mensaje_count = Mensaje::where('ticket_id',$id)->count();
+            return view('tickets.view',['id'=>$id,'ticket'=>$ticket,'mensaje_count'=>$mensaje_count,'status'=>Estatu::all(),'rol_user'=>$user->getRoleNames()[0]]);
+        }else{
+            abort(403, 'Unauthorized action.');
+        }
 
-        $mensaje_count = Mensaje::where('ticket_id',$id)->count();
-        return view('tickets.view',['id'=>$id,'ticket'=>$ticket,'mensaje_count'=>$mensaje_count]);
     }
     public function filter_category($id)
     {  
         $heads = $this->head_datatables();
+        $user = User::with('categorias')->find(auth()->id());
         $categorias = Categoria::all();
         return view('tickets.filter_category',[
             'columns'=> $heads['columns'],
             'head'=>$heads['head'],
             'categorias'=>$categorias,
             'status'=>Estatu::all(),
-            'id_filter'=>$id
+            'id_filter'=>$id,
+            'cat_user'=>$user->categorias
+
         ]);
     }
 

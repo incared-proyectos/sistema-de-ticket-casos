@@ -16,13 +16,13 @@ class MicrosoftController extends Controller
   {
     // Initialize the OAuth client
     $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-      'clientId'                => env('OAUTH_APP_ID'),
-      'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-      'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-      'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-      'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+      'clientId'                => config('microsoft.oauth_app_id'),
+      'clientSecret'            => config('microsoft.oauth_app_password'),
+      'redirectUri'             => config('microsoft.oauth_redirect_url'),
+      'urlAuthorize'            => config('microsoft.oauth_authority').config('microsoft.oauth_authorize_endpoint'),
+      'urlAccessToken'          => config('microsoft.oauth_authority').config('microsoft.oauth_token_endpoin'),
       'urlResourceOwnerDetails' => '',
-      'scopes'                  => env('OAUTH_SCOPES')
+      'scopes'                  => config('microsoft.oauth_scopes')
     ]);
 
     $authUrl = $oauthClient->getAuthorizationUrl();
@@ -60,13 +60,13 @@ class MicrosoftController extends Controller
     if (isset($authCode)) {
       // Initialize the OAuth client
       $oauthClient = new \League\OAuth2\Client\Provider\GenericProvider([
-        'clientId'                => env('OAUTH_APP_ID'),
-        'clientSecret'            => env('OAUTH_APP_PASSWORD'),
-        'redirectUri'             => env('OAUTH_REDIRECT_URI'),
-        'urlAuthorize'            => env('OAUTH_AUTHORITY').env('OAUTH_AUTHORIZE_ENDPOINT'),
-        'urlAccessToken'          => env('OAUTH_AUTHORITY').env('OAUTH_TOKEN_ENDPOINT'),
+        'clientId'                => config('microsoft.oauth_app_id'),
+        'clientSecret'            => config('microsoft.oauth_app_password'),
+        'redirectUri'             => config('microsoft.oauth_redirect_url'),
+        'urlAuthorize'            => config('microsoft.oauth_authority').config('microsoft.oauth_authorize_endpoint'),
+        'urlAccessToken'          => config('microsoft.oauth_authority').config('microsoft.oauth_token_endpoin'),
         'urlResourceOwnerDetails' => '',
-        'scopes'                  => env('OAUTH_SCOPES')
+        'scopes'                  => config('microsoft.oauth_scopes')
       ]);
 
       try {

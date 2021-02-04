@@ -11,6 +11,7 @@ use Yajra\Datatables\Datatables;
 use App\Models\User;
 use App\Models\Categoria;
 use App\Models\Categorias_has_user;
+use DB;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
     public function index()
     {   
 
+
         $columns = array(
             array('data'=>'id'),
             array('data'=>'name'),
@@ -29,6 +31,7 @@ class UserController extends Controller
             array('data'=>'categorias'),
             array('data'=>'action'),
         );
+
         $head = array(
             'ID',
             'Name',
@@ -36,10 +39,18 @@ class UserController extends Controller
             'Categorias',
             'Action',
         );
+
+        $user = User::with('roles')->find(auth()->id());
+
+        if ($user->hasRole('tecnico')) {
+            unset($head[4]);
+            unset($columns[4]);
+        }
         return view('users.index',[
             'columns'=>$columns,
             'head'=>$head ,
             'roles'=>Role::all(),
+            'permission'=>Permission::all(),
             'categoria'=>Categoria::all()
         ]);
     }
@@ -57,12 +68,12 @@ class UserController extends Controller
                 }
                 return $message;
             }
-        })->rawColumns(['action','categorias']);
+        })->rawColumns(['action','categorias','permisos']);
         return $table->make(true);
     }
     public function search(Request $request){
         $all = $request->all();
-            $users = User::where('name','like','%'.$all['search'].'%')->where('email','like','%'.$all['search'].'%')->get();
+        $users = User::where('name','like','%'.$all['search'].'%')->where('email','like','%'.$all['search'].'%')->get();
         
         return $users;
     }
@@ -97,6 +108,7 @@ class UserController extends Controller
         if ($validator->fails()) {
             return response()->json(['error'=>$validator->errors()->all()],422);
         }else{
+
             $user = User::create([
                 'name' => $all['name'],
                 'email' => $all['email'],
@@ -111,6 +123,7 @@ class UserController extends Controller
                 $categorias->user_id = $user->id;
                 $categorias->save();
             }
+
             return response()->json(['success'=>'Usuario creado con exito','reload'=>1]);
         }
     }
@@ -138,7 +151,10 @@ class UserController extends Controller
         return view('users.edit',[
             'user'=>$user,
             'roles'=>Role::all(),
-            'categorias'=>Categoria::all()
+            'categorias'=>Categoria::all(),
+            'permisos_user'=> $user->permissions,
+            'permission'=>Permission::all(),
+
         ]);  
     }
 
@@ -171,6 +187,7 @@ class UserController extends Controller
             }
             $user->assignRole($all['rol']);
             $categorias = Categorias_has_user::where('user_id',$id)->delete();
+
             for ($i=0; $i <count($all['categorias']) ; $i++) { 
                 $categorias = new Categorias_has_user();
                 $categorias->categoria_id = $all['categorias'][$i];

@@ -1,13 +1,5 @@
 <template>
 	<div>
-		<div class="row justify-content-center mt-3">
-			<div class="col-12 text-center">
-				<select name="sta" id="status" v-model="status_active" @change="filter_datatable">
-					<option value="" v-for="item in estatus" :value="item.nombre" :key="item.id">{{item.nombre}}</option>
-				</select>
-				<a href="#" class="ml-2 btn btn-primary btn-sm" @click="reset_datatable">Reset Filters</a>
-			</div>
-		</div>
 		<div class="table-responsive">
 			<table id="table_id" class="table table-bordered table-striped dataTable">
 			    <thead>

@@ -10,30 +10,29 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                   <i class="fas fa-atom"></i> Usuarios
+                   <i class="fas fa-atom"></i> Permisos
                 </div>
                 <div class="card-body">
-                    @role('administrador')
-                      <button  class="btn btn-primary mb-2" data-toggle="modal" data-target="#createModal"><i class="fas fa-folder-plus"></i> Agregar</button>
-                    @endrole
+                  <button  class="btn btn-primary mb-2" data-toggle="modal" data-target="#createModal"><i class="fas fa-folder-plus"></i> Agregar</button>
+ 
+                  <hr>
                     <!--TABLA REALIZADA CON VUEJS Y DATATABLES LE PASAMOS LAS COLUMNAS Y HEAD PARA QUE SEA DINAMICA PARA CUALQUIER VISTA-->
-                    <table-vue :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" ></table-vue>
+                    <table-vue :columns="{{ json_encode($columns) }}" :head="{{ json_encode($head) }}" tipe="all" ></table-vue>
                 </div>
               </div>
             </div>
         </div>
       </div><!-- /.container-fluid -->
     </div>
-    <!-- /.content -->
+    @include('permisos.add')
 </div>
-@include('users.add')
+
 <div id="response_edit"></div>
+
 @endsection
 @section('scripts_before_init')
   <script>
-    const base_url_http = "{{ url('usuarios/datatables')}}";
-    document.addEventListener('DOMContentLoaded', function(event) {
-      $('select').selectpicker();
-    });
+    const base_url_http = "{{ url('datatables/permisos')}}";
   </script>
+
 @endsection

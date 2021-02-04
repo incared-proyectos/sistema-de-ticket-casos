@@ -16,10 +16,7 @@
                   <button  class="btn btn-primary mb-2" data-toggle="modal" data-target="#createModal"><i class="fas fa-folder-plus"></i> Agregar</button>
                   <div class="row">
                     <div class="col-12 text-center">
-                      <a href="{{url('tickets')}}" class="btn btn-outline-primary text-capitalize" mt-2>All</a>
-                      @foreach($categorias as $c)
-                        <a href="{{url('tickets_filter/'.$c->id)}}" class="btn btn-outline-primary text-capitalize" mt-2><i class="fas fa-ticket-alt"></i> {{$c->nombre}}</a> 
-                      @endforeach
+                      @include('tickets.buttons_category',['categorias'=>$categorias,'cat_user'=>$cat_user])
                     </div>
                   </div>
                   <hr>

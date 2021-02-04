@@ -10,7 +10,7 @@
             <div class="col-12">
                          <!-- DIRECT CHAT -->
 
-              <ticket :id_ticket="{{$id}}" :ticket="{{$ticket}}" :mensaje_count="{{$mensaje_count}}"></ticket>
+              <ticket :id_ticket="{{$id}}" :ticket="{{$ticket}}" :role_user="'{{$rol_user}}'" :status="{{$status}}" :mensaje_count="{{$mensaje_count}}"></ticket>
 
       
             <!--/.direct-chat -->

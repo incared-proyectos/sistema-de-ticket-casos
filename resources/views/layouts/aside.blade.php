@@ -12,7 +12,7 @@
           <!-- Sidebar user panel (optional) -->
           <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-              <img src="{{ asset('storage/profile/'.Auth::user()->id.'/'.Auth::user()->img_src)}}" id="img_aside" class="img-circle elevation-2" alt="User Image">
+              <img src="{{ (file_exists('storage/profile/'.Auth::user()->id.'/'.Auth::user()->img_src)) ? asset('storage/profile/'.Auth::user()->id.'/'.Auth::user()->img_src) : asset('img/avatar5.png') }}" id="img_aside" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
               <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -35,8 +35,13 @@
                   </p>
                 </a>
               </li>
-              <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) ? 'menu-open' : '' }}">
-                <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) ? 'active' : '' }}">
+              @role('usuario')
+
+              @else
+            
+
+              <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) || request()->is('permisos') ? 'menu-open' : '' }}">
+                <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*'))  || request()->is('permisos') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-th"></i>
                   <p>
                     Usuarios
@@ -44,6 +49,9 @@
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
+
+
+
                   <li class="nav-item">
                     <a href="{{ url('/usuarios')}}" class="nav-link {{ (request()->is('usuarios*')) ? 'active' : '' }}">
                       <i class="fas fa-certificate"></i>
@@ -52,6 +60,7 @@
                       </p>
                     </a>
                   </li>
+                  @role('administrador')
                   <li class="nav-item">
                     <a href="{{ url('/rol')}}" class="nav-link {{ (request()->is('rol*')) ? 'active' : '' }}">
                       <i class="fas fa-certificate"></i>
@@ -68,8 +77,19 @@
                       </p>
                     </a>
                   </li>
+                  @endrole
+                  <!--li class="nav-item">
+                    <a href="{{ url('/permisos')}}" class="nav-link {{ (request()->is('permisos*')) ? 'active' : '' }}">
+                      <i class="fas fa-certificate"></i>
+                      <p>
+                        Permisos
+                      </p>
+                    </a>
+                  </li-->
                 </ul>
               </li>
+              @endrole
+
                <li class="nav-item">
                 <a href="{{ url('/tickets')}}" class="nav-link {{ (request()->is('tickets*')) ? 'active' : '' }}" >
                   <i class="nav-icon fas fa-th"></i>
@@ -79,15 +99,26 @@
                 </a>
 
               </li>
-              <li class="nav-item">
-                <a href="{{ url('/estatus')}}" class="nav-link {{ (request()->is('estatus*')) ? 'active' : '' }}" >
+              @role('administrador')
+                <li class="nav-item">
+                  <a href="{{ url('/estatus')}}" class="nav-link {{ (request()->is('estatus*')) ? 'active' : '' }}" >
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>
+                      Estatus Ticket
+                    </p>
+                  </a>
+
+                </li>
+              @endrole
+              <!--li class="nav-item">
+                <a href="{{ url('/buttons')}}" class="nav-link {{ (request()->is('buttons*')) ? 'active' : '' }}" >
                   <i class="nav-icon fas fa-th"></i>
                   <p>
-                    Estatus Ticket
+                    Buttons Permisos
                   </p>
                 </a>
 
-              </li>
+              </li-->
             </ul>
           </nav>
           <!-- /.sidebar-menu -->

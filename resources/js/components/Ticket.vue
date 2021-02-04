@@ -32,12 +32,24 @@
             <div class="col-12 ">
               <h3 class="text-left card-title ">Apertura: <b>{{ticket.apertura}}</b></h3>
             </div>
-            <div class="col-12 ">
+            <div class="col-6 ">
               <h3 class="text-left card-title ">Usuarios asignados: </h3>	      
               	<span id="user_selected" class="item_select" v-for="(item,key) in items_json_ticket" :key="key">{{item.name}}
-              		<a href="#" style="color:white;" @click.prevent="delete_item_ticket()" :data-id="item.id" :data-email="item.email" :data-key="key"><i class="fas fa-trash"></i></a>
+              		<a href="#" style="color:white;"  @click.prevent="delete_item_ticket()" v-if="role_user === 'administrador' || role_user ==='tecnico'" :data-id="item.id" :data-email="item.email" :data-key="key"><i class="fas fa-trash"></i></a>
               </span>
-              <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#createTicket"><i class="fas fa-plus-square"></i></a>
+              <a href="#" class="btn btn-primary" v-if="role_user === 'administrador' || role_user ==='tecnico'" data-toggle="modal" data-target="#createTicket"><i class="fas fa-plus-square"></i></a>
+            </div>
+            <div class="col-6 text-right"  v-if="role_user === 'administrador' || role_user ==='tecnico'" >
+            	<button type="button" :style="{background:ticket.status_color,border:0}"  class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            		{{ticket.status}}
+				</button>
+				<div class="dropdown-menu">
+					<a class="dropdown-item " href="#"  :data-url="url_status" v-for="item in status" v-if="item.nombre !== ticket.status" :data-ticket="ticket.id" :data-id="item.id" @click.prevent="change_status">
+						 {{item.nombre}}
+					</a>
+					
+				</div>
+
             </div>
           </div>
           <div class="card-header">
@@ -159,13 +171,14 @@ import SearchUser from './SearchUserTicket.vue';
 import {mapState,mapMutations} from "vuex";
 
 export default {
-	props:['id_ticket','ticket','mensaje_count'],
+	props:['id_ticket','ticket','mensaje_count','status','role_user'],
     data: function() {
       return {
         mensajes: [],
         asset_img:'',
         url_img:'',
         url_file:'',
+        url_status:'',
         file_name:'',
         asset_img_default:'',
         loader_status:'',
@@ -182,7 +195,7 @@ export default {
       };
     },
     created() {
-
+    	this.url_status = `${app_base_url}/status/ticket`;
     	axios.get(`${app_base_url}/api/mensaje/${this.id_ticket}`)
         .then((response)=> {
           this.mensajes = response.data;
@@ -216,6 +229,34 @@ export default {
 
     },
     methods: {
+    	change_status(event){
+    		$.ajaxblock('body','fixed');
+    		let url = $(event.currentTarget).attr('data-url');
+			let id_ticket = $(event.currentTarget).attr('data-ticket');
+			let id_status = $(event.currentTarget).attr('data-id');
+			event.preventDefault();
+			axios({
+			  method:'POST',
+			  url: url,
+			  data:{
+			  	id_ticket,
+			  	id_status,
+
+			  }
+			})
+			.then(function (response) {
+				location.reload();
+				$.ajaxunblock();
+			})	
+			.catch(function (error) {
+			    if (error.response.status == 422){
+			    	alert(error.response.data.error)
+		        	
+		      	}else if (error.response.status == 500) {
+		        	alert(error.response.data.message)
+		      	}
+			});
+    	},
     	opendeFolder(tipe){
     		if (tipe == 'file') {
     			this.$refs.attachment.click()
