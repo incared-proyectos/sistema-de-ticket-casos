@@ -83,7 +83,7 @@ class PerfilController extends Controller
     public function sidebar_change(){
         $auth = User::find(auth()->id());
         if (!empty($auth)) {
-            $auth->sidebar_change = (!empty($auth->sidebar_change ) AND $auth->sidebar_change) ? 0 : 1;
+            $auth->sidebar_change = (!empty($auth->sidebar_change) AND $auth->sidebar_change) ? 0 : 1;
             $auth->save();
         }
 
