@@ -14,7 +14,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini {{ (Auth::user()->sidebar_change) ? 'sidebar-collapse' : '' }}">
+@guest
+  <body class="hold-transition ">
+@else
+  <body class="hold-transition sidebar-mini {{ (Auth::user()->sidebar_change) ? 'sidebar-collapse' : '' }}">
+@endguest
+
     <div id="app">
 
         <div class="wrapper">
