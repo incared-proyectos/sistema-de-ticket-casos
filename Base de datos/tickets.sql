@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-01-2021 a las 21:12:11
+-- Tiempo de generación: 12-02-2021 a las 02:20:55
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 7.4.13
 
@@ -213,7 +213,57 @@ INSERT INTO `activity_log` (`id`, `log_name`, `description`, `subject_type`, `su
 (165, 'default', 'updated', 'App\\Models\\Ticket', 43, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"},{\\\"id\\\":22,\\\"name\\\":\\\"Pedro Jose Avila Moreno\\\",\\\"email\\\":\\\"pedrojam14@gmail.com\\\"},{\\\"id\\\":9,\\\"name\\\":\\\"pruebas\\\",\\\"email\\\":\\\"pruebas@gmail.com\\\"},{\\\"id\\\":21,\\\"name\\\":\\\"pruebas25\\\",\\\"email\\\":\\\"pruebas25@gmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"},{\\\"id\\\":22,\\\"name\\\":\\\"Pedro Jose Avila Moreno\\\",\\\"email\\\":\\\"pedrojam14@gmail.com\\\"},{\\\"id\\\":9,\\\"name\\\":\\\"pruebas\\\",\\\"email\\\":\\\"pruebas@gmail.com\\\"}]\"}}', '2021-01-30 00:07:26', '2021-01-30 00:07:26'),
 (166, 'default', 'updated', 'App\\Models\\Ticket', 43, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":22,\\\"name\\\":\\\"Pedro Jose Avila Moreno\\\",\\\"email\\\":\\\"pedrojam14@gmail.com\\\"},{\\\"id\\\":9,\\\"name\\\":\\\"pruebas\\\",\\\"email\\\":\\\"pruebas@gmail.com\\\"},{\\\"id\\\":21,\\\"name\\\":\\\"pruebas25\\\",\\\"email\\\":\\\"pruebas25@gmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"},{\\\"id\\\":22,\\\"name\\\":\\\"Pedro Jose Avila Moreno\\\",\\\"email\\\":\\\"pedrojam14@gmail.com\\\"},{\\\"id\\\":9,\\\"name\\\":\\\"pruebas\\\",\\\"email\\\":\\\"pruebas@gmail.com\\\"},{\\\"id\\\":21,\\\"name\\\":\\\"pruebas25\\\",\\\"email\\\":\\\"pruebas25@gmail.com\\\"}]\"}}', '2021-01-30 00:07:28', '2021-01-30 00:07:28'),
 (167, 'default', 'created', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"codigo\":\"TK-00000012\",\"titulo\":\"probandotickets23455\",\"descripcion\":\"asdasd\",\"apertura\":\"admin\",\"fecha_caducidad\":\"2021-01-30 16:35:00\",\"status\":\"Activo\",\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"}]\"}}', '2021-01-30 00:07:50', '2021-01-30 00:07:50'),
-(168, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"}]\"}}', '2021-01-30 00:08:05', '2021-01-30 00:08:05');
+(168, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"}]\"}}', '2021-01-30 00:08:05', '2021-01-30 00:08:05'),
+(169, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"},{\\\"id\\\":19,\\\"name\\\":\\\"pruebas7\\\",\\\"email\\\":\\\"pruebas7@gmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"}]\"}}', '2021-01-31 01:39:10', '2021-01-31 01:39:10'),
+(170, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":19,\\\"name\\\":\\\"pruebas7\\\",\\\"email\\\":\\\"pruebas7@gmail.com\\\"}]\"},\"old\":{\"users_asigne_json\":\"[{\\\"id\\\":1,\\\"name\\\":\\\"Pedro Avila\\\",\\\"email\\\":\\\"pedrojosavila@gmail.com\\\"},{\\\"id\\\":23,\\\"name\\\":\\\"pedro jos\\\\u00e8\\\",\\\"email\\\":\\\"eldiamantepedro@hotmail.com\\\"},{\\\"id\\\":19,\\\"name\\\":\\\"pruebas7\\\",\\\"email\\\":\\\"pruebas7@gmail.com\\\"}]\"}}', '2021-01-31 01:39:15', '2021-01-31 01:39:15'),
+(171, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 12, '{\"attributes\":{\"status\":\"Inactivo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-01-31 01:44:48', '2021-01-31 01:44:48'),
+(172, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 12, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Inactivo\"}}', '2021-01-31 01:44:59', '2021-01-31 01:44:59'),
+(173, 'default', 'updated', 'App\\Models\\Ticket', 36, 'App\\Models\\User', 12, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Activo\"}}', '2021-01-31 01:45:02', '2021-01-31 01:45:02'),
+(174, 'default', 'updated', 'App\\Models\\Ticket', 37, 'App\\Models\\User', 12, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Activo\"}}', '2021-01-31 01:45:05', '2021-01-31 01:45:05'),
+(175, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 12, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-01 18:24:26', '2021-02-01 18:24:26'),
+(176, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Inactivo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-02-03 04:16:26', '2021-02-03 04:16:26'),
+(177, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"Inactivo\"}}', '2021-02-03 04:16:27', '2021-02-03 04:16:27'),
+(178, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"En proceso\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-03 04:16:29', '2021-02-03 04:16:29'),
+(179, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"En proceso\"}}', '2021-02-03 04:16:30', '2021-02-03 04:16:30'),
+(180, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"En proceso\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-03 04:16:32', '2021-02-03 04:16:32'),
+(181, 'default', 'updated', 'App\\Models\\Ticket', 44, 'App\\Models\\User', 27, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"En proceso\"}}', '2021-02-03 04:36:55', '2021-02-03 04:36:55'),
+(182, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-02-03 21:55:35', '2021-02-03 21:55:35'),
+(183, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-03 21:55:42', '2021-02-03 21:55:42'),
+(184, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Inactivo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-02-03 21:58:24', '2021-02-03 21:58:24'),
+(185, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"Inactivo\"}}', '2021-02-03 21:58:44', '2021-02-03 21:58:44'),
+(186, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-02-03 21:59:05', '2021-02-03 21:59:05'),
+(187, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"En proceso\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-03 21:59:08', '2021-02-03 21:59:08'),
+(188, 'default', 'updated', 'App\\Models\\Ticket', 6, 'App\\Models\\User', 1, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"En proceso\"}}', '2021-02-03 21:59:10', '2021-02-03 21:59:10'),
+(189, 'default', 'created', 'App\\Models\\Ticket', 45, 'App\\Models\\User', 2, '{\"attributes\":{\"codigo\":\"TK-00000013\",\"titulo\":\"prea\",\"descripcion\":null,\"apertura\":\"prueba\",\"fecha_caducidad\":\"2021-03-06 16:50:00\",\"status\":\"Activo\",\"apertura_id\":2}}', '2021-02-04 00:38:07', '2021-02-04 00:38:07'),
+(190, 'default', 'updated', 'App\\Models\\Ticket', 41, 'App\\Models\\User', 22, '{\"attributes\":{\"status\":\"En proceso\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-04 05:34:22', '2021-02-04 05:34:22'),
+(191, 'default', 'updated', 'App\\Models\\Ticket', 41, 'App\\Models\\User', 22, '{\"attributes\":{\"status\":\"Realizado\"},\"old\":{\"status\":\"En proceso\"}}', '2021-02-04 05:34:25', '2021-02-04 05:34:25'),
+(192, 'default', 'updated', 'App\\Models\\Ticket', 41, 'App\\Models\\User', 22, '{\"attributes\":{\"status\":\"Activo\"},\"old\":{\"status\":\"Realizado\"}}', '2021-02-04 05:34:27', '2021-02-04 05:34:27'),
+(193, 'default', 'updated', 'App\\Models\\Ticket', 41, 'App\\Models\\User', 22, '{\"attributes\":{\"status\":\"En proceso\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-04 05:34:31', '2021-02-04 05:34:31'),
+(194, 'default', 'updated', 'App\\Models\\Ticket', 45, 'App\\Models\\User', 2, '{\"attributes\":{\"status\":\"Inactivo\"},\"old\":{\"status\":\"Activo\"}}', '2021-02-05 05:53:00', '2021-02-05 05:53:00'),
+(195, 'default', 'created', 'App\\Models\\Ticket', 46, 'App\\Models\\User', 9, '{\"attributes\":{\"codigo\":\"TK-00000014\",\"titulo\":\"prea\",\"descripcion\":null,\"apertura\":\"pruebas\",\"fecha_caducidad\":\"2021-02-27 21:55:00\",\"status\":\"Activo\",\"apertura_id\":9}}', '2021-02-05 05:54:03', '2021-02-05 05:54:03');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `buttons`
+--
+
+CREATE TABLE `buttons` (
+  `id` int(11) NOT NULL,
+  `nombre` varchar(150) DEFAULT NULL,
+  `icon` text DEFAULT NULL,
+  `class` varchar(100) NOT NULL,
+  `url_to` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `buttons`
+--
+
+INSERT INTO `buttons` (`id`, `nombre`, `icon`, `class`, `url_to`, `created_at`, `updated_at`) VALUES
+(1, NULL, '<i class=\"far fa-address-card\"></i>', 'btn btn-primary', 'index', '2021-02-01 16:03:52', '2021-02-01 16:03:52');
 
 -- --------------------------------------------------------
 
@@ -267,6 +317,8 @@ INSERT INTO `categorias_has_tickets` (`categoria_id`, `ticket_id`) VALUES
 (2, 34),
 (2, 36),
 (2, 44),
+(2, 45),
+(2, 46),
 (3, 1),
 (3, 2),
 (3, 7),
@@ -314,6 +366,9 @@ INSERT INTO `categorias_has_users` (`categoria_id`, `user_id`) VALUES
 (2, 11),
 (2, 12),
 (2, 21),
+(2, 22),
+(2, 23),
+(2, 26),
 (3, 2),
 (3, 9),
 (3, 12),
@@ -324,9 +379,13 @@ INSERT INTO `categorias_has_users` (`categoria_id`, `user_id`) VALUES
 (4, 15),
 (4, 19),
 (4, 21),
+(4, 22),
+(4, 25),
 (5, 15),
 (5, 21),
-(6, 15);
+(6, 15),
+(6, 22),
+(8, 1);
 
 -- --------------------------------------------------------
 
@@ -351,10 +410,6 @@ CREATE TABLE `cron_job_mails` (
 --
 
 INSERT INTO `cron_job_mails` (`id`, `mensaje`, `ticket_codigo`, `from_email`, `from_name`, `to_email`, `to_name`, `created_at`, `updated_at`) VALUES
-(8, 'Pruebas tickets433', 'TK-00000006', 'pedrojosavila@gmail.com', 'Pedro Avila', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-01-27 18:58:21', '2021-01-27 18:58:21'),
-(9, 'Pruebas tickets45646', 'TK-00000007', 'pedrojosavila@gmail.com', 'Pedro Avila', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-01-27 20:54:10', '2021-01-27 20:54:10'),
-(10, 'Pruebas tickets45646', 'TK-00000007', 'pedrojosavila@gmail.com', 'Pedro Avila', 'pruebas25@gmail.com', 'pruebas25', '2021-01-27 20:54:10', '2021-01-27 20:54:10'),
-(11, '<p>asdasd</p>', 'TK-00000002', 'admin@gmail.com', 'admin', 'eldiamantepedro@hotmail.com', 'pedro josè', '2021-01-29 19:00:05', '2021-01-29 19:00:05'),
 (12, '<p>asdasd</p>', 'TK-00000002', 'admin@gmail.com', 'admin', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-01-29 19:00:05', '2021-01-29 19:00:05'),
 (13, 'pruebastickets2555', 'TK-00000010', 'admin@gmail.com', 'admin', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-01-29 19:05:02', '2021-01-29 19:05:02'),
 (14, 'pruebastickets2555', 'TK-00000010', 'admin@gmail.com', 'admin', 'eldiamantepedro@hotmail.com', 'pedro josè', '2021-01-29 19:05:02', '2021-01-29 19:05:02'),
@@ -364,7 +419,13 @@ INSERT INTO `cron_job_mails` (`id`, `mensaje`, `ticket_codigo`, `from_email`, `f
 (18, 'probandoultimoticket', 'TK-00000011', 'admin@gmail.com', 'admin', 'eldiamantepedro@hotmail.com', 'pedro josè', '2021-01-29 20:00:37', '2021-01-29 20:00:37'),
 (19, 'probandotickets23455', 'TK-00000012', 'admin@gmail.com', 'admin', 'pedrojosavila@gmail.com', 'Pedro Avila', '2021-01-29 20:07:50', '2021-01-29 20:07:50'),
 (20, '<p>hola mundoo como estan ?&nbsp;</p>', 'TK-00000012', 'admin@gmail.com', 'admin', 'pedrojosavila@gmail.com', 'Pedro Avila', '2021-01-29 20:08:18', '2021-01-29 20:08:18'),
-(21, '<p>hola mundoo como estan ?&nbsp;</p>', 'TK-00000012', 'admin@gmail.com', 'admin', 'eldiamantepedro@hotmail.com', 'pedro josè', '2021-01-29 20:08:18', '2021-01-29 20:08:18');
+(21, '<p>hola mundoo como estan ?&nbsp;</p>', 'TK-00000012', 'admin@gmail.com', 'admin', 'eldiamantepedro@hotmail.com', 'pedro josè', '2021-01-29 20:08:18', '2021-01-29 20:08:18'),
+(22, '<p>Hola mundo una prueba de email</p>', 'TK-00000012', 'admin@gmail.com', 'admin', 'pedrojosavila@gmail.com', 'Pedro Avila', '2021-01-30 21:39:34', '2021-01-30 21:39:34'),
+(23, '<p>Hola mundo una prueba de email</p>', 'TK-00000012', 'admin@gmail.com', 'admin', 'pruebas7@gmail.com', 'pruebas7', '2021-01-30 21:39:34', '2021-01-30 21:39:34'),
+(24, 'prea', 'TK-00000013', 'prueba@gmail.com', 'prueba', 'pruebas25@gmail.com', 'pruebas25', '2021-02-03 20:38:07', '2021-02-03 20:38:07'),
+(25, '<p>asdasd</p><p>&nbsp;</p>', 'TK-00000013', 'prueba@gmail.com', 'prueba', 'pruebas25@gmail.com', 'pruebas25', '2021-02-03 20:38:25', '2021-02-03 20:38:25'),
+(26, 'prea', 'TK-00000014', 'pruebas@gmail.com', 'pruebas', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-02-05 01:54:03', '2021-02-05 01:54:03'),
+(27, '<p>easdad</p>', 'TK-00000014', 'pruebas@gmail.com', 'pruebas', 'pedrojam14@gmail.com', 'Pedro Jose Avila Moreno', '2021-02-05 01:54:20', '2021-02-05 01:54:20');
 
 -- --------------------------------------------------------
 
@@ -453,7 +514,10 @@ INSERT INTO `mensajes` (`id`, `from_id`, `mensaje`, `file_src`, `img_src`, `tick
 (52, 12, '<p><strong>pruebas5555</strong></p>', NULL, NULL, 7, NULL, '2021-01-14 20:11:49', '2021-01-14 20:11:49'),
 (53, 12, 'Se ha actualizado el ticket, actualizacion: <b> Categorias </b> | ', NULL, NULL, 1, 1, '2021-01-29 16:35:35', '2021-01-29 16:35:35'),
 (54, 12, '<p>asdasd</p>', NULL, NULL, 2, NULL, '2021-01-29 19:00:05', '2021-01-29 19:00:05'),
-(55, 12, '<p>hola mundoo como estan ?&nbsp;</p>', NULL, 'c3T6q1ZVFXKrCR0dMPgKlq5HQFer0sg8XIh2IuTZ.png', 44, NULL, '2021-01-29 20:08:18', '2021-01-29 20:08:18');
+(55, 12, '<p>hola mundoo como estan ?&nbsp;</p>', NULL, 'c3T6q1ZVFXKrCR0dMPgKlq5HQFer0sg8XIh2IuTZ.png', 44, NULL, '2021-01-29 20:08:18', '2021-01-29 20:08:18'),
+(56, 12, '<p>Hola mundo una prueba de email</p>', NULL, NULL, 44, NULL, '2021-01-30 21:39:34', '2021-01-30 21:39:34'),
+(57, 2, '<p>asdasd</p><p>&nbsp;</p>', NULL, NULL, 45, NULL, '2021-02-03 20:38:25', '2021-02-03 20:38:25'),
+(58, 9, '<p>easdad</p>', NULL, NULL, 46, NULL, '2021-02-05 01:54:20', '2021-02-05 01:54:20');
 
 -- --------------------------------------------------------
 
@@ -495,22 +559,24 @@ CREATE TABLE `model_has_permissions` (
 --
 
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
-(1, 'App\\Models\\User', 1),
 (1, 'App\\Models\\User', 2),
 (1, 'App\\Models\\User', 9),
 (1, 'App\\Models\\User', 10),
 (1, 'App\\Models\\User', 11),
 (1, 'App\\Models\\User', 12),
 (1, 'App\\Models\\User', 15),
-(2, 'App\\Models\\User', 1),
+(1, 'App\\Models\\User', 26),
 (2, 'App\\Models\\User', 2),
 (2, 'App\\Models\\User', 9),
 (2, 'App\\Models\\User', 10),
 (2, 'App\\Models\\User', 11),
 (2, 'App\\Models\\User', 12),
 (2, 'App\\Models\\User', 15),
-(4, 'App\\Models\\User', 1),
-(6, 'App\\Models\\User', 2);
+(2, 'App\\Models\\User', 22),
+(2, 'App\\Models\\User', 26),
+(5, 'App\\Models\\User', 2),
+(5, 'App\\Models\\User', 25),
+(6, 'App\\Models\\User', 25);
 
 -- --------------------------------------------------------
 
@@ -530,14 +596,18 @@ CREATE TABLE `model_has_roles` (
 
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Models\\User', 1),
-(1, 'App\\Models\\User', 9),
 (1, 'App\\Models\\User', 12),
 (1, 'App\\Models\\User', 15),
 (1, 'App\\Models\\User', 21),
-(2, 'App\\Models\\User', 2),
+(1, 'App\\Models\\User', 22),
+(1, 'App\\Models\\User', 25),
+(2, 'App\\Models\\User', 9),
 (2, 'App\\Models\\User', 10),
 (2, 'App\\Models\\User', 11),
-(2, 'App\\Models\\User', 19);
+(2, 'App\\Models\\User', 19),
+(2, 'App\\Models\\User', 23),
+(2, 'App\\Models\\User', 26),
+(3, 'App\\Models\\User', 2);
 
 -- --------------------------------------------------------
 
@@ -570,7 +640,7 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'edit', 'web', '2020-10-30 04:00:00', '2020-10-31 04:00:00'),
+(1, 'edit1333', 'web', '2020-10-30 04:00:00', '2021-02-01 22:48:10'),
 (2, 'created2', 'web', '2020-10-30 04:00:00', '2020-11-02 20:40:22'),
 (4, 'visualizar', 'web', '2020-10-31 22:35:53', '2020-10-31 22:35:53'),
 (5, 'desplazar', 'web', '2020-10-31 22:35:59', '2020-10-31 22:35:59'),
@@ -595,9 +665,9 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
-(1, 'administrador2', 'web', '2020-10-30 04:00:00', '2020-11-27 23:55:03'),
-(2, 'user2', 'web', '2020-10-30 04:00:00', '2020-11-02 20:40:02'),
-(3, 'otros', 'web', '2020-11-02 19:47:00', '2020-11-02 19:47:00');
+(1, 'administrador', 'web', '2020-10-30 04:00:00', '2021-02-03 19:22:03'),
+(2, 'usuario', 'web', '2020-10-30 04:00:00', '2021-02-03 19:22:10'),
+(3, 'tecnico', 'web', '2020-11-02 19:47:00', '2021-02-03 19:22:17');
 
 -- --------------------------------------------------------
 
@@ -620,8 +690,9 @@ CREATE TABLE `tickets` (
   `id` int(11) NOT NULL,
   `codigo` varchar(150) NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `descripcion` text NOT NULL,
+  `descripcion` text DEFAULT NULL,
   `apertura` varchar(100) NOT NULL,
+  `apertura_id` int(11) NOT NULL,
   `users_id` int(11) NOT NULL,
   `users_asigne_json` text DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
@@ -635,19 +706,21 @@ CREATE TABLE `tickets` (
 -- Volcado de datos para la tabla `tickets`
 --
 
-INSERT INTO `tickets` (`id`, `codigo`, `titulo`, `descripcion`, `apertura`, `users_id`, `users_asigne_json`, `status`, `status_color`, `fecha_caducidad`, `created_at`, `updated_at`) VALUES
-(1, 'TK-00000001', 'Pruebas tickets', 'asdasdb3', 'Pedro Avila', 1, '[{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Realizado', '#9cd12e', '2020-12-04 17:35:00', '2020-11-26 19:58:14', '2021-01-29 19:55:14'),
-(2, 'TK-00000002', 'Pruebas tickets2', 'asdasdasdasd1', 'Pedro Avila', 2, '[{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Realizado', '', '2020-12-17 17:55:00', '2020-11-26 20:09:33', '2021-01-28 16:21:05'),
-(6, 'TK-00000003', 'Pruebas tickets4', 'asdasdasd33', 'Pedro Avila', 1, '[{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Realizado', '', '2020-12-01 17:50:00', '2020-11-27 16:26:11', '2021-01-29 20:06:52'),
-(36, 'TK-00000004', 'ticket pruebas 3', 'asdasdasd', 'admin', 1, NULL, 'Activo', '#233eba', '2021-01-30 14:55:00', '2021-01-25 18:44:07', '2021-01-29 19:57:37'),
-(37, 'TK-00000005', 'Pruebas tickets43', 'asdasdasdasd', 'Pedro Avila', 22, '[{\"id\":15,\"name\":\"Pedro Avila2\",\"email\":\"pedrojam1433@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 14:50:00', '2021-01-27 18:57:56', '2021-01-29 19:51:47'),
-(38, 'TK-00000006', 'Pruebas tickets433', 'asdasdasdasd', 'Pedro Avila', 22, '[{\"id\":15,\"name\":\"Pedro Avila2\",\"email\":\"pedrojam1433@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 14:50:00', '2021-01-27 18:58:21', '2021-01-29 19:51:46'),
-(39, 'TK-00000007', 'Pruebas tickets45646', 'asdasdasd', 'Pedro Avila', 21, '[{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":19,\"name\":\"pruebas7\",\"email\":\"pruebas7@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":1,\"name\":\"Pedro Avila\",\"email\":\"pedrojosavila@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 16:45:00', '2021-01-27 20:54:10', '2021-01-29 19:51:45'),
-(40, 'TK-00000008', 'pruebastickets2555', 'asdasdasdasd', 'admin', 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":23,\"name\":\"pedro josè\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', '', '2021-01-30 15:55:00', '2021-01-29 19:04:46', '2021-01-29 19:42:21'),
-(41, 'TK-00000009', 'pruebastickets2555', 'asdasdasdasd', 'admin', 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":23,\"name\":\"pedro josè\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', '', '2021-01-30 15:55:00', '2021-01-29 19:04:52', '2021-01-29 19:42:17'),
-(42, 'TK-00000010', 'pruebastickets2555', 'asdasdasdasd', 'admin', 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', '', '2021-01-30 15:55:00', '2021-01-29 19:05:02', '2021-01-29 19:42:19'),
-(43, 'TK-00000011', 'probandoultimoticket', 'asdasdasdasdasdasd', 'admin', 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":9,\"name\":\"pruebas\",\"email\":\"pruebas@gmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', NULL, '2021-01-30 15:55:00', '2021-01-29 20:00:37', '2021-01-29 20:07:28'),
-(44, 'TK-00000012', 'probandotickets23455', 'asdasd', 'admin', 1, '[{\"id\":1,\"name\":\"Pedro Avila\",\"email\":\"pedrojosavila@gmail.com\"},{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"}]', 'Activo', NULL, '2021-01-30 16:35:00', '2021-01-29 20:07:50', '2021-01-29 20:08:05');
+INSERT INTO `tickets` (`id`, `codigo`, `titulo`, `descripcion`, `apertura`, `apertura_id`, `users_id`, `users_asigne_json`, `status`, `status_color`, `fecha_caducidad`, `created_at`, `updated_at`) VALUES
+(1, 'TK-00000001', 'Pruebas tickets', 'asdasdb3', 'Pedro Avila', 22, 1, '[{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"}]', 'Realizado', '#9cd12e', '2020-12-04 17:35:00', '2020-11-26 19:58:14', '2021-02-03 20:38:54'),
+(2, 'TK-00000002', 'Pruebas tickets2', 'asdasdasdasd1', 'Pedro Avila', 0, 2, '[{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Realizado', '', '2020-12-17 17:55:00', '2020-11-26 20:09:33', '2021-01-28 16:21:05'),
+(6, 'TK-00000003', 'Pruebas tickets4', 'asdasdasd33', 'Pedro Avila', 0, 1, '[{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Activo', '#233eba', '2020-12-01 17:50:00', '2020-11-27 16:26:11', '2021-02-03 17:59:10'),
+(36, 'TK-00000004', 'ticket pruebas 3', 'asdasdasd', 'admin', 0, 1, NULL, 'Realizado', '#9cd12e', '2021-01-30 14:55:00', '2021-01-25 18:44:07', '2021-01-30 21:45:02'),
+(37, 'TK-00000005', 'Pruebas tickets43', 'asdasdasdasd', 'Pedro Avila', 0, 22, '[{\"id\":15,\"name\":\"Pedro Avila2\",\"email\":\"pedrojam1433@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Realizado', '#9cd12e', '2021-01-30 14:50:00', '2021-01-27 18:57:56', '2021-01-30 21:45:05'),
+(38, 'TK-00000006', 'Pruebas tickets433', 'asdasdasdasd', 'Pedro Avila', 1, 22, '[{\"id\":15,\"name\":\"Pedro Avila2\",\"email\":\"pedrojam1433@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 14:50:00', '2021-01-27 18:58:21', '2021-01-29 19:51:46'),
+(39, 'TK-00000007', 'Pruebas tickets45646', 'asdasdasd', 'Pedro Avila', 0, 21, '[{\"id\":23,\"name\":\"pedro jos\\u00e8\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":19,\"name\":\"pruebas7\",\"email\":\"pruebas7@gmail.com\"},{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":1,\"name\":\"Pedro Avila\",\"email\":\"pedrojosavila@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 16:45:00', '2021-01-27 20:54:10', '2021-01-29 19:51:45'),
+(40, 'TK-00000008', 'pruebastickets2555', 'asdasdasdasd', 'admin', 0, 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":23,\"name\":\"pedro josè\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', '', '2021-01-30 15:55:00', '2021-01-29 19:04:46', '2021-01-29 19:42:21'),
+(41, 'TK-00000009', 'pruebastickets2555', 'asdasdasdasd', 'admin', 0, 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":23,\"name\":\"pedro josè\",\"email\":\"eldiamantepedro@hotmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'En proceso', NULL, '2021-01-30 15:55:00', '2021-01-29 19:04:52', '2021-02-04 01:34:31'),
+(42, 'TK-00000010', 'pruebastickets2555', 'asdasdasdasd', 'admin', 0, 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', '', '2021-01-30 15:55:00', '2021-01-29 19:05:02', '2021-01-29 19:42:19'),
+(43, 'TK-00000011', 'probandoultimoticket', 'asdasdasdasdasdasd', 'admin', 0, 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"},{\"id\":9,\"name\":\"pruebas\",\"email\":\"pruebas@gmail.com\"},{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Activo', NULL, '2021-01-30 15:55:00', '2021-01-29 20:00:37', '2021-01-29 20:07:28'),
+(44, 'TK-00000012', 'probandotickets23455', 'asdasd', 'admin', 0, 1, '[{\"id\":1,\"name\":\"Pedro Avila\",\"email\":\"pedrojosavila@gmail.com\"},{\"id\":19,\"name\":\"pruebas7\",\"email\":\"pruebas7@gmail.com\"}]', 'Activo', '#233eba', '2021-01-30 16:35:00', '2021-01-29 20:07:50', '2021-02-03 00:36:55'),
+(45, 'TK-00000013', 'prea', NULL, 'prueba', 2, 1, '[{\"id\":21,\"name\":\"pruebas25\",\"email\":\"pruebas25@gmail.com\"}]', 'Inactivo', '#ff8000', '2021-03-06 16:50:00', '2021-02-03 20:38:07', '2021-02-05 01:53:00'),
+(46, 'TK-00000014', 'prea', NULL, 'pruebas', 9, 1, '[{\"id\":22,\"name\":\"Pedro Jose Avila Moreno\",\"email\":\"pedrojam14@gmail.com\"}]', 'Activo', NULL, '2021-02-27 21:55:00', '2021-02-05 01:54:03', '2021-02-05 01:54:03');
 
 -- --------------------------------------------------------
 
@@ -663,6 +736,7 @@ CREATE TABLE `users` (
   `direccion` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `sede` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `img_src` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `sidebar_change` tinyint(1) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -674,18 +748,21 @@ CREATE TABLE `users` (
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `telefono`, `direccion`, `sede`, `img_src`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'BhkmyvOrluJ1kKw3mCvePUKrPHGVQoHz6bnNe1md.jpg', NULL, '$2y$10$e0L5HbchjCfUntOnrePV5Oih2HLgnlnS7U4Xv5WPID.djS9fJWMMu', NULL, '2020-10-29 07:22:41', '2020-12-23 21:22:51'),
-(2, 'prueba', 'prueba@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$/sqdeCRQzSYJxsAHVe1gvunRDxtyArfw/MCcGT.ByZUOslw.rjA5e', NULL, '2020-10-29 23:16:13', '2020-10-29 23:16:13'),
-(9, 'pruebas', 'pruebas@gmail.com', NULL, 'asdasdasdq', NULL, NULL, NULL, '$2y$10$UnQqmSPA.6mw9Q0JUGqSdOl6BWOpgRS0MEg.JP4ex5cSlGj9urPyy', NULL, '2020-10-30 19:34:42', '2020-10-30 19:34:42'),
-(10, 'Jose Avila', 'avila@gmail.com', NULL, 'asdasd', NULL, NULL, NULL, '$2y$10$hp5pVU4rbyobZExcKMCQKe10kq.kk/awnfyGgTT7tQlAvoz1oS3tC', NULL, '2020-10-30 19:40:44', '2020-10-30 19:40:44'),
-(11, 'Antonio', 'antonio@gmail.com', NULL, 'adasda', NULL, NULL, NULL, '$2y$10$I7aGeQfsORgcnhBeVQhstu7X6ETgy6mQCHETQY5T6hNjm.djgWHaW', NULL, '2020-10-30 19:41:49', '2020-10-30 19:41:49'),
-(12, 'admin', 'admin@gmail.com', NULL, 'asdasdadasdas', NULL, NULL, NULL, '$2y$10$ObrQtZarDk6T7fkqznCViuA.1Evr2hkUU/.eaSkS4UbJqmXdYxdty', NULL, '2020-10-30 19:46:19', '2020-10-30 19:46:19'),
-(15, 'Pedro Avila2', 'pedrojam1433@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, '$2y$10$1O4p4EZn9Mb23rEIGvyCueMwV8tpai.hVLuUy3f3t5s8uT7fbg/wS', NULL, '2020-11-02 20:43:01', '2020-11-02 20:43:01'),
-(19, 'pruebas7', 'pruebas7@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, '$2y$10$B17gJ5N2gx7eBaJSGUrEuOGQByGAcir2DfdqutCQxmKnu03rUvj9q', NULL, '2020-11-27 21:52:54', '2020-11-27 21:52:54'),
-(21, 'pruebas25', 'pruebas25@gmail.com', NULL, 'asdasda', 'asdasd', NULL, NULL, '$2y$10$sCr8G75x0AvUp63/BnBOeeCMD4prUGLFxxrpYsSCRqGIOIHVMH70e', NULL, '2020-11-27 23:56:07', '2020-11-27 23:56:07'),
-(22, 'Pedro Jose Avila Moreno', 'pedrojam14@gmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$z0hTmhhMCBBCNt3C6fh1cu43maT8e.TE.HyKYmLGF2YFM0i0Gw75C', NULL, '2021-01-06 21:51:34', '2021-01-06 21:51:34'),
-(23, 'pedro josè', 'eldiamantepedro@hotmail.com', NULL, NULL, NULL, NULL, NULL, '$2y$10$Kxx8lqOLzYvDk1thWu2v3Osc0b4aG0DT7XBVWeBB3/cwoXQ5jkPAW', NULL, '2021-01-07 00:55:56', '2021-01-07 00:55:56');
+INSERT INTO `users` (`id`, `name`, `email`, `telefono`, `direccion`, `sede`, `img_src`, `sidebar_change`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Pedro Avila', 'pedrojosavila@gmail.com', 'ggg', 'otros', 'ggg', 'ND0tij93MkNjG1vDPLFUZHV4ubLsZ39uWUoZTNjy.png', 0, NULL, '$2y$10$e0L5HbchjCfUntOnrePV5Oih2HLgnlnS7U4Xv5WPID.djS9fJWMMu', NULL, '2020-10-29 07:22:41', '2021-02-05 00:04:29'),
+(2, 'prueba', 'prueba@gmail.com', NULL, NULL, NULL, NULL, 0, NULL, '$2y$10$2ZFFCC45w4oFdctGusUo4OOfbSaNq86sXd0rLjI8KW6lm4Y2Zglau', NULL, '2020-10-29 23:16:13', '2021-02-04 23:59:32'),
+(9, 'pruebas', 'pruebas@gmail.com', NULL, 'asdasdasdq', NULL, NULL, NULL, NULL, '$2y$10$wvkD6V0suJ1euMOUf7E8Ru1TU3Pa389UF6YO3Q7pydkxxMIloeTZ6', NULL, '2020-10-30 19:34:42', '2021-02-04 23:23:59'),
+(10, 'Jose Avila', 'avila@gmail.com', NULL, 'asdasd', NULL, NULL, NULL, NULL, '$2y$10$l4alRII5zp8pn/9C9rbQtOdz4G5uVnKe2DSc87uaXiJBc84C1aTFS', NULL, '2020-10-30 19:40:44', '2021-02-03 23:43:29'),
+(11, 'Antonio', 'antonio@gmail.com', NULL, 'adasda', NULL, NULL, NULL, NULL, '$2y$10$I7aGeQfsORgcnhBeVQhstu7X6ETgy6mQCHETQY5T6hNjm.djgWHaW', NULL, '2020-10-30 19:41:49', '2020-10-30 19:41:49'),
+(12, 'admin', 'admin@gmail.com', NULL, 'asdasdadasdas', NULL, NULL, NULL, NULL, '$2y$10$ObrQtZarDk6T7fkqznCViuA.1Evr2hkUU/.eaSkS4UbJqmXdYxdty', 'aNxNCq2uwDNhVsx5JQOzPetoG3rL5tb82KOaJyMhom5x7GFcXJBujXuUUh9D', '2020-10-30 19:46:19', '2020-10-30 19:46:19'),
+(15, 'Pedro Avila2', 'pedrojam1433@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, NULL, '$2y$10$1O4p4EZn9Mb23rEIGvyCueMwV8tpai.hVLuUy3f3t5s8uT7fbg/wS', NULL, '2020-11-02 20:43:01', '2020-11-02 20:43:01'),
+(19, 'pruebas7', 'pruebas7@gmail.com', NULL, 'asdasd', 'asdasd', NULL, NULL, NULL, '$2y$10$B17gJ5N2gx7eBaJSGUrEuOGQByGAcir2DfdqutCQxmKnu03rUvj9q', NULL, '2020-11-27 21:52:54', '2020-11-27 21:52:54'),
+(21, 'pruebas25', 'pruebas25@gmail.com', NULL, 'asdasda', 'asdasd', NULL, NULL, NULL, '$2y$10$sCr8G75x0AvUp63/BnBOeeCMD4prUGLFxxrpYsSCRqGIOIHVMH70e', NULL, '2020-11-27 23:56:07', '2020-11-27 23:56:07'),
+(22, 'Pedro Jose Avila Moreno', 'pedrojam14@gmail.com', NULL, NULL, NULL, NULL, 0, NULL, '$2y$10$5zOzw0TcFR9oDUZmKROsUueODee9SKUsSJgspl5hCbAqMfeLa.H0K', NULL, '2021-01-06 21:51:34', '2021-02-05 05:51:20'),
+(23, 'pedro josè', 'eldiamantepedro@hotmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$Kxx8lqOLzYvDk1thWu2v3Osc0b4aG0DT7XBVWeBB3/cwoXQ5jkPAW', NULL, '2021-01-07 00:55:56', '2021-01-07 00:55:56'),
+(25, 'Pedro Jose Avila Moreno', 'pedrojam14322@gmail.com', NULL, 'Altagracia-guarico', 'asdasdasd', NULL, NULL, NULL, '$2y$10$Al96SZ9.lthE4SPr5Kld3OFK08zAy9XELbWyFoLufX3cGXLrtskMW', NULL, '2021-02-01 22:12:04', '2021-02-01 22:12:04'),
+(26, 'probando', 'probads@gmail.com', NULL, 'Altagracia-guarico', 'asdasdasd', NULL, NULL, NULL, '$2y$10$6LtZIRh5qRNhiLnPcmbmGuL4lzzIBmdk2280YJb5T61S3mfiRGpju', NULL, '2021-02-01 22:51:51', '2021-02-01 22:51:51'),
+(27, 'pruebas88', 'pruebas8@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '$2y$10$8dG3yryREBVi29tysnenpOCREUxOhWiWOx5HyN1cXaBieSNQqJSjq', NULL, '2021-02-03 04:22:24', '2021-02-03 04:22:24');
 
 --
 -- Índices para tablas volcadas
@@ -699,6 +776,12 @@ ALTER TABLE `activity_log`
   ADD KEY `subject` (`subject_type`,`subject_id`),
   ADD KEY `causer` (`causer_type`,`causer_id`),
   ADD KEY `activity_log_log_name_index` (`log_name`);
+
+--
+-- Indices de la tabla `buttons`
+--
+ALTER TABLE `buttons`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `categorias`
@@ -813,7 +896,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `activity_log`
 --
 ALTER TABLE `activity_log`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+
+--
+-- AUTO_INCREMENT de la tabla `buttons`
+--
+ALTER TABLE `buttons`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -825,7 +914,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `cron_job_mails`
 --
 ALTER TABLE `cron_job_mails`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `estatus`
@@ -843,7 +932,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT de la tabla `mensajes`
 --
 ALTER TABLE `mensajes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `migrations`
@@ -855,25 +944,25 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Restricciones para tablas volcadas
