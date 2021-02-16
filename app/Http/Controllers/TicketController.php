@@ -151,8 +151,8 @@ class TicketController extends Controller
         })->addColumn('users_ticket', function($row) use ($estatus){
             return view('layouts.user_tickets',['ticket'=>$row ]);
         })->editColumn('created_at', function($row){
-             setlocale(LC_TIME, 'es_ES');
-             Carbon::setLocale('es');            
+            setlocale(LC_TIME, 'es_ES');
+            Carbon::setLocale('es');            
             $fecha = $row['created_at'];
 
             return '<small>'.$fecha->format('l j F Y H:i:s').'</small>';
