@@ -82,7 +82,6 @@ export default {
     },
     created() {
       this.user_object = JSON.parse(this.user);
-      console.log(this.user);
 
       if (this.user_object.img_src !== null  ) {
       	this.img_src =  `${this.user_img}/${this.user_object.id}/${this.user_object.img_src}` ;
