@@ -85,6 +85,25 @@
           </div>
           <!-- ./col -->
         </div>
+        	      <!-- Main row -->
+		    <div class="row">
+		    	<div class="col-12">
+			     	<div class="card">
+			     	   <div class="card-header bg bg-info">
+			     	   		<b>BIENVENIDO A NUESTRO SISTEMA  CREADO EN LARAVEL, UTILIZAMOS VUE-JS PARA ALGUNAS MODULOS</b>
+			     	   </div>
+		              <div class="card-body">
+
+		                <p class="card-text">
+		                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore esse hic iusto aliquid non iste unde quam ipsum et alias recusandae harum facilis saepe delectus ipsam amet id, cum repudiandae!
+		                </p>
+
+		              </div>
+		            </div>
+
+		     	</div>
+		    </div>
+		    <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
