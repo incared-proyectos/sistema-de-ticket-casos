@@ -7,6 +7,7 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\EstatusController;
+use \Artisan as Artis; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,12 @@ Route::get('google/auth/redirect', function () {
 Route::get('facebook/auth/redirect', function () {
     return Socialite::driver('facebook')->redirect();
 });
+
+//Ruta para activar comando mediante cron job  hosting
+Route::get('/jobemails', function () {
+    Artis::call('work:email');
+});
+
 
 Route::get('/microsoft/signin', [App\Http\Controllers\Auth\MicrosoftController::class, 'signin']);
 Route::get('/microsoft/callback', [App\Http\Controllers\Auth\MicrosoftController::class, 'callback']);
