@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Ticket;
+use App\Mail\SendMailL;
+use App\Service\PhpMailerCustom;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Cron_job_mail;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +28,7 @@ class HomeController extends Controller
      */
     public function index()
     {       
+
         $count_user = User::all()->count();
         $count_ticket = Ticket::all()->count();
         $count_ticket_realizado = Ticket::where('status','Realizado')->count();

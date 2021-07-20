@@ -31,9 +31,9 @@ class SendTicket extends Mailable
     public function build()
     {
         if (isset($this->data['apertura_email'])) {
-            $mail =  $this->subject('Nuevo Ticket')->from(env('MAIL_USERNAME'),env('APP_NAME'))->view('mail.emisor',['data'=>$this->data]);
+            $mail =  $this->subject('Nuevo Ticket')->from(config('mail.mailers.smtp.username'),config('app.name'))->view('mail.emisor',['data'=>$this->data]);
         }else{
-            $mail =  $this->subject('Nuevo Ticket')->from(env('MAIL_USERNAME'),env('APP_NAME'))->view('mail.index',['data'=>$this->data]);
+            $mail =  $this->subject('Nuevo Ticket')->from(config('mail.mailers.smtp.username'),config('app.name'))->view('mail.index',['data'=>$this->data]);
         }
    
         return $mail;    

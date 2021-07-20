@@ -233,18 +233,19 @@ class TicketController extends Controller
             
 
             $all['apertura_email'] = true;
-            $ap_users = json_decode($all['users_asigne_json']);
-            foreach ($ap_users as $user) {
-                # code...
-                $cron = new Cron_job_mail();
-                $cron->mensaje = $all['titulo'];
-                $cron->ticket_codigo = $ticket_last->codigo;
-                $cron->from_email = auth()->user()->email;
-                $cron->from_name = auth()->user()->name;
-                $cron->to_email = $user->email;
-                $cron->to_name = $user->name;
-                $cron->save();
-            }
+            
+            //Agregamos un nuevo trabajo para enviar el correo de apertura de ticket
+            $cron = new Cron_job_mail();
+
+            $cron->titulo = $all['titulo'];
+            $cron->mensaje = $all['descripcion'];
+            $cron->ticket_codigo = $ticket_last->codigo;
+            $cron->from_email = auth()->user()->email;
+            $cron->from_name = auth()->user()->name;
+            $cron->to_json = $all['users_asigne_json'];
+            $cron->type_email = 1;
+            $cron->save();
+            
             return response()->json(['success'=>'Ticket creado con exito','reload'=>1]);
 
 

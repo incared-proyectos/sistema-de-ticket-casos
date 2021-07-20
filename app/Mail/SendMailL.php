@@ -31,8 +31,11 @@ class SendMailL extends Mailable
      */
     public function build()
     {
-        $mail =  $this->subject('Nuevo Mensaje')->from(env('MAIL_USERNAME'),env('APP_NAME'))->view('mail.mensajes_notificacions',['data'=>$this->data]);
-   
-        return $mail;    
+
+        foreach ($this->data as $mail) {
+            // code...
+            $fromstatus = (!empty($mail->from_email)) ? true : false;
+            $mail =  $this->subject('Nuevo Mensaje')->from(config('mail.mailers.smtp.username'),config('app.name'))->view('mail.NewTicket',['data'=>$this->mail,'from'=>$fromstatus]);
+        }
     }
 }

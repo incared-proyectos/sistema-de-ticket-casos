@@ -89,17 +89,17 @@ class MensajeController extends Controller
             }
             $all['from_id'] = auth()->id();
 
-            $json_users = json_decode($ticket->users_asigne_json);
-            foreach ($json_users as $us) {
-                $cron = new Cron_job_mail();
-                $cron->mensaje = $all['mensaje'];
-                $cron->ticket_codigo = $ticket->codigo;
-                $cron->from_email = auth()->user()->email;
-                $cron->from_name = auth()->user()->name;
-                $cron->to_email = $us->email;
-                $cron->to_name = $us->name;
-                $cron->save();
-            }
+  
+            //Creamos un registro para ejecutar el cron  cuando se cree un nuevo mensaje, esto notificara a los usuarios que esten en dicho ticket       
+            $cron = new Cron_job_mail();
+            $cron->mensaje = $all['mensaje'];
+            $cron->ticket_codigo = $ticket->codigo;
+            $cron->from_email = auth()->user()->email;
+            $cron->from_name = auth()->user()->name;
+            $cron->to_json = $ticket->users_asigne_json;
+            $cron->type_email = 2;
+            $cron->save();
+            
             if($mensaje->fill($all)->save()){
                 return $this->query_message($all['ticket_id']);
             }

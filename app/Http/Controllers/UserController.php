@@ -171,7 +171,7 @@ class UserController extends Controller
         $user = User::find($id);
         $validator = Validator::make($all,[
             'name' => 'required',
-            'email'     => 'required',
+            'email' => 'required|email|unique:users,email,'.$id.',id',
             'rol' => 'required',
             'categorias' => 'required',
 

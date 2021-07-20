@@ -6,13 +6,14 @@
     <title>Nuevo ticket Abierto </title>
 </head>
 <body>
-    <p>Hola! Se ha asignado un nuevo ticket a tu cuenta. Codigo : {{$data['codigo']}}</p>
+    <p>Hola!  {{ (isset($from)) ? 'Usted ha asignado un nuevo ticket ' : 'Se ha asignado un nuevo ticket a tu cuenta'}} . Codigo : {{$data->ticket_codigo}}</p>
     <p>Estos son los datos del ticket:</p>
     <br>
-    <b>Titulo:</b>
-    <p>{{$data['titulo']}}</p>
+    <b>titulo:</b>
+    <p>{{$data->titulo}}</p>
+
     <b>Descripcion:</b>
-    <p>{{$data['descripcion']}}</p>
+    <p>{{$data->mensaje}}</p>
     <ul>
     </ul>
 </body>
