@@ -9,6 +9,7 @@ var moment = require('moment');
 require('./views_functions/datatables_events.js');
 require('./views_functions/users/ticket.js');
 require('./views_functions/formsubmit.js');
+require('./views_functions/init.js');
 require('./views_functions/users/functions.js');
 import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';

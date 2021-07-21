@@ -27,6 +27,9 @@ window.addEventListener("load", function(event) {
 		.then(function (response) {
 		  $.ajaxunblock();
 		  $('#errors_form').fadeOut(100);
+		  if (typeof response.data.url_location !== 'undefined') {
+			  location.href =response.data.url_location
+		  }
 		  if (typeof response.data.reload !== 'undefined') {
 		    $('#table_id').DataTable().ajax.reload();
 		    $('#success_form').html(response.data.success).fadeIn(100);

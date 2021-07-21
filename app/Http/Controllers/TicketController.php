@@ -208,8 +208,8 @@ class TicketController extends Controller
         $validator = Validator::make($all,[
             'titulo' => 'required',
             'users_asigne_json'   => 'required',
-            'descripcion',
-            'categorias',
+            'descripcion'=> 'required',
+            'categorias'=>'required',
 
         ]);
         if ($validator->fails()) {
@@ -245,8 +245,11 @@ class TicketController extends Controller
             $cron->to_json = $all['users_asigne_json'];
             $cron->type_email = 1;
             $cron->save();
-            
-            return response()->json(['success'=>'Ticket creado con exito','reload'=>1]);
+
+
+            $request->session()->flash('message_success', 'El ticket con el codigo '.$ticket_last->codigo.' se ha creado con exito ');
+
+            return response()->json(['success'=>'Ticket creado con exito','url_location'=>url('tickets/'.$ticket_last->id)]);
 
 
         }
