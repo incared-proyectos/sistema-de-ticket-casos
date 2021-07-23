@@ -1,6 +1,6 @@
 <p align="center"><a href="https://incared.net/" target="_blank"><img src="https://incared.net/wp-content/uploads/2015/03/logo_incared.png" width="400"></a></p>
 
-## CASOS
+## SISTEMA DE CASOS
 <p>Sistema especializado para asignar y resolver tickets</p>
 
 ## LENGUAJES, FRAMEWORKS UTILIZADOS Y HERRAMIENTAS <g-emoji class="g-emoji" alias="hammer_and_wrench" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f6e0.png">🛠️</g-emoji>
