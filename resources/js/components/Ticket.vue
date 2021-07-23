@@ -44,7 +44,7 @@
             		{{ticket.status}}
 				</button>
 				<div class="dropdown-menu">
-					<a class="dropdown-item " href="#"  :data-url="url_status" v-for="item in status" v-if="item.nombre !== ticket.status" :data-ticket="ticket.id" :data-id="item.id" @click.prevent="change_status">
+					<a class="dropdown-item " href="#"  :data-url="url_status" v-for="item in status" v-if="item.nombre !== ticket.status" :data-ticket="ticket.id" :data-id="item.id" @click.prevent="change_status" :key="item.id">
 						 {{item.nombre}}
 					</a>
 					
@@ -52,16 +52,19 @@
 
             </div>
           </div>
-          <div class="card-header">
-            <h3 class="card-title">Ticket - {{ticket.titulo}} - {{ticket.codigo}}</h3>
+        <div class="card-header">
+            <h3 class="card-title">Ticket - {{ticket.titulo}} - {{ticket.codigo}} - Descripcion: {{ticket.descripcion}}</h3>
 
             <div class="card-tools">
               <span data-toggle="tooltip" title="3 New Messages" class="badge badge-primary"><b>Mensajes totales:</b> {{mensaje_count}}</span>
 
             </div>
-            <br>
-       
+			<br>
+		
+			
+  
          </div>
+		
 
         <!-- /.card-header -->
 	    <div class="card-body">

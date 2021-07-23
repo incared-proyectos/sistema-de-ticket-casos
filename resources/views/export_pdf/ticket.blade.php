@@ -318,9 +318,9 @@
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                       @if(!empty($item->notice_message))
-                        <p  class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i> {{$item->mensaje}}</p>
+                        <p  class="alert alert-warning mb-0"> <i class="fas fa-info-circle"></i> <?php echo strip_tags($item->mensaje); ?></p>
                       @else
-                        <p class="mb-0">{{$item->mensaje}}</p>
+                        <p class="mb-0"> <?php echo strip_tags($item->mensaje); ?></p>
                       @endif
                       @if(!empty($item->img_src) OR  !empty($item->file_src))
                           <hr class="mt-0 mb-0">

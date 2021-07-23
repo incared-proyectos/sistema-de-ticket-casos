@@ -207,8 +207,6 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::with('roles')->find($id);
-        $rol = $user->roles[0]->name;
-        $user->removeRole($rol);
         $categorias = Categorias_has_user::where('user_id',$id)->delete();
         if($user->delete()){ 
             return response()->json(['success'=>'Registro eliminado con exito','reload'=>1]);

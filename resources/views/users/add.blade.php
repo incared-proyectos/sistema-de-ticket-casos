@@ -41,8 +41,9 @@
           <hr>
           <div class="row">
             <div class="col-6">
-              <label for="exampleFormControlSelect1">Roles</label>
-              <select class="form-control" data-live-search="true" name="rol" >
+              <label for="exampleFormControlSelect1">Rol</label>
+              <select class="form-control" data-live-search="true" name="rol" required="" >
+                <option value=""> Seleccionar...</option>
                 @foreach($roles as $r)
                   <option value="{{$r->name}}">{{$r->name}}</option>
                 @endforeach
