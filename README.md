@@ -1,3 +1,5 @@
+<p align="center"><a href="https://incared.net/" target="_blank"><img src="https://incared.net/wp-content/uploads/2015/03/logo_incared.png" width="400"></a></p>
+
 ## CASOS
 <p>Sistema especializado para asignar y resolver tickets</p>
 
@@ -42,7 +44,7 @@
 
 <h3>Una vez terminemos con los pasos anteriores, procedemos a configurar nuestro archivo .env</h3>
 
-## INSTALACIÓN DE CRON  <g-emoji class="g-emoji" alias="wrench" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f527.png">🔧</g-emoji>
-<h3>El sistema cuenta con un cron par enviar correos cuando se cree un ticket y cuando se envia un mensaje al ticket. Para activar el cron usa el siguiente comando:</h3>
+## ACTIVAR CRON JOB  <g-emoji class="g-emoji" alias="wrench" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/1f527.png">🔧</g-emoji>
+<h3>El sistema cuenta con un cron par enviar correos cuando se cree un envie un mensaje sobre nuestro ticket. Para activar el cron usa el siguiente comando:</h3>
 <pre><code><b>php artisan work:email</b></code></pre>
 
