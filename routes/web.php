@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\EstatusController;
@@ -96,6 +97,17 @@ Route::group(['middleware' => 'auth'], function() {
 
 	Route::get('/perfil/sidebar', [App\Http\Controllers\PerfilController::class, 'sidebar_change']);
 
+	
+	//Rutas para reportes
+	Route::group(['prefix'=>'report','as'=>'report.'], function(){
+		Route::get('/', [ReportController::class, 'index'])->name('index');
+		Route::get('/create', [ReportController::class, 'create'])->name('create');
+		Route::get('/datatable', [ReportController::class, 'datatables'])->name('datatable');
+		Route::post('/store', [ReportController::class, 'store'])->name('store');
+		Route::put('/update/{report}', [ReportController::class, 'update'])->name('update');
+		Route::delete('/delete/{report}', [ReportController::class, 'destroy'])->name('destroy');
+	});
+	
 	Route::resources([
 	    'perfil' => App\Http\Controllers\PerfilController::class,
 	    'tickets' => App\Http\Controllers\TicketController::class,

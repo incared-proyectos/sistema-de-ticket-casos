@@ -110,6 +110,15 @@
 
                 </li>
               @endrole
+              <li class="nav-item">
+                <a href="{{ url('/report')}}" class="nav-link {{ (request()->is('report*')) ? 'active' : '' }}" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Reportes
+                  </p>
+                </a>
+
+              </li>
               <!--li class="nav-item">
                 <a href="{{ url('/buttons')}}" class="nav-link {{ (request()->is('buttons*')) ? 'active' : '' }}" >
                   <i class="nav-icon fas fa-th"></i>

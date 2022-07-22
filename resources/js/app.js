@@ -15,6 +15,7 @@ import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';
 import 'bootstrap-select/dist/js/bootstrap-select.min.js';
 import store from './store'
+import Vue from 'vue';
 
 
 window.Vue = require('vue');
@@ -35,23 +36,28 @@ Vue.use( CKEditor );
 
 Vue.component(
     'table-vue',
-    require('./components/TableVue.vue').default
+    require('@/components/TableVue.vue').default
 );
 Vue.component(
     'table-ticket',
-    require('./components/TableVueTicket.vue').default
+    require('@/components/TableVueTicket.vue').default
 );
 Vue.component(
     'profile-sidebar',
-    require('./components/ProfileSidebar.vue').default
+    require('@/components/ProfileSidebar.vue').default
 );
 Vue.component(
     'modal-profile',
-    require('./components/ModalProfile.vue').default
+    require('@/components/ModalProfile.vue').default
 );
 Vue.component(
     'ticket',
-    require('./components/Ticket.vue').default
+    require('@/components/Ticket.vue').default
+);
+
+Vue.component(
+    'create-report',
+    require('@/components/Reports/CreateReport.vue').default
 );
 
 Vue.component(
