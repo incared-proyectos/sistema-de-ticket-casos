@@ -103,6 +103,8 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/', [ReportController::class, 'index'])->name('index');
 		Route::get('/create', [ReportController::class, 'create'])->name('create');
 		Route::get('/datatable', [ReportController::class, 'datatables'])->name('datatable');
+		Route::get('/pdf/{report_id}', [ReportController::class, 'pdfinit'])->name('pdf');
+		Route::get('/word/{report_id}', [ReportController::class, 'wordInit'])->name('word');
 		Route::post('/store', [ReportController::class, 'store'])->name('store');
 		Route::put('/update/{report}', [ReportController::class, 'update'])->name('update');
 		Route::delete('/delete/{report}', [ReportController::class, 'destroy'])->name('destroy');

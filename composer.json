@@ -17,10 +17,12 @@
         "laravel/ui": "^3.0",
         "league/oauth2-client": "^2.6",
         "microsoft/microsoft-graph": "^1.25",
-        "mpdf/mpdf": "^8.0",
+        "mpdf/mpdf": "^8.1",
         "phpmailer/phpmailer": "^6.5",
+        "phpoffice/phpword": "^0.18.3",
         "spatie/laravel-activitylog": "^3.16",
         "spatie/laravel-permission": "^3.17",
+        "tightenco/ziggy": "^1.4",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {

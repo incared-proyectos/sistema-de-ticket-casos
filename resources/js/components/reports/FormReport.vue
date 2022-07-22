@@ -15,11 +15,11 @@
             <div class="row">
                 <div class="col-6">
                     <label><b>Titulo:</b></label>
-                    <input type="text" class="form-control" placeholder="Titulo de nuestra hoja" />
+                    <input type="text" class="form-control" placeholder="Titulo de nuestra hoja" v-model="item.title" />
                 </div>
                 <div class="col-6">
                     <label><b>Pagina:</b></label>
-                    <select class="form-control" required>
+                    <select class="form-control" required v-model="item.page_type">
                         <option value="">Seleccionar...</option>
                         <option value="1">Misma Pagina</option>
                         <option value="2">Salto de Pagina</option>
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-12">
                     <label><b>Descripcion de nuestra hoja:</b></label>
-                    <textarea class="form-control"></textarea>
+                    <textarea class="form-control" v-model="item.description"></textarea>
                 </div>
             </div>
         </div>
