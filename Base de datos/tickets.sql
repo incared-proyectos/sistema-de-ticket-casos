@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2022 a las 05:33:51
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.4.23
+-- Tiempo de generación: 22-07-2022 a las 21:36:16
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -654,10 +654,21 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 CREATE TABLE `reports` (
   `id` int(11) NOT NULL,
+  `number` varchar(100) NOT NULL,
   `code` varchar(100) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `reports`
+--
+
+INSERT INTO `reports` (`id`, `number`, `code`, `created_at`, `updated_at`) VALUES
+(6, '1', 'rp-1', '2022-07-22 15:44:24', '2022-07-22 15:44:24'),
+(7, '2', 'rp-2', '2022-07-22 15:54:01', '2022-07-22 15:54:01'),
+(8, '3', 'rp-3', '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
+(9, '4', 'rp-4', '2022-07-22 19:33:46', '2022-07-22 19:33:46');
 
 -- --------------------------------------------------------
 
@@ -670,9 +681,21 @@ CREATE TABLE `report_lines` (
   `title` text NOT NULL,
   `description` text NOT NULL,
   `page_type` int(11) NOT NULL,
+  `report_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `report_lines`
+--
+
+INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `created_at`, `updated_at`) VALUES
+(1, 'test', 'asdads', 1, 6, '2022-07-22 15:44:24', '2022-07-22 15:44:24'),
+(2, 'test', 'asdasd', 1, 7, '2022-07-22 15:54:01', '2022-07-22 15:54:01'),
+(3, 'test 1', 'asdasd', 1, 8, '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
+(4, 'test 2', 'asdasd', 1, 8, '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
+(5, 'test name', 'assadasd', 1, 9, '2022-07-22 19:33:46', '2022-07-22 19:33:46');
 
 -- --------------------------------------------------------
 
@@ -898,7 +921,8 @@ ALTER TABLE `reports`
 -- Indices de la tabla `report_lines`
 --
 ALTER TABLE `report_lines`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `report_id` (`report_id`);
 
 --
 -- Indices de la tabla `roles`
@@ -990,13 +1014,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `report_lines`
 --
 ALTER TABLE `report_lines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -1043,6 +1067,12 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `report_lines`
+--
+ALTER TABLE `report_lines`
+  ADD CONSTRAINT `report_lines_ibfk_1` FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `role_has_permissions`
