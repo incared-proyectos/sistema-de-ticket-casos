@@ -30,7 +30,8 @@
             <div class="row">
                 <div class="col-12">
                     <label><b>Descripcion de nuestra hoja:</b></label>
-                    <textarea class="form-control" v-model="item.description"></textarea>
+                    <ckeditor :editor="editor" v-model="item.description" :config="editorConfig"></ckeditor>
+
                 </div>
             </div>
         </div>
@@ -38,8 +39,22 @@
     </div>
 </template>
 <script>
+    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
     export default {
         props:['item','keyReport'],
+        data: function() {
+            return {
+                mensajes: [],
+
+                editor: ClassicEditor,
+    
+                editorConfig: {
+                            // The configuration of the editor.
+                }
+
+            };
+        },
         methods:{
             deleteReport(keyReport){
                 this.$emit('keyDelete',keyReport)

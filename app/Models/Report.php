@@ -11,6 +11,7 @@ class Report extends Model
     protected $fillable = [
         'number',
         'code',
+        'empresa_id'
     ];
   
 }

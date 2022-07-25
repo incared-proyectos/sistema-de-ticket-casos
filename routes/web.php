@@ -5,6 +5,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\EstatusController;
@@ -107,7 +108,19 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/word/{report_id}', [ReportController::class, 'wordInit'])->name('word');
 		Route::post('/store', [ReportController::class, 'store'])->name('store');
 		Route::put('/update/{report}', [ReportController::class, 'update'])->name('update');
-		Route::delete('/delete/{report}', [ReportController::class, 'destroy'])->name('destroy');
+		Route::delete('/{report}', [ReportController::class, 'destroy'])->name('destroy');
+	});
+
+
+	//Rutas para empresas
+	Route::group(['prefix'=>'empresa','as'=>'empresa.'], function(){
+		Route::get('/', [EmpresaController::class, 'index'])->name('index');
+		Route::get('/{empresa}/edit', [EmpresaController::class, 'edit'])->name('edit');
+		Route::get('/create', [EmpresaController::class, 'create'])->name('create');
+		Route::get('/datatable', [EmpresaController::class, 'datatables'])->name('datatable');
+		Route::post('/store', [EmpresaController::class, 'store'])->name('store');
+		Route::post('/{empresa}', [EmpresaController::class, 'update'])->name('update');
+		Route::delete('/{empresa}', [EmpresaController::class, 'destroy'])->name('destroy');
 	});
 	
 	Route::resources([

@@ -38,7 +38,16 @@
               @role('usuario')
 
               @else
-            
+
+              <li class="nav-item">
+                <a href="{{ url('/empresa')}}" class="nav-link {{ (request()->is('empresa*')) ? 'active' : '' }}" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Empresas
+                  </p>
+                </a>
+
+              </li>
 
               <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) || request()->is('permisos') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*'))  || request()->is('permisos') ? 'active' : '' }}">
@@ -119,6 +128,7 @@
                 </a>
 
               </li>
+            
               <!--li class="nav-item">
                 <a href="{{ url('/buttons')}}" class="nav-link {{ (request()->is('buttons*')) ? 'active' : '' }}" >
                   <i class="nav-icon fas fa-th"></i>

@@ -7,16 +7,26 @@
 	      		<p v-for="item in errors" class="mb-0">*{{item.val}}</p>
 	      	</div>
             <form  @submit.prevent="saveReport">
+
                 <div class="row">
                     <div class="col-6">
                         <button class="btn btn-success">Guardar Reporte</button>
                     </div>
-                    <div class="col-6 text-right mb-2">
+                    <div class="col-lg-4">
+                        <label for="">Seleccionar empresa</label>
+                         <select class="form-control" v-model="empresa_id">
+                            <option value="">Seleccionar...</option>
+                            <option v-for="item in empresas" :key="item.id" :value="item.id">{{item.name}} {{item.surname}}</option>
+                        </select>
+                    </div>
+                    <div class="col-2 text-right mb-2">
+                       
                         <a href="#" class="btn btn-primary" id="addReportForm" @click.prevent="addReport">ADD Reporte</a>
 
                     </div>
 
                 </div>
+                <hr>
                 <div class="row" id="content-reports">
                     <form-report v-for="(item,index) in reportsLines" 
                     :key="index" 
@@ -32,11 +42,14 @@
 <script>
 import FormReport from '@/Components/reports/FormReport.vue';
 export default {
+    props:['empresas'],
     components:{
         FormReport
     },
     data(){
         return{
+            empresa_id:'',
+         
             reportsLines:[],
             errors:[]
 
@@ -63,7 +76,10 @@ export default {
 		   axios({
 			  method: 'POST',
 			  url: route('report.store'),
-			  data: {lines:me.reportsLines},
+			  data: {
+                empresa_id:me.empresa_id,
+                lines:me.reportsLines
+            },
 			
 			})
 		    .then(function (response) {

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 22-07-2022 a las 21:36:16
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.29
+-- Tiempo de generación: 25-07-2022 a las 21:49:07
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -430,6 +430,31 @@ INSERT INTO `cron_job_mails` (`id`, `mensaje`, `ticket_codigo`, `from_email`, `f
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `empresas`
+--
+
+CREATE TABLE `empresas` (
+  `id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `surname` varchar(200) NOT NULL,
+  `ruc` int(11) NOT NULL,
+  `rsocial` varchar(200) DEFAULT NULL,
+  `logo` text DEFAULT NULL,
+  `color` varchar(100) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `empresas`
+--
+
+INSERT INTO `empresas` (`id`, `name`, `surname`, `ruc`, `rsocial`, `logo`, `color`, `created_at`, `updated_at`) VALUES
+(1, 'test2', 'test apellido', 123123, 'asda', 'GbXJ8afm8PtSbnKJwThRJFYsJvCpFdVrMYBMPpkl.jpg', '0000', '2022-07-25 16:45:52', '2022-07-25 18:17:14');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `estatus`
 --
 
@@ -446,7 +471,6 @@ CREATE TABLE `estatus` (
 --
 
 INSERT INTO `estatus` (`id`, `nombre`, `color`, `created_at`, `updated_at`) VALUES
-(2, 'Activo', '#233eba', '2021-01-12 19:44:24', '2021-01-29 19:51:39'),
 (3, 'Inactivo', '#ff8000', '2021-01-12 19:44:26', '2021-01-12 20:32:31'),
 (4, 'En proceso', NULL, '2021-01-12 19:44:29', '2021-01-12 19:44:29'),
 (5, 'Realizado', '#9cd12e', '2021-01-12 19:44:38', '2021-01-12 20:42:07'),
@@ -656,6 +680,7 @@ CREATE TABLE `reports` (
   `id` int(11) NOT NULL,
   `number` varchar(100) NOT NULL,
   `code` varchar(100) NOT NULL,
+  `empresa_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -664,11 +689,8 @@ CREATE TABLE `reports` (
 -- Volcado de datos para la tabla `reports`
 --
 
-INSERT INTO `reports` (`id`, `number`, `code`, `created_at`, `updated_at`) VALUES
-(6, '1', 'rp-1', '2022-07-22 15:44:24', '2022-07-22 15:44:24'),
-(7, '2', 'rp-2', '2022-07-22 15:54:01', '2022-07-22 15:54:01'),
-(8, '3', 'rp-3', '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
-(9, '4', 'rp-4', '2022-07-22 19:33:46', '2022-07-22 19:33:46');
+INSERT INTO `reports` (`id`, `number`, `code`, `empresa_id`, `created_at`, `updated_at`) VALUES
+(10, '1', 'rp-1', 1, '2022-07-25 19:15:44', '2022-07-25 19:15:44');
 
 -- --------------------------------------------------------
 
@@ -691,11 +713,7 @@ CREATE TABLE `report_lines` (
 --
 
 INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `created_at`, `updated_at`) VALUES
-(1, 'test', 'asdads', 1, 6, '2022-07-22 15:44:24', '2022-07-22 15:44:24'),
-(2, 'test', 'asdasd', 1, 7, '2022-07-22 15:54:01', '2022-07-22 15:54:01'),
-(3, 'test 1', 'asdasd', 1, 8, '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
-(4, 'test 2', 'asdasd', 1, 8, '2022-07-22 19:13:18', '2022-07-22 19:13:18'),
-(5, 'test name', 'assadasd', 1, 9, '2022-07-22 19:33:46', '2022-07-22 19:33:46');
+(6, 'eres', '<p><i><strong>asdasd</strong></i></p>', 1, 10, '2022-07-25 19:15:44', '2022-07-25 19:15:44');
 
 -- --------------------------------------------------------
 
@@ -861,6 +879,13 @@ ALTER TABLE `cron_job_mails`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `empresas`
+--
+ALTER TABLE `empresas`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `ruc` (`ruc`);
+
+--
 -- Indices de la tabla `estatus`
 --
 ALTER TABLE `estatus`
@@ -915,7 +940,8 @@ ALTER TABLE `permissions`
 -- Indices de la tabla `reports`
 --
 ALTER TABLE `reports`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `empresa_id` (`empresa_id`);
 
 --
 -- Indices de la tabla `report_lines`
@@ -981,6 +1007,12 @@ ALTER TABLE `cron_job_mails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
+-- AUTO_INCREMENT de la tabla `empresas`
+--
+ALTER TABLE `empresas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `estatus`
 --
 ALTER TABLE `estatus`
@@ -1014,13 +1046,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `report_lines`
 --
 ALTER TABLE `report_lines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -1067,6 +1099,12 @@ ALTER TABLE `model_has_permissions`
 --
 ALTER TABLE `model_has_roles`
   ADD CONSTRAINT `model_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `reports`
+--
+ALTER TABLE `reports`
+  ADD CONSTRAINT `reports_ibfk_1` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `report_lines`

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Report;
 use App\Models\ReportLine;
+use App\Models\Empresa;
 use App\Http\Requests\ReportRequest;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\DB;
@@ -60,7 +61,8 @@ class ReportController extends Controller
      */
     public function create()
     {
-        return view('reports.create');
+        $empresas = Empresa::all();
+        return view('reports.create',compact('empresas'));
     }
     public function getNumberReport(){
         $numberReport = Report::orderBy('number','DESC')->first();
@@ -133,12 +135,13 @@ class ReportController extends Controller
      */
     public function store(ReportRequest $request)
     {
-        try{
+        //try{
 
             DB::beginTransaction();
             $all = $request->all();
             $reportRequest['number'] = $this->getNumberReport();
             $reportRequest['code'] = 'rp-'.$reportRequest['number'];
+            $reportRequest['empresa_id'] = $all['empresa_id'];
             $report = Report::create($reportRequest);
 
             foreach($all['lines'] as $line){
@@ -152,9 +155,9 @@ class ReportController extends Controller
             Session::flash('success','El reporte fue creado con exito'); 
 
             return response()->json(['success'=>'Reporte creado con exito']);
-        }catch (Throwable $e) {
-            return response()->json(['errors'=>array('Ooops tenemos un error, contacte con el programador')],422);
-        }
+        /*}catch (Throwable $e) {
+            return response()->json(['errors'=>array('Ooops tenemos un error, contacte con el programador')],500);
+        }*/
     }
 
     /**

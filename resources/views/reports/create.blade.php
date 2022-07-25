@@ -2,7 +2,7 @@
 
 @section('content')
  <div class="content-wrapper">
-    <create-report></create-report>
+    <create-report :empresas="{{$empresas}}"></create-report>
 </div>
 @endsection
 @section('scripts_before_init')
