@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-07-2022 a las 21:49:07
+-- Tiempo de generación: 26-07-2022 a las 19:12:40
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.23
 
@@ -450,7 +450,7 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `name`, `surname`, `ruc`, `rsocial`, `logo`, `color`, `created_at`, `updated_at`) VALUES
-(1, 'test2', 'test apellido', 123123, 'asda', 'GbXJ8afm8PtSbnKJwThRJFYsJvCpFdVrMYBMPpkl.jpg', '0000', '2022-07-25 16:45:52', '2022-07-25 18:17:14');
+(1, 'test2', 'test apellido', 123123, 'asda', 'GbXJ8afm8PtSbnKJwThRJFYsJvCpFdVrMYBMPpkl.jpg', 'blue', '2022-07-25 16:45:52', '2022-07-26 14:30:37');
 
 -- --------------------------------------------------------
 
@@ -690,7 +690,8 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `number`, `code`, `empresa_id`, `created_at`, `updated_at`) VALUES
-(10, '1', 'rp-1', 1, '2022-07-25 19:15:44', '2022-07-25 19:15:44');
+(11, '1', 'rp-1', 1, '2022-07-26 17:04:04', '2022-07-26 17:04:04'),
+(12, '2', 'rp-2', 1, '2022-07-26 17:08:22', '2022-07-26 17:08:22');
 
 -- --------------------------------------------------------
 
@@ -713,7 +714,9 @@ CREATE TABLE `report_lines` (
 --
 
 INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `created_at`, `updated_at`) VALUES
-(6, 'eres', '<p><i><strong>asdasd</strong></i></p>', 1, 10, '2022-07-25 19:15:44', '2022-07-25 19:15:44');
+(8, 'adasdasdas', '<h2><i><strong>dasdasdasd</strong></i></h2>', 1, 11, '2022-07-26 17:04:04', '2022-07-26 17:04:04'),
+(9, 'test', '<p>asdasdadasd</p>', 2, 11, '2022-07-26 17:05:37', '2022-07-26 17:05:37'),
+(10, 'test', '<h3><i><strong>asdasdasdad asdasdasd</strong></i></h3>', 1, 12, '2022-07-26 17:08:22', '2022-07-26 17:08:22');
 
 -- --------------------------------------------------------
 
@@ -1046,13 +1049,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `report_lines`
 --
 ALTER TABLE `report_lines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
