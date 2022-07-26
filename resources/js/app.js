@@ -61,6 +61,11 @@ Vue.component(
 );
 
 Vue.component(
+    'edit-report',
+    require('@/components/Reports/EditReport.vue').default
+);
+
+Vue.component(
     'search-tickets',
     require('./components/SearchUserTicket.vue').default
 );

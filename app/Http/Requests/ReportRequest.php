@@ -24,7 +24,8 @@ class ReportRequest extends FormRequest
     public function rules()
     {
         $rules =  [
-            'lines'=>'required'
+            'lines'=>'required',
+            'empresa_id'=>'required'
         ];
         $lines = $this->input('lines');
         if(count($lines) > 0){

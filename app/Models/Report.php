@@ -14,4 +14,7 @@ class Report extends Model
         'empresa_id'
     ];
   
+    public function empresa(){
+        return $this->belongsTo('App\Models\Empresa');
+    }
 }

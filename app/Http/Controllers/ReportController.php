@@ -49,7 +49,7 @@ class ReportController extends Controller
     public function datatables(){
         $table = Datatables::of(Report::all());
         $table->addColumn('action', function($row){
-            $url = url('estatus').'/'.$row['id'];
+            $url = url('report').'/'.$row['id'];
             return view('layouts.buttons_datatables_reports',['id'=>$row['id'],'url'=>$url]);
         })->rawColumns(['action']);
         return $table->make(true);
@@ -79,7 +79,7 @@ class ReportController extends Controller
 
     public function pdfinit($report_id){
 
-        $report = Report::find($report_id)->first();
+        $report = Report::find($report_id)->with('empresa')->first();
         $reportLine = ReportLine::where('report_id',$report_id)->get();
 
         /*Ajustamos las  medidas, orientacio y formato  de las paginas*/
@@ -95,7 +95,7 @@ class ReportController extends Controller
             'orientation' => 'P'
         ]);
         $mpdf->SetProtection(array('print'));
-        $mpdf->SetTitle("Factura PDF Pedidos");
+        $mpdf->SetTitle("Reporte PDF");
         $mpdf->SetAuthor("Acme Trading Co.");
         $mpdf->SetWatermarkText("");   // anulada
         $mpdf->showWatermarkText = true;
@@ -135,7 +135,7 @@ class ReportController extends Controller
      */
     public function store(ReportRequest $request)
     {
-        //try{
+        try{
 
             DB::beginTransaction();
             $all = $request->all();
@@ -155,9 +155,10 @@ class ReportController extends Controller
             Session::flash('success','El reporte fue creado con exito'); 
 
             return response()->json(['success'=>'Reporte creado con exito']);
-        /*}catch (Throwable $e) {
+        }catch (Throwable $e) {
+            DB::rollBack();
             return response()->json(['errors'=>array('Ooops tenemos un error, contacte con el programador')],500);
-        }*/
+        }
     }
 
     /**
@@ -177,9 +178,15 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($report_id)
+    {   
+
+        $report = Report::where('id',$report_id)->with('empresa')->first();
+
+        $reportLines = ReportLine::where('report_id',$report->id)->get();
+        $empresas = Empresa::all();
+
+        return view('reports.edit',compact('report','reportLines','empresas'));
     }
 
     /**
@@ -189,19 +196,57 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ReportRequest $request, Report $report)
     {
-        //
-    }
+        try{
 
+            DB::beginTransaction();
+            $all = $request->all();
+            $reportRequest['empresa_id'] = $all['empresa_id'];
+            $report->fill($reportRequest)->save();
+
+            foreach($all['lines'] as $line){
+                if(isset($line['id'])){
+                    $reportLine = ReportLine::find($line['id']);
+                    $reportLine->fill($line)->save();
+                }else{
+                    $line['report_id'] = $report->id;
+                    ReportLine::create($line);
+                }
+            }
+
+            
+            DB::commit();
+            Session::flash('success','El reporte fue actualizado con exito'); 
+
+            return response()->json(['success'=>'Reporte actualizado con exito']);
+        }catch (Throwable $e) {
+            DB::rollBack();
+            return response()->json(['errors'=>array('Ooops tenemos un error, contacte con el programador')],500);
+        }
+    }
+   /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyLine(ReportLine $reportLine)
+    {
+        $reportLine->delete();
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+     
+ 
+    public function destroy(Report $report)
     {
-        //
+
+        $report->delete();
     }
 }
