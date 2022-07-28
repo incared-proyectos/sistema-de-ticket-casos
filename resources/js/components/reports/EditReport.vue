@@ -32,6 +32,7 @@
                     :key="index" 
                     :item="item" 
                     :keyReport="index" 
+                    :updateFile="true"
                     @keyDelete="deleteReport"></form-report>
                 </div>
             </form>
@@ -98,21 +99,36 @@ export default {
                 })
 
             }else{
-            
                 this.reportslines.splice(event,1)
             }
         },
         saveReport(){
             $.ajaxblock(event.currentTarget);
-		   let me = this;
-           me.errors = []
+		    let me = this;
+            me.errors = []
+            const formData = new FormData()
+          
+
+            this.reportslines.forEach((item,index) => {
+                Object.keys(item).forEach(key => {
+                    //console.log(key);
+                    formData.append(`lines[${index}][${key}]`, item[key]) // note, no square-brackets
+
+                });
+
+
+                for (var i = 0; i < item.filesData.length; i++) {
+                    let file = item.filesData[i];
+                    // Here we create unique key 'files[i]' in our response dict
+                    formData.append('lines[' + index + '][filesForm][]', file);
+                }
+            });
+            formData.append('empresa_id',this.empresa_id)
+
 		   axios({
-			  method: 'PUT',
+			  method: 'POST',
 			  url: route('report.update',this.report.id),
-			  data: {
-                empresa_id:me.empresa_id,
-                lines:me.reportslines
-            },
+			  data: formData,
 			
 			})
 		    .then(function (response) {

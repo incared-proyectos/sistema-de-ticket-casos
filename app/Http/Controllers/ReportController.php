@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Report;
 use App\Models\ReportLine;
 use App\Models\Empresa;
@@ -143,13 +144,30 @@ class ReportController extends Controller
             $reportRequest['code'] = 'rp-'.$reportRequest['number'];
             $reportRequest['empresa_id'] = $all['empresa_id'];
             $report = Report::create($reportRequest);
-
-            foreach($all['lines'] as $line){
+           // print_r($all);
+            foreach($all['lines'] as $key => $line){
                 $line['report_id'] = $report->id;
-            
-                ReportLine::create($line);
-            }
+                $files = $request->file('lines');
+                $nameFiles = array();
 
+             
+                $reportLine = ReportLine::create($line);
+                if(count($files[$key]) > 0){
+                    foreach($files[$key]['filesForm'] as $file){
+                        $extension = $file->getClientOriginalExtension();
+                        $allowedfileExtension=['jpg','png','jpeg','gif'];
+                        $check=in_array($extension,$allowedfileExtension);
+                        if ($check) {
+                            $name = $file->store('report/'.$reportLine->id,['disk' => 'public_uploads']);
+                            $nom_img = explode('/',$name);
+                            $nameFiles[] = $nom_img[2];
+                        }
+
+                    }
+                    $reportLine->files = json_encode($nameFiles);
+                    $reportLine->save();
+                }
+            }
             
             DB::commit();
             Session::flash('success','El reporte fue creado con exito'); 
@@ -180,10 +198,12 @@ class ReportController extends Controller
      */
     public function edit($report_id)
     {   
-
         $report = Report::where('id',$report_id)->with('empresa')->first();
-
         $reportLines = ReportLine::where('report_id',$report->id)->get();
+        foreach($reportLines as $line){
+            $line->filesData = array();
+            $line->files = (!empty($line->files)) ? json_decode($line->files) : array();
+        }
         $empresas = Empresa::all();
 
         return view('reports.edit',compact('report','reportLines','empresas'));
@@ -205,13 +225,41 @@ class ReportController extends Controller
             $reportRequest['empresa_id'] = $all['empresa_id'];
             $report->fill($reportRequest)->save();
 
-            foreach($all['lines'] as $line){
+            foreach($all['lines'] as $key => $line){
+                $files = $request->file('lines');
+
                 if(isset($line['id'])){
                     $reportLine = ReportLine::find($line['id']);
+
+                    unset($line['files']);
+                    
                     $reportLine->fill($line)->save();
                 }else{
                     $line['report_id'] = $report->id;
-                    ReportLine::create($line);
+                    $reportLine = ReportLine::create($line);
+                }
+
+                $nameFiles = array();
+          
+                if(isset($line['filesForm']) && count($files[$key]) > 0){
+                    if(!empty($reportLine->files)){
+                        $nameFiles = json_decode($reportLine->files);
+                    }
+
+                    foreach($files[$key]['filesForm'] as $file){
+                        $extension = $file->getClientOriginalExtension();
+                        $allowedfileExtension=['jpg','png','jpeg','gif'];
+                        $check=in_array($extension,$allowedfileExtension);
+                        if ($check) {
+                            $name = $file->store('report/'.$reportLine->id,['disk' => 'public_uploads']);
+                            $nom_img = explode('/',$name);
+                            $nameFiles[] = $nom_img[2];
+                        }
+
+                    }
+                 
+                    $reportLine->files = json_encode($nameFiles);
+                    $reportLine->save();
                 }
             }
 
@@ -243,7 +291,16 @@ class ReportController extends Controller
      */
 
      
- 
+    public function updateImg(Request $request, ReportLine $reportLine){
+        $all = $request->all();
+        $exists = Storage::disk('public_uploads')->exists('report/'.$reportLine->id.'/'.$all['deleteFile']);
+        if ($exists) {
+            Storage::disk('public_uploads')->delete('report/'.$reportLine->id.'/'.$all['deleteFile']);
+        }
+        $reportLine->files = $all['files'];
+        $reportLine->save();
+        
+    }
     public function destroy(Report $report)
     {
 

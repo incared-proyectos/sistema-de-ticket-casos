@@ -13,7 +13,8 @@ class ReportLine extends Model
         'title',
         'description',
         'page_type',
-        'report_id'
+        'report_id',
+        'files'
     ];
 
 }

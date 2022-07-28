@@ -109,9 +109,10 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/pdf/{report_id}', [ReportController::class, 'pdfinit'])->name('pdf');
 		Route::get('/word/{report_id}', [ReportController::class, 'wordInit'])->name('word');
 		Route::post('/store', [ReportController::class, 'store'])->name('store');
-		Route::put('/{report}', [ReportController::class, 'update'])->name('update');
+		Route::post('/{report}', [ReportController::class, 'update'])->name('update');
 		Route::delete('/{report}', [ReportController::class, 'destroy'])->name('destroy');
 		Route::delete('/line/{reportLine}', [ReportController::class, 'destroyLine'])->name('destroyLine');
+		Route::post('/line/updateimg/{reportLine}', [ReportController::class, 'updateImg'])->name('updateImg');
 	});
 
 

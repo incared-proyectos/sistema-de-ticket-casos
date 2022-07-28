@@ -30,11 +30,16 @@
         "@ckeditor/ckeditor5-vue2": "^1.0.5",
         "admin-lte": "^3.2.0",
         "autoprefixer": "10.4.5",
+        "bootstrap-fileinput": "^5.5.0",
         "bootstrap-select": "^1.13.18",
         "datatables.net": "^1.10.25",
+        "dropbox": "^10.32.0",
+        "dropzone": "^6.0.0-beta.2",
+        "filepond": "^4.30.4",
         "moment": "^2.29.4",
         "sweetalert2": "^11.4.23",
         "tempusdominus-bootstrap-4": "^5.39.0",
+        "vue-filepond": "^7.0.3",
         "vuex": "^3.6.2"
     }
 }

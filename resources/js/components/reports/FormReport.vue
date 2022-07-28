@@ -34,6 +34,43 @@
 
                 </div>
             </div>
+            <hr>
+            <div class="row">
+     
+                <div class="col-10">
+                    <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview" >
+                    <hr>
+                    
+                    <div v-if="updateFile && item.files.length">
+                        <label for=""><b>Imagenes Guardadas: </b></label>
+                        <div class="row pb-5">
+                            <div class="col-lg-3 mb-2"  v-for=" (itemImgStore,index) in item.files" :key="index" >
+                                <div id="preview-imgs" class="preview-imgs" >    
+                                    <img  class="img-preview img-thumbnail"  :src="`${assetReport}/report/${item.id}/${itemImgStore}`">
+                                    <a class="btn btn-danger btn-block" href="#" @click.prevent="deleteImg(index)">ELIMINAR</a>  
+
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="item.filesData.length > 0">
+                        <label for=""><b>Imagenes: </b></label>
+                        <div class="row pb-5">
+                            <div class="col-lg-3 mb-2"  v-for=" (itemImg,index) in item.filesData" :key="index" >
+                                <b>{{itemImg.name}}</b>
+                                <div id="preview-imgs" class="preview-imgs" >    
+                                    <img  class="img-preview img-thumbnail"  :src="fileObjectURl(itemImg)">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary btn-block" @click.prevent="resetFiles">Limpiar</button>
+                </div>
+
+            </div>
         </div>
         </div>
     </div>
@@ -42,13 +79,15 @@
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
     export default {
-        props:['item','keyReport'],
+        props:['item','keyReport','updateFile'],
         data: function() {
             return {
                 mensajes: [],
-
+                assetReport:app_base_asset,
                 editor: ClassicEditor,
-    
+                previewConten:'',
+                fileInput:'',
+
                 editorConfig: {
                             // The configuration of the editor.
                 }
@@ -56,9 +95,83 @@
             };
         },
         methods:{
+            showPreview(event){
+
+                if(event.target.files.length > 0){
+                    var filesAmount = event.target.files.length;
+                    for (let index = 0; index < filesAmount; index++) {
+
+                   
+                        let fileData = event.target.files[index]
+                        
+                        this.item.filesData.push(event.target.files[index])
+
+                    }
+                }
+            },
+            deleteImg(eventIndex){
+                let me = this
+                swal.fire({
+                    title: 'Estas seguro?',
+                    text: "Esta acción es irreversible",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Si, Eliminar!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let deleteFile = me.item.files[eventIndex]
+                        me.item.files.splice(eventIndex,1)
+                        axios({
+                            method:'POST',
+                            url: route('report.updateImg',me.item.id),
+                            data:{
+                                files:me.item.files,
+                                deleteFile
+                            }
+                        })
+                        .then(function (response) {
+                            console.log(deleteFile)
+                            swal.fire({
+                                icon: 'success',
+                                title: 'Registro Eliminado con exito',
+                                showConfirmButton: true,
+                            });
+                           // me.reportslines.splice(indexReport,1)
+
+
+                        })
+                    }
+                })
+              
+
+            },
+            fileObjectURl(itemImg){
+                return URL.createObjectURL(itemImg) 
+            },
+            resetFiles(){
+                this.item.filesInputImgPreview = []
+                this.item.files = []
+                this.$refs.inputfile.value = ''
+            },
             deleteReport(keyReport){
                 this.$emit('keyDelete',keyReport)
-            }
+            },
+            
         }
     }
 </script>
+<style scoped>
+    .preview-imgs{
+        width: 250px;
+        height: 200px;
+    }
+    .img-preview{
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        image-orientation: from-image;
+    }
+</style>

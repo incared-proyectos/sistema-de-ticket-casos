@@ -51,7 +51,8 @@ export default {
             empresa_id:'',
          
             reportsLines:[],
-            errors:[]
+            errors:[],
+            idtmpGenerate:0
 
         }
     },
@@ -60,10 +61,13 @@ export default {
     },
     methods:{
         addReport(){
+            this.idtmpGenerate +=1 
+
             this.reportsLines.push({
                 title:'',
                 page_type:1,
                 description:'',
+                filesData:[]
             })
         },
         deleteReport(event){
@@ -73,17 +77,40 @@ export default {
             $.ajaxblock(event.currentTarget);
 		   let me = this;
            me.errors = []
+            const formData = new FormData()
+          
+
+
+            this.reportsLines.forEach((item,index) => {
+                Object.keys(item).forEach(key => {
+                    //console.log(key);
+                    formData.append(`lines[${index}][${key}]`, item[key]) // note, no square-brackets
+
+                });
+
+
+                for (var i = 0; i < item.filesData.length; i++) {
+                    let file = item.filesData[i];
+                    // Here we create unique key 'files[i]' in our response dict
+                    formData.append('lines[' + index + '][filesForm][]', file);
+                }
+            });
+            formData.append('empresa_id',this.empresa_id)
 		   axios({
 			  method: 'POST',
+                 headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Accept: "application/json",
+
+                },
 			  url: route('report.store'),
-			  data: {
-                empresa_id:me.empresa_id,
-                lines:me.reportsLines
-            },
+			  data: formData,
+            
 			
 			})
 		    .then(function (response) {
-		  
+                
+              
                 location.href = route('report.index')
 		    	$.ajaxunblock();
 		    })
