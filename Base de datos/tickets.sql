@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-07-2022 a las 19:12:40
+-- Tiempo de generación: 29-07-2022 a las 00:50:50
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.23
 
@@ -450,7 +450,7 @@ CREATE TABLE `empresas` (
 --
 
 INSERT INTO `empresas` (`id`, `name`, `surname`, `ruc`, `rsocial`, `logo`, `color`, `created_at`, `updated_at`) VALUES
-(1, 'test2', 'test apellido', 123123, 'asda', 'GbXJ8afm8PtSbnKJwThRJFYsJvCpFdVrMYBMPpkl.jpg', 'blue', '2022-07-25 16:45:52', '2022-07-26 14:30:37');
+(1, 'test2', 'test apellido', 123123, 'asda', 'GbXJ8afm8PtSbnKJwThRJFYsJvCpFdVrMYBMPpkl.jpg', 'red', '2022-07-25 16:45:52', '2022-07-27 15:26:01');
 
 -- --------------------------------------------------------
 
@@ -690,8 +690,9 @@ CREATE TABLE `reports` (
 --
 
 INSERT INTO `reports` (`id`, `number`, `code`, `empresa_id`, `created_at`, `updated_at`) VALUES
-(11, '1', 'rp-1', 1, '2022-07-26 17:04:04', '2022-07-26 17:04:04'),
-(12, '2', 'rp-2', 1, '2022-07-26 17:08:22', '2022-07-26 17:08:22');
+(15, '1', 'rp-1', 1, '2022-07-28 16:44:18', '2022-07-28 16:44:18'),
+(17, '2', 'rp-2', 1, '2022-07-28 18:45:27', '2022-07-28 18:45:27'),
+(18, '3', 'rp-3', 1, '2022-07-28 18:45:53', '2022-07-28 18:45:53');
 
 -- --------------------------------------------------------
 
@@ -705,6 +706,7 @@ CREATE TABLE `report_lines` (
   `description` text NOT NULL,
   `page_type` int(11) NOT NULL,
   `report_id` int(11) NOT NULL,
+  `files` text DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -713,10 +715,10 @@ CREATE TABLE `report_lines` (
 -- Volcado de datos para la tabla `report_lines`
 --
 
-INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `created_at`, `updated_at`) VALUES
-(8, 'adasdasdas', '<h2><i><strong>dasdasdasd</strong></i></h2>', 1, 11, '2022-07-26 17:04:04', '2022-07-26 17:04:04'),
-(9, 'test', '<p>asdasdadasd</p>', 2, 11, '2022-07-26 17:05:37', '2022-07-26 17:05:37'),
-(10, 'test', '<h3><i><strong>asdasdasdad asdasdasd</strong></i></h3>', 1, 12, '2022-07-26 17:08:22', '2022-07-26 17:08:22');
+INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `files`, `created_at`, `updated_at`) VALUES
+(1, 'test', '<p>asdasd</p>', 1, 15, '[\"TXWiMj8YyPrhrW1fZ20BwzrntdoHQlAtmtwu8QRy.jpg\",\"JnTT70P4ebtu8T5HZBL2no7UmBdQFnTDhSOpgfj1.jpg\",\"fUM0yQ1ag9hgWb5IedmwXs8HKhRo3HyEy5mIUAAT.jpg\"]', '2022-07-28 16:44:18', '2022-07-28 18:43:50'),
+(3, 'test', '<p>asdasd</p>', 1, 17, '[\"et3rLGceMw6Yrc8ZT5WyqU3oT4boLO0nHhlnn3Rc.jpg\"]', '2022-07-28 18:45:27', '2022-07-28 18:45:27'),
+(4, '123123', '<p>asdasasdasd</p>', 1, 18, '[\"x7PlrKRhrby3XYvnp0VvuYp7pnDzKRrqwNPs6YQE.jpg\",\"espq9zp8E4tTdrUdqPJQiWVX5KCpV2cDBy3q79uS.jpg\"]', '2022-07-28 18:45:53', '2022-07-28 18:46:46');
 
 -- --------------------------------------------------------
 
@@ -1049,13 +1051,13 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT de la tabla `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `report_lines`
 --
 ALTER TABLE `report_lines`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
