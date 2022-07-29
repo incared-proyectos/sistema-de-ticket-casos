@@ -10,6 +10,7 @@
              table.items {
                  border: 0.1mm solid #000000;
              }
+            
              
             .cont-header { *display: inline-block; }
             * html .cont-header { height: 1%; }
@@ -62,6 +63,11 @@
             <div>
                 <h1 style="text-align:center;color:{{$report->empresa->color}};">{{$line->title}}</h1>
                 <p>{!! $line->description !!}</p>
+                @if(!empty($line->files))
+                    @foreach(json_decode($line->files) as $img)
+                        <img src="{{asset('storage/report/'.$line->id.'/'.$img)}}" style="width:250px;" alt="">
+                    @endforeach
+                @endif
             </div>
          
         @endforeach

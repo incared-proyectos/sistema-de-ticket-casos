@@ -9,6 +9,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\EstatusController;
+use App\Http\Controllers\RepositoryFileController;
 use \Artisan as Artis; 
 /*
 |--------------------------------------------------------------------------
@@ -114,7 +115,8 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::delete('/line/{reportLine}', [ReportController::class, 'destroyLine'])->name('destroyLine');
 		Route::post('/line/updateimg/{reportLine}', [ReportController::class, 'updateImg'])->name('updateImg');
 	});
-
+	
+	
 
 	//Rutas para empresas
 	Route::group(['prefix'=>'empresa','as'=>'empresa.'], function(){
@@ -126,7 +128,20 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::post('/{empresa}', [EmpresaController::class, 'update'])->name('update');
 		Route::delete('/{empresa}', [EmpresaController::class, 'destroy'])->name('destroy');
 	});
+
+	//Rutas para empresas
+	Route::group(['prefix'=>'repository','as'=>'repository.'], function(){
+		Route::get('/', [RepositoryFileController::class, 'index'])->name('index');
+		Route::get('/getList', [RepositoryFileController::class, 'list'])->name('list');
+		Route::get('/{repositoryFile}/edit', [RepositoryFileController::class, 'edit'])->name('edit');
+		Route::get('/create', [RepositoryFileController::class, 'create'])->name('create');
+		Route::get('/datatable', [RepositoryFileController::class, 'datatables'])->name('datatable');
+		Route::post('/store', [RepositoryFileController::class, 'store'])->name('store');
+		Route::post('/{repositoryFile}', [RepositoryFileController::class, 'update'])->name('update');
+		Route::delete('/{repositoryFile}', [RepositoryFileController::class, 'destroy'])->name('destroy');
+	});
 	
+
 	Route::resources([
 	    'perfil' => App\Http\Controllers\PerfilController::class,
 	    'tickets' => App\Http\Controllers\TicketController::class,

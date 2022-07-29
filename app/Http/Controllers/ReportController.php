@@ -152,7 +152,7 @@ class ReportController extends Controller
 
              
                 $reportLine = ReportLine::create($line);
-                if(count($files[$key]) > 0){
+                if(isset($line['filesForm']) && count($files[$key]) > 0){
                     foreach($files[$key]['filesForm'] as $file){
                         $extension = $file->getClientOriginalExtension();
                         $allowedfileExtension=['jpg','png','jpeg','gif'];

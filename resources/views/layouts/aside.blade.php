@@ -48,6 +48,15 @@
                 </a>
 
               </li>
+              <li class="nav-item">
+                <a href="{{ url('/repository')}}" class="nav-link {{ (request()->is('repository*')) ? 'active' : '' }}" >
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Repositorio Archivos
+                  </p>
+                </a>
+
+              </li>
 
               <li class="nav-item has-treeview  {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*')) || request()->is('permisos') ? 'menu-open' : '' }}">
                 <a href="#" class="nav-link {{ (request()->is('usuarios*') || request()->is('rol*') || request()->is('categorias*'))  || request()->is('permisos') ? 'active' : '' }}">

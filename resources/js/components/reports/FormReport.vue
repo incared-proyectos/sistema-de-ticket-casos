@@ -40,20 +40,41 @@
                 <div class="col-10">
                     <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview" >
                     <hr>
-                    
-                    <div v-if="updateFile && item.files.length">
-                        <label for=""><b>Imagenes Guardadas: </b></label>
-                        <div class="row pb-5">
-                            <div class="col-lg-3 mb-2"  v-for=" (itemImgStore,index) in item.files" :key="index" >
-                                <div id="preview-imgs" class="preview-imgs" >    
-                                    <img  class="img-preview img-thumbnail"  :src="`${assetReport}/report/${item.id}/${itemImgStore}`">
-                                    <a class="btn btn-danger btn-block" href="#" @click.prevent="deleteImg(index)">ELIMINAR</a>  
 
-                                </div>
-                            
+                    <!-- DIRECT CHAT -->
+                    <div class="card collapsed-card" v-if="updateFile && item.files.length > 0">
+                        <div class="card-header">
+                            <h3 class="card-title mb-0"><b>Imagenes Guardadas: </b></h3>
+
+                            <div class="card-tools">
+                            <span title="3 New Messages" class="badge badge-primary">{{item.files.length}}</span>
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        
                             </div>
                         </div>
+                        <!-- /.card-header -->
+                        <div class="card-body" style="display: none;">
+                            <div >
+                                <div class="row pb-5">
+                                    <div class="col-lg-3 mb-2"  v-for=" (itemImgStore,index) in item.files" :key="index" >
+                                        <div id="preview-imgs" class="preview-imgs" >    
+                                            <img  class="img-preview img-thumbnail"  :src="`${assetReport}/report/${item.id}/${itemImgStore}`">
+                                            <a class="btn btn-danger btn-block" href="#" @click.prevent="deleteImg(index)">ELIMINAR</a>  
+
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                 
                     </div>
+                    <!--/.direct-chat -->
+                    
+     
                     <div v-if="item.filesData.length > 0">
                         <label for=""><b>Imagenes: </b></label>
                         <div class="row pb-5">

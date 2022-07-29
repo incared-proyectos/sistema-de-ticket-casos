@@ -54,15 +54,18 @@ Vue.component(
     'ticket',
     require('@/components/Ticket.vue').default
 );
-
+Vue.component(
+    'repository-index',
+    require('@/components/repository/Index.vue').default
+);
 Vue.component(
     'create-report',
-    require('@/components/Reports/CreateReport.vue').default
+    require('@/components/reports/CreateReport.vue').default
 );
 
 Vue.component(
     'edit-report',
-    require('@/components/Reports/EditReport.vue').default
+    require('@/components/reports/EditReport.vue').default
 );
 
 Vue.component(
