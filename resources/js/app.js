@@ -59,6 +59,10 @@ Vue.component(
     require('@/components/repository/Index.vue').default
 );
 Vue.component(
+    'repository-form',
+    require('@/components/repository/FormRepository.vue').default
+);
+Vue.component(
     'create-report',
     require('@/components/reports/CreateReport.vue').default
 );
