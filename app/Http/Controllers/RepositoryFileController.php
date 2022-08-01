@@ -26,7 +26,14 @@ class RepositoryFileController extends Controller
         $repositoryFile = RepositoryFile::where('user_id',auth()->id())->get();
         return $repositoryFile;
     }
-
+    /**
+     * Obtenemos el respositorio consultado por id
+     * @param RepositoryFile $repositoryId
+     * @return Object
+    */
+    public function getById(RepositoryFile $repositoryFile){
+        return $repositoryFile;
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,7 +52,26 @@ class RepositoryFileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $requestSave['original_name'] = $file->getClientOriginalName();
+            $requestSave['type_file'] = $file->getClientOriginalExtension();
+            $requestSave['user_id'] = auth()->id();
+            $requestSave['src_file'] = 'll';
+            $extension = $file->getClientOriginalExtension();
+            $allowedfileExtension=['jpg','png','jpeg','gif','pdf'];
+            $check=in_array($extension,$allowedfileExtension);
+            if ($check) {
+                $name = $file->store('repository/'.auth()->id(),['disk' => 'public_uploads']);
+                $nom_img = explode('/',$name);
+                $nameFiles = $nom_img[2];
+            }
+            $requestSave['name_file'] = $nameFiles;
+            $requestSave['src_file'] = $nameFiles;
+            RepositoryFile::create($requestSave);
+
+        }
     }
 
     /**

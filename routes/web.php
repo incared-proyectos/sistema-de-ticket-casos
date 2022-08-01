@@ -133,6 +133,7 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::group(['prefix'=>'repository','as'=>'repository.'], function(){
 		Route::get('/', [RepositoryFileController::class, 'index'])->name('index');
 		Route::get('/getList', [RepositoryFileController::class, 'list'])->name('list');
+		Route::get('/getById/{repositoryFile}', [RepositoryFileController::class, 'getById'])->name('getById');
 		Route::get('/{repositoryFile}/edit', [RepositoryFileController::class, 'edit'])->name('edit');
 		Route::get('/create', [RepositoryFileController::class, 'create'])->name('create');
 		Route::get('/datatable', [RepositoryFileController::class, 'datatables'])->name('datatable');

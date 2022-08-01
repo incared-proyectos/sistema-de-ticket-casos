@@ -10,4 +10,11 @@ class RepositoryFile extends Model
     use HasFactory;
     protected $table = 'repository_files';
 
+    protected $fillable = [
+        'original_name',
+        'name_file',
+        'type_file',
+        'src_file',
+        'user_id'
+    ];
 }
