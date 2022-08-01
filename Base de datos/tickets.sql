@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2022 a las 20:02:05
+-- Tiempo de generación: 01-08-2022 a las 22:02:23
 -- Versión del servidor: 10.4.21-MariaDB
 -- Versión de PHP: 7.4.23
 
@@ -730,12 +730,25 @@ INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_i
 
 CREATE TABLE `repository_files` (
   `id` int(11) NOT NULL,
+  `original_name` varchar(100) DEFAULT NULL,
+  `name_file` varchar(255) DEFAULT NULL,
   `type_file` varchar(100) NOT NULL,
   `src_file` varchar(200) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `repository_files`
+--
+
+INSERT INTO `repository_files` (`id`, `original_name`, `name_file`, `type_file`, `src_file`, `user_id`, `created_at`, `updated_at`) VALUES
+(1, 'adaptadorfancooler.jpg', 'onBsbR3qSHP2KJg3FKhcIriEvFjcVEiEhOKWvmNJ.jpg', 'jpg', 'onBsbR3qSHP2KJg3FKhcIriEvFjcVEiEhOKWvmNJ.jpg', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
+(2, 'amargado.png', '7DWTWdPY8rbaf8296YGFcOCz8wczv8NYoqcsrhG1.png', 'png', '7DWTWdPY8rbaf8296YGFcOCz8wczv8NYoqcsrhG1.png', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
+(3, 'amddriversactuales.png', '3eQbemM9TGv8N4cVoXUTQvEI3uiD22My2D2nRDrB.png', 'png', '3eQbemM9TGv8N4cVoXUTQvEI3uiD22My2D2nRDrB.png', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
+(4, '178631373_3686636568131036_5937851540240330162_n.jpg', 'YdwXfPZnp24p3DkdxHLhwklqVk6DOeQbeoo6BNHo.jpg', 'jpg', 'YdwXfPZnp24p3DkdxHLhwklqVk6DOeQbeoo6BNHo.jpg', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
+(5, 'IMG_20210416_102614.jpg', '1YnKftQI4f9CBrjt1WEZwDi968diE1A2NDNAc2Tn.jpg', 'jpg', '1YnKftQI4f9CBrjt1WEZwDi968diE1A2NDNAc2Tn.jpg', 22, '2022-08-01 20:00:48', '2022-08-01 20:00:48');
 
 -- --------------------------------------------------------
 
@@ -1087,7 +1100,7 @@ ALTER TABLE `report_lines`
 -- AUTO_INCREMENT de la tabla `repository_files`
 --
 ALTER TABLE `repository_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
