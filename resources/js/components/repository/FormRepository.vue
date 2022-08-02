@@ -3,7 +3,7 @@
         <form action="">
             <div class="row">
                 <div class="col-10">
-                    <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview" >
+                    <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview"  >
             
                 </div>
                 <div class="col-2">
@@ -18,8 +18,12 @@
                     </div>
                 </div>
             </div>
+             <div v-if="errors.length > 0" class="alert alert-danger">
+	      		<p v-for="(item,index) in errors" :key="index" class="mb-0">*{{item.item}}</p>
+	      	</div>
             <div v-if="filesData.length > 0">
                 <div class=" preview-imgs mt-2 mr-2"  v-for=" (itemImg,index) in filesData" :key="index" >
+                    <label for="" class="w-100 mb-0 text-center" style="overflow:hidden;">{{itemImg.name}}</label>
                     <a href="#" class="btn btn-danger btn-block btn-sm " @click.prevent="deleteFile(index)">DELETE</a>
                     <img  :src="fileObjectURl(itemImg)">
                     <br/>
@@ -27,6 +31,12 @@
                         <div class="progress-bar bg-success progress-bar-striped" role="progressbar"
                             :aria-valuenow="processFile(itemImg.idFile).uploadPercent" aria-valuemin="0" aria-valuemax="100" :style="`width: ${processFile(itemImg.idFile).uploadPercent}%`">
                             {{processFile(itemImg.idFile).uploadPercent}}% Completado (success)
+                        </div>
+                    </div>
+                    <div class="progress progress-sm " v-if="processFile(itemImg.idFile).uploadError" >
+                        <div class="progress-bar bg-danger progress-bar-striped" role="progressbar"
+                            :aria-valuenow="processFile(itemImg.idFile).uploadPercent" aria-valuemin="0" aria-valuemax="100" :style="`width: 100%`">
+                            Error
                         </div>
                     </div>
                 </div>
@@ -42,11 +52,24 @@ export default {
         return{
             idFile:0,
             filesData:[],
-            processFiles:[]
+            processFiles:[],
+            errors:[],
+            assetPublic:app_base_asset,
+
         }
     },
     methods:{
         fileObjectURl(itemImg){
+            switch (itemImg.type) {
+                case 'application/pdf':
+                    return `${app_base_asset_public}/img/pdf_icon.png`
+                    break;
+                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                    return `${app_base_asset_public}/img/word_icon.png`
+                    break;
+                default: 
+                    break;
+            }
             return URL.createObjectURL(itemImg) 
         },
         processFile(idFile){
@@ -72,6 +95,7 @@ export default {
 
                 }
             }
+            this.$refs.inputfile.value = ''
         },
         async fileUploadProcess(){
 
@@ -83,22 +107,23 @@ export default {
 
             }
             if(fileTot ==  this.filesData.length){
-                console.log(fileTot)
                 this.$emit('uploadSuccess',true)
             }
            
             //console.log(countSuccess)
         },
         async submitFile(file){
-       
+            this.errors = []
+
             let formData = new FormData();
             let processFileChange = this.processFiles.find(item => item.idFile ===  this.filesData[file].idFile)
             if(processFileChange.upload ){
                 console.log('este archivo ya se subio ')
                 return;
             }
-
+             
             formData.append('file', this.filesData[file]);
+            let me = this
             axios.post( route('repository.store'),
                 formData,
                 {
@@ -113,12 +138,25 @@ export default {
             ).then(function(){
                 processFileChange.uploadPercent = 100
                 processFileChange.upload = true
+                processFileChange.uploadError = false
 
             })
-            .catch(function(){
+            .catch(function(error){
                 processFileChange.uploadPercent = 0
                 processFileChange.upload = false
                 processFileChange.uploadError = true
+                if (error.response.status == 422){
+                   
+		        	$.each(error.response.data.errors, function(index, item) {
+                       
+                            me.errors.push({
+                                item
+                            })
+                        
+		        	});
+		      	}else if (error.response.status == 500) {
+		        	alert(error.response.data.message)
+		      	}
             });
         },
         deleteFile(event){
@@ -130,9 +168,8 @@ export default {
 <style scoped>
     .preview-imgs{
         width: 215px;
-        height: 160px;   
         display: inline-block;
-        border: 2px solid #748b7e30;
+        //border: 2px solid #748b7e30;
     }
     img{
         aspect-ratio: 4/3;

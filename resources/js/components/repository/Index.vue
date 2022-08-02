@@ -19,8 +19,10 @@
                 <div class="card-body">
 
                     <div class="container-img">
-                        <div class="cont1-img"  v-for="item in results"  :key="item.id">
-                            <img   :src="`${assetReport}/repository/${user_id}/${item.src_file}`" @click.prevent="getDetail(item.id)" alt="">
+                        <div class="cont1-img"  v-for="(item,index) in results"  :key="item.id">
+                            <label for="" class="w-100 mb-0 text-center" style="overflow:hidden;">{{item.original_name}}</label>
+                            <a href="#" class="btn btn-danger btn-block btn-sm " @click.prevent="deleteFile(index,item.id)">DELETE</a>
+                            <img   :src="typeImg(item)" @click.prevent="getDetail(item.id)" alt="">
                         </div>
 
                     </div>
@@ -61,6 +63,22 @@ export default {
         this.init()
     },
     methods:{
+        typeImg(item){
+            
+            switch (item.type_file) {
+                case 'pdf':
+                    return `${app_base_asset_public}/img/pdf_icon.png`
+                    break;
+                case 'docx':
+                    return `${app_base_asset_public}/img/word_icon.png`
+
+                    break;
+                default:
+                    return `${app_base_asset}/repository/${item.user_id}/${item.src_file}`
+                    break;
+            }
+
+        },
         uploadsRsp(event){
             
             let me = this
@@ -70,6 +88,33 @@ export default {
                 }, 2000);
 
             }
+        },
+        deleteFile(eventIndex,repositoryId){
+            swal.fire({
+            title: 'Estas seguro?',
+            text: "Esta acción es irreversible",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Eliminar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+            let me = this;
+                axios({
+                method: 'DELETE',
+                url: route('repository.destroy',repositoryId),
+                })
+                .then(function (response) {
+                    me.results.splice(eventIndex,1)
+                })
+                .catch(function (error) {
+                    
+                });
+            }
+        })
+
         },
         getDetail(repositoryId){
             this.repositoryByDetail = []
@@ -116,7 +161,6 @@ export default {
 <style lang="scss" scoped>
     .cont1-img{
         width: 213px;
-        height: 160px;   
         display: inline-block;
         margin: 5px;
 

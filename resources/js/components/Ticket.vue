@@ -169,7 +169,6 @@
 
 <script>
 import LoaderTicket from './LoaderTicket.vue';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import SearchUser from './SearchUserTicket.vue';
 import {mapState,mapMutations} from "vuex";
 

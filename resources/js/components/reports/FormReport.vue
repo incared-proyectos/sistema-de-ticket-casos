@@ -12,12 +12,14 @@
             </div>
         </div>
         <div class="card-body">
+            <list-repository :resultsList="resultsRepositorys"/>
+
             <div class="row">
-                <div class="col-6">
+                <div class="col-5">
                     <label><b>Titulo:</b></label>
                     <input type="text" class="form-control" placeholder="Titulo de nuestra hoja" v-model="item.title" />
                 </div>
-                <div class="col-6">
+                <div class="col-5">
                     <label><b>Pagina:</b></label>
                     <select class="form-control" required v-model="item.page_type">
                         <option value="">Seleccionar...</option>
@@ -25,12 +27,16 @@
                         <option value="2">Salto de Pagina</option>
                     </select>
                 </div>
+                <div class="col-2">
+                    <label for="">Elegir </label>
+                    <a class="btn btn-warning btn-block" href="#" @click="selectRepository">Repositorio</a>
+                </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-12">
                     <label><b>Descripcion de nuestra hoja:</b></label>
-                    <ckeditor :editor="editor" v-model="item.description" :config="editorConfig"></ckeditor>
+                    <ckeditor  v-model="item.description" :config="editorConfig"></ckeditor>
 
                 </div>
             </div>
@@ -98,18 +104,26 @@
 </template>
 <script>
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    import ListRepository from '@/components/reports/ListRepository';
 
     export default {
         props:['item','keyReport','updateFile'],
+        components:{
+            ListRepository
+        },
         data: function() {
             return {
                 mensajes: [],
+                resultsRepositorys:[],
                 assetReport:app_base_asset,
                 editor: ClassicEditor,
                 previewConten:'',
                 fileInput:'',
 
                 editorConfig: {
+                    link: {
+                        addTargetToExternalLinks: true
+                    }
                             // The configuration of the editor.
                 }
 
@@ -129,6 +143,22 @@
 
                     }
                 }
+            },
+            selectRepository(){
+                this.resultsRepositorys = []
+
+                let me = this;
+                axios({
+                method: 'GET',
+                url: route('repository.list'),
+                })
+                .then(function (response) {
+                    me.resultsRepositorys = response.data
+                    $('#detailListReport').modal('show')
+                })
+                .catch(function (error) {
+                    
+                });
             },
             deleteImg(eventIndex){
                 let me = this

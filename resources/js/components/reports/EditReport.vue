@@ -63,6 +63,8 @@ export default {
                 title:'',
                 page_type:1,
                 description:'',
+                filesData:[],
+                files:[]
             })
         },
         deleteReport(event){

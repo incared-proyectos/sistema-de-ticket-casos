@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RepositoryFile;
+use Illuminate\Support\Facades\Storage;
+use Throwable;
+
 class RepositoryFileController extends Controller
 {
     /**
@@ -52,25 +55,31 @@ class RepositoryFileController extends Controller
      */
     public function store(Request $request)
     {
+        try{
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $requestSave['original_name'] = $file->getClientOriginalName();
-            $requestSave['type_file'] = $file->getClientOriginalExtension();
-            $requestSave['user_id'] = auth()->id();
-            $requestSave['src_file'] = 'll';
-            $extension = $file->getClientOriginalExtension();
-            $allowedfileExtension=['jpg','png','jpeg','gif','pdf'];
-            $check=in_array($extension,$allowedfileExtension);
-            if ($check) {
-                $name = $file->store('repository/'.auth()->id(),['disk' => 'public_uploads']);
-                $nom_img = explode('/',$name);
-                $nameFiles = $nom_img[2];
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $requestSave['original_name'] = $file->getClientOriginalName();
+                $requestSave['type_file'] = $file->getClientOriginalExtension();
+                $requestSave['user_id'] = auth()->id();
+                $requestSave['src_file'] = 'll';
+                $extension = $file->getClientOriginalExtension();
+                $allowedfileExtension=['jpg','png','jpeg','gif','pdf','docx'];
+                $check=in_array($extension,$allowedfileExtension);
+                if ($check) {
+                    $name = $file->store('repository/'.auth()->id(),['disk' => 'public_uploads']);
+                    $nom_img = explode('/',$name);
+                    $nameFiles = $nom_img[2];
+                }else{
+                    return response()->json(['errors'=>array('Ooops el archivo '.$file->getClientOriginalName().' tiene un formato no permitido')],422);
+                }
+                $requestSave['name_file'] = $nameFiles;
+                $requestSave['src_file'] = $nameFiles;
+                RepositoryFile::create($requestSave);
+
             }
-            $requestSave['name_file'] = $nameFiles;
-            $requestSave['src_file'] = $nameFiles;
-            RepositoryFile::create($requestSave);
-
+        }catch (Throwable $e) {
+            return response()->json(['errors'=>array('Ooops tenemos un error, contacte con el programador')],500);
         }
     }
 
@@ -114,8 +123,14 @@ class RepositoryFileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(RepositoryFile $repositoryFile)
     {
-        //
+        $exists = Storage::disk('public_uploads')->exists('repository/'.$repositoryFile->user_id.'/'.$repositoryFile->src_file);
+        if ($exists) {
+            Storage::disk('public_uploads')->delete('repository/'.$repositoryFile->user_id.'/'.$repositoryFile->src_file);
+        }
+        
+
+        $repositoryFile->delete();
     }
 }

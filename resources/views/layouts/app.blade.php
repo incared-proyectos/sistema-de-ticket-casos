@@ -92,6 +92,7 @@
     <script>
         const app_base_url = "{{ url('/')}}";
         const app_base_asset = "{{ asset('storage')}}";
+        const app_base_asset_public = "{{ asset('')}}";
         const app_avatar_default = "{{ asset('img')}}";
     </script>
      <!-- Scripts -->

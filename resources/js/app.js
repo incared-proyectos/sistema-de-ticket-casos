@@ -11,12 +11,13 @@ require('./views_functions/users/ticket.js');
 require('./views_functions/formsubmit.js');
 require('./views_functions/init.js');
 require('./views_functions/users/functions.js');
-import CKEditor from '@ckeditor/ckeditor5-vue2';
+//import CKEditor from '@ckeditor/ckeditor5-vue2';
 import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';
 import 'bootstrap-select/dist/js/bootstrap-select.min.js';
 import store from './store'
 import Vue from 'vue';
 
+import CKEditor from 'ckeditor4-vue';
 
 window.Vue = require('vue');
 Vue.use( CKEditor );

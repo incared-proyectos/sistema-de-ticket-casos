@@ -19,27 +19,29 @@
         "lodash": "^4.17.21",
         "popper.js": "^1.12",
         "resolve-url-loader": "^5.0.0",
-        "sass": "^1.53.0",
+        "sass": "^1.54.0",
         "sass-loader": "^8.0.0",
-        "vue": "^2.7.7",
+        "vue": "^2.7.8",
         "vue-loader": "^15.10.0",
-        "vue-template-compiler": "^2.7.7"
+        "vue-template-compiler": "^2.7.8"
     },
     "dependencies": {
-        "@ckeditor/ckeditor5-build-classic": "^24.0.0",
-        "@ckeditor/ckeditor5-vue2": "^1.0.5",
+        "@ckeditor/ckeditor5-build-classic": "^34.2.0",
+        "@ckeditor/ckeditor5-editor-classic": "^34.2.0",
+        "@ckeditor/ckeditor5-vue2": "^3.0.1",
         "admin-lte": "^3.2.0",
         "autoprefixer": "10.4.5",
         "bootstrap-fileinput": "^5.5.0",
         "bootstrap-select": "^1.13.18",
+        "ckeditor4-vue": "^2.1.1",
         "datatables.net": "^1.10.25",
         "dropbox": "^10.32.0",
         "dropzone": "^6.0.0-beta.2",
         "filepond": "^4.30.4",
         "moment": "^2.29.4",
-        "sweetalert2": "^11.4.23",
+        "sweetalert2": "^11.4.24",
         "tempusdominus-bootstrap-4": "^5.39.0",
-        "vue-filepond": "^6.0.0",
+        "vue-filepond": "^6.0.3",
         "vuex": "^3.6.2"
     }
 }
