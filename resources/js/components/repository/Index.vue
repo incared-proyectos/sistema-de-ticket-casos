@@ -17,14 +17,51 @@
                    <i class="fas fa-atom"></i> Repositorio de archivos
                 </div>
                 <div class="card-body">
+                    
+                    <div class="row justify-content-center">
+                        <div class="col-6">
+                            <label for="">Buscar Repositorio: </label>
+                            <input type="text" class="form-control" @keyup="searchRepository" >
+                        </div>
 
+                    </div>
+                    <hr>
                     <div class="container-img">
-                        <div class="cont1-img"  v-for="(item,index) in results"  :key="item.id">
+                        <div class="cont1-img mb-4"  v-for="(item,index) in results.data"  :key="item.id">
                             <label for="" class="w-100 mb-0 text-center" style="overflow:hidden;">{{item.original_name}}</label>
                             <a href="#" class="btn btn-danger btn-block btn-sm " @click.prevent="deleteFile(index,item.id)">DELETE</a>
                             <img   :src="typeImg(item)" @click.prevent="getDetail(item.id)" alt="">
                         </div>
+                        <div class="alert alert-info" v-if="resultsEmpty">
+                            No se encontraron resultados
+                        </div>
+                        
 
+                        <nav>
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item" v-show="results['prev_page_url']">
+                                    <a href="#" class="page-link" @click.prevent="getPage(0,true,results['prev_page_url'])">
+                                        <span>
+                                        <span aria-hidden="true">«</span>
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="page-item" :class="{ 'active': (results['current_page']=== n) }" v-for="n in results['last_page']">
+                                    <a href="#" class="page-link" @click.prevent="getPage(n)">
+                                        <span >
+                                            {{ n }}
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="page-item" v-show="results['next_page_url']">
+                                    <a href="#" class="page-link" @click.prevent="getPage(0,true,results['next_page_url'])">
+                                        <span>
+                                        <span aria-hidden="true">»</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
               </div>
@@ -32,7 +69,11 @@
         </div>
         <!--Visualizar imagenes-->
         <modal-detail
-        :detail="repositoryByDetail" ></modal-detail>
+        v-if="componentKey > 0"
+        :detail="repositoryByDetail"
+        :key="componentKey"
+        :showModal="showModal"
+        @uploadReload="uploadsRsp" ></modal-detail>
 
 
         <!--Agregar imagenes-->
@@ -45,6 +86,7 @@
 <script>
 import ModalRepositorysAdd from '@/Components/repository/ModalRepositoryAdd.vue';
 import ModalDetail from '@/Components/repository/ModalDetail.vue';
+import route from '../../../../vendor/tightenco/ziggy/src/js';
 
 export default {
     props:['user_id'],
@@ -54,6 +96,8 @@ export default {
     data(){
         return{
             results:[],
+            componentKey:0,
+            showModal:false,
             repositoryByDetail:[],
             assetReport:app_base_asset,
 
@@ -61,6 +105,16 @@ export default {
     },
     created(){
         this.init()
+    },
+    computed:{
+        resultsEmpty(){
+            if (typeof this.results.data !== 'undefined') {
+                if(this.results.data.length == 0){
+                    return true
+                }
+            }
+            return false
+        }
     },
     methods:{
         typeImg(item){
@@ -127,7 +181,8 @@ export default {
 			})
 		    .then(function (response) {
                 me.repositoryByDetail = response.data
-                console.log(response)
+                me.componentKey +=1
+                me.showModal = true
                 $('#detailArchive').modal('show');
 		    	$.ajaxunblock();
 		    })
@@ -137,7 +192,7 @@ export default {
 			});
 
         },
-        init(){
+        init(page){
 		   $.ajaxblock();
 		   let me = this;
 		   axios({
@@ -154,6 +209,41 @@ export default {
 		      	$.ajaxunblock();
 			});
         },
+        getPage(page,pageLink = false,pageUrl = null){
+            let routeLink = route('repository.list',{page:page})
+            if(pageLink){
+                routeLink = pageUrl
+            }
+            let me = this
+             axios({
+			  method: 'GET',
+			  url: routeLink,
+			})
+		    .then(function (response) {
+                me.results = response.data
+                console.log(response)
+
+		    }).catch(function (error) {
+			  
+			});
+		 
+        },
+        searchRepository(event){
+            let searchInput = event.currentTarget.value
+            let me = this
+            axios({
+			  method: 'GET',
+			  url: route('repository.list',{searchname:searchInput}),
+			})
+		    .then(function (response) {
+                me.results = response.data
+                console.log(response)
+
+		    }).catch(function (error) {
+			  
+			});
+        }
+       
     
     }
 }

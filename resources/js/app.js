@@ -16,11 +16,14 @@ import 'datatables.net-bs4/js/dataTables.bootstrap4.min.js';
 import 'bootstrap-select/dist/js/bootstrap-select.min.js';
 import store from './store'
 import Vue from 'vue';
+import VueClipboard from 'vue-clipboard2'
+
 
 import CKEditor from 'ckeditor4-vue';
 
 window.Vue = require('vue');
 Vue.use( CKEditor );
+Vue.use(VueClipboard)
 
 /**
  * The following block of code may be used to automatically register your

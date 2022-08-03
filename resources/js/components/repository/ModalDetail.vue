@@ -1,35 +1,96 @@
 <template>
-    <div class="modal fade" id="detailArchive" tabindex="-1" role="dialog" aria-labelledby="detailArchiveLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="detailArchiveLabel"><b>Detalles de archivo {{detail.original_name}}</b></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label for=""><b>URL Archivo </b> </label>
 
-                        <input type="text" class="form-control" :value="`${assetUrl}/repository/${detail.user_id}/${detail.src_file}`">
-                    </div>
+    <modal-dynamic :showModal="showModal"  witdh="modal-lg">
+        <template v-slot:header>
+            <b>Detalles de archivo {{detail.original_name}}</b>
+        </template>
+        <div class="alert alert-success rsp-success" v-if="rps_success !== ''">{{rps_success}}</div>
+        <form action="" id="detailForm"  @submit.prevent="submitSave">
+            <div class="row">
+                <div class="col-12">
+                    <label for=""><b>URL Archivo </b> </label>
+
+                    <input type="text" class="form-control" :value="`${assetUrl}/repository/${detail.user_id}/${detail.src_file}`"  readonly>
                 </div>
-                <hr>
-                <img :src="`${assetUrl}/repository/${detail.user_id}/${detail.src_file}`" alt="">
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-12">
+                    <label for=""><b>Nombre del archivo </b> </label>
+
+                    <input type="text" class="form-control" v-model="detail.original_name">
+                </div>
             </div>
-        </div>
-    </div>
+            <hr>
+            <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview"  >
+
+            <img :src="srcImg" ref="imgDetail" alt="">
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <button class="btn btn-primary">Guardar</button>
+                </div>
+            </div>
+        </form>
+    </modal-dynamic>
+           
+      
 </template>
 <script>
+import ModalDynamic from '@/Components/ModalDynamic.vue';
 
 export default {
-    props:['detail'],
+    props:['detail','showModal'],
+    components:{
+        ModalDynamic
+    },
     data(){
         return{
             assetUrl:app_base_asset,
+            fileData:'',
+            srcImg:(this.detail.user_id !== undefined) ? `${app_base_asset}/repository/${this.detail.user_id}/${this.detail.src_file}` : '',
+            rps_success:''
+        }
+    },
+  
+    methods:{
+        showPreview(event){
+            if(event.target.files.length > 0){
+                this.fileData = event.target.files[0]
+                this.srcImg = URL.createObjectURL(event.target.files[0]) 
+            }
+            this.$refs.inputfile.value = ''
+        },
+        submitSave(event){
+            $.ajaxblock(event.currentTarget);
+            this.rps_success = ''
+            let formData = new FormData();
+            let me = this
+            Object.keys(this.detail).forEach(key => {
+                //console.log(key);
+                formData.append(key, this.detail[key]) // note, no square-brackets
+
+            });             
+            
+            formData.append('file', this.fileData);
+              axios.post( route('repository.update',this.detail.id),
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                }
+            ).then(function(){
+                $.ajaxunblock()
+                me.rps_success = 'Repositorio actualizado con exito'
+                me.$emit('uploadReload',true)
+          
+
+            })
+            .catch(function(error){
+                $.ajaxunblock()
+            });
+
 
         }
     }

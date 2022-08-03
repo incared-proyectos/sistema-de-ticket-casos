@@ -8,6 +8,7 @@
       <div class="container-fluid">
 
         <repository-index :user_id="{{auth()->user()->id}}"></repository-index>
+
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

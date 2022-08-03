@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="card-body">
-            <list-repository :resultsList="resultsRepositorys"/>
+            <list-repository :resultsList="resultsRepositorys" :key="componentKey" :showModal="showModal"/>
 
             <div class="row">
                 <div class="col-5">
@@ -114,6 +114,8 @@
         data: function() {
             return {
                 mensajes: [],
+                componentKey:0,
+                showModal:false,
                 resultsRepositorys:[],
                 assetReport:app_base_asset,
                 editor: ClassicEditor,
@@ -154,6 +156,8 @@
                 })
                 .then(function (response) {
                     me.resultsRepositorys = response.data
+                    me.showModal = true
+                    me.componentKey += 1
                     $('#detailListReport').modal('show')
                 })
                 .catch(function (error) {

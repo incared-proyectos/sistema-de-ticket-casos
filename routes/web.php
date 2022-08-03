@@ -138,6 +138,7 @@ Route::group(['middleware' => 'auth'], function() {
 		Route::get('/create', [RepositoryFileController::class, 'create'])->name('create');
 		Route::get('/datatable', [RepositoryFileController::class, 'datatables'])->name('datatable');
 		Route::post('/store', [RepositoryFileController::class, 'store'])->name('store');
+		Route::post('/update/{repositoryFile}', [RepositoryFileController::class, 'update'])->name('update');
 		Route::post('/{repositoryFile}', [RepositoryFileController::class, 'update'])->name('update');
 		Route::delete('/{repositoryFile}', [RepositoryFileController::class, 'destroy'])->name('destroy');
 	});
