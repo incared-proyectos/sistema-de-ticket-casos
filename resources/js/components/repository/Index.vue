@@ -127,6 +127,14 @@ export default {
                     return `${app_base_asset_public}/img/word_icon.png`
 
                     break;
+                case 'xlsx':
+                    return `${app_base_asset_public}/img/excel_icon.png`
+
+                    break;
+                case 'zip':
+                    return `${app_base_asset_public}/img/zip_icon.png`
+
+                    break;
                 default:
                     return `${app_base_asset}/repository/${item.user_id}/${item.src_file}`
                     break;

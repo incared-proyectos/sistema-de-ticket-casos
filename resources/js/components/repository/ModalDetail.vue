@@ -24,7 +24,10 @@
             <hr>
             <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview"  >
 
-            <img :src="srcImg" ref="imgDetail" alt="">
+            <img v-if="detail.type_file_case == 'img'" :src="srcImg" ref="imgDetail" alt="">
+            <div v-else v-html="detailActions(detail)" class="text-center mt-2">
+  
+            </div>
             <hr>
             <div class="row">
                 <div class="col-12 text-center">
@@ -54,6 +57,21 @@ export default {
     },
   
     methods:{
+        detailActions(detail){
+            switch (detail.type_file) {
+                case 'pdf':
+
+                        return `
+                            <a href="https://docs.google.com/viewer?url=${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" class="btn btn-danger"> Ver</a>
+                            <a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-danger"> Descargar</a>
+                        `
+                    break;
+            
+                default:
+                    return `<a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-danger"> Descargar</a>`  
+                    break;
+            }
+        },
         showPreview(event){
             if(event.target.files.length > 0){
                 this.fileData = event.target.files[0]

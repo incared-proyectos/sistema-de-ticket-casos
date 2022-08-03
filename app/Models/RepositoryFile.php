@@ -15,6 +15,7 @@ class RepositoryFile extends Model
         'name_file',
         'type_file',
         'src_file',
-        'user_id'
+        'user_id',
+        'type_file_case'
     ];
 }

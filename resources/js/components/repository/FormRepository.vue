@@ -60,12 +60,20 @@ export default {
     },
     methods:{
         fileObjectURl(itemImg){
+            console.log(itemImg.type)
             switch (itemImg.type) {
                 case 'application/pdf':
                     return `${app_base_asset_public}/img/pdf_icon.png`
                     break;
                 case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
                     return `${app_base_asset_public}/img/word_icon.png`
+                    break;
+                case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                    return `${app_base_asset_public}/img/excel_icon.png`
+                    break;
+
+                case 'application/x-zip-compressed':
+                    return `${app_base_asset_public}/img/zip_icon.png`
                     break;
                 default: 
                     break;

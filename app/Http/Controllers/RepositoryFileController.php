@@ -63,11 +63,20 @@ class RepositoryFileController extends Controller
             if ($request->hasFile('file')) {
                 $file = $request->file('file');
                 $requestSave['original_name'] = $file->getClientOriginalName();
+                
                 $requestSave['type_file'] = $file->getClientOriginalExtension();
                 $requestSave['user_id'] = auth()->id();
-                $requestSave['src_file'] = 'll';
                 $extension = $file->getClientOriginalExtension();
-                $allowedfileExtension=['jpg','png','jpeg','gif','pdf','docx'];
+                $allowedfileExtension=['jpg','png','jpeg','gif','pdf','docx','xlsx','zip'];
+                $fileImg = ['jpg','png','jpeg','gif'];
+                $checkImg=in_array($extension,$fileImg);
+
+                if($checkImg){
+                    $requestSave['type_file_case'] = 'img';
+                }else{
+                    $requestSave['type_file_case'] = 'file';
+                }
+
                 $check=in_array($extension,$allowedfileExtension);
                 if ($check) {
                     $name = $file->store('repository/'.auth()->id(),['disk' => 'public_uploads']);
@@ -143,7 +152,7 @@ class RepositoryFileController extends Controller
                     $requestSave['original_name'] =$file->getClientOriginalName();
                 }
                 $extension = $file->getClientOriginalExtension();
-                $allowedfileExtension=['jpg','png','jpeg','gif','pdf','docx'];
+                $allowedfileExtension=['jpg','png','jpeg','gif','pdf','docx','xlsx','zip'];
                 $check=in_array($extension,$allowedfileExtension);
                 if ($check) {
                     $name = $file->store('repository/'.auth()->id(),['disk' => 'public_uploads']);
