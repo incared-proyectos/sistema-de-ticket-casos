@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-08-2022 a las 22:02:23
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 7.4.23
+-- Tiempo de generación: 03-08-2022 a las 20:45:44
+-- Versión del servidor: 10.4.24-MariaDB
+-- Versión de PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -717,7 +717,7 @@ CREATE TABLE `report_lines` (
 --
 
 INSERT INTO `report_lines` (`id`, `title`, `description`, `page_type`, `report_id`, `files`, `created_at`, `updated_at`) VALUES
-(1, 'test', '<p>asdasd</p>', 1, 15, '[\"TXWiMj8YyPrhrW1fZ20BwzrntdoHQlAtmtwu8QRy.jpg\",\"JnTT70P4ebtu8T5HZBL2no7UmBdQFnTDhSOpgfj1.jpg\",\"fUM0yQ1ag9hgWb5IedmwXs8HKhRo3HyEy5mIUAAT.jpg\"]', '2022-07-28 16:44:18', '2022-07-28 18:43:50'),
+(1, 'test', '<p>asdasd</p>', 1, 15, '[]', '2022-07-28 16:44:18', '2022-08-03 16:12:44'),
 (3, 'test', '<p>asdasd</p>', 1, 17, '[\"et3rLGceMw6Yrc8ZT5WyqU3oT4boLO0nHhlnn3Rc.jpg\"]', '2022-07-28 18:45:27', '2022-07-28 18:45:27'),
 (4, '123123', '<p>asdasasdasd</p>', 1, 18, '[\"x7PlrKRhrby3XYvnp0VvuYp7pnDzKRrqwNPs6YQE.jpg\",\"espq9zp8E4tTdrUdqPJQiWVX5KCpV2cDBy3q79uS.jpg\"]', '2022-07-28 18:45:53', '2022-07-28 18:46:46'),
 (8, 'test title', '<p>asdasdasd</p>', 1, 22, '[\"ebCpyIlDd5xmEHMB9wuLQAkz2R73mtRDSzOqg7iZ.jpg\",\"PGdhCzajCrgjs3EElVKiBAGhHenBcE42ibgsk4H4.jpg\"]', '2022-07-29 14:59:25', '2022-07-29 15:30:30');
@@ -744,11 +744,15 @@ CREATE TABLE `repository_files` (
 --
 
 INSERT INTO `repository_files` (`id`, `original_name`, `name_file`, `type_file`, `src_file`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'adaptadorfancooler.jpg', 'onBsbR3qSHP2KJg3FKhcIriEvFjcVEiEhOKWvmNJ.jpg', 'jpg', 'onBsbR3qSHP2KJg3FKhcIriEvFjcVEiEhOKWvmNJ.jpg', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
-(2, 'amargado.png', '7DWTWdPY8rbaf8296YGFcOCz8wczv8NYoqcsrhG1.png', 'png', '7DWTWdPY8rbaf8296YGFcOCz8wczv8NYoqcsrhG1.png', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
-(3, 'amddriversactuales.png', '3eQbemM9TGv8N4cVoXUTQvEI3uiD22My2D2nRDrB.png', 'png', '3eQbemM9TGv8N4cVoXUTQvEI3uiD22My2D2nRDrB.png', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
-(4, '178631373_3686636568131036_5937851540240330162_n.jpg', 'YdwXfPZnp24p3DkdxHLhwklqVk6DOeQbeoo6BNHo.jpg', 'jpg', 'YdwXfPZnp24p3DkdxHLhwklqVk6DOeQbeoo6BNHo.jpg', 22, '2022-08-01 19:47:07', '2022-08-01 19:47:07'),
-(5, 'IMG_20210416_102614.jpg', '1YnKftQI4f9CBrjt1WEZwDi968diE1A2NDNAc2Tn.jpg', 'jpg', '1YnKftQI4f9CBrjt1WEZwDi968diE1A2NDNAc2Tn.jpg', 22, '2022-08-01 20:00:48', '2022-08-01 20:00:48');
+(6, 'lobo66.jpg', '019Jn8lRj37KdS3KNxdOboWAsq0C90qqwPOcJa2i.jpg', 'jpg', '019Jn8lRj37KdS3KNxdOboWAsq0C90qqwPOcJa2i.jpg', 22, '2022-08-03 13:30:02', '2022-08-03 16:01:25'),
+(7, 'pruebas.jpg', '9U1I71ZrbMytjfI8qzUZ2KEq336pG2tNGlft8H6L.jpg', 'jpg', '9U1I71ZrbMytjfI8qzUZ2KEq336pG2tNGlft8H6L.jpg', 22, '2022-08-03 14:54:48', '2022-08-03 18:26:41'),
+(8, 'lobo2.jpg', 'kDkIlDd4gJ9fLTKVAmD4THzFW0ePCbhonXfVIgOD.jpg', 'jpg', 'kDkIlDd4gJ9fLTKVAmD4THzFW0ePCbhonXfVIgOD.jpg', 22, '2022-08-03 14:54:48', '2022-08-03 14:54:48'),
+(9, 'paisaje.jpg', 'EWKXjoUvzrNlCC7686a2Y4nhxLx4K1chCitA2t3Y.jpg', 'jpg', 'EWKXjoUvzrNlCC7686a2Y4nhxLx4K1chCitA2t3Y.jpg', 22, '2022-08-03 14:54:48', '2022-08-03 14:54:48'),
+(10, 'pasaje 2.jpg', 'ORTYXdGfsaLZWpWva04FvTyGO42gDQWh4JeFmlOS.jpg', 'jpg', 'ORTYXdGfsaLZWpWva04FvTyGO42gDQWh4JeFmlOS.jpg', 22, '2022-08-03 14:54:48', '2022-08-03 14:54:48'),
+(11, 'baselaptopmousepad.png', '5dIkSlcXbbRLFoKp0XK3HwgYpapvxfw0pyxIcKzK.png', 'png', '5dIkSlcXbbRLFoKp0XK3HwgYpapvxfw0pyxIcKzK.png', 22, '2022-08-03 18:25:10', '2022-08-03 18:25:10'),
+(12, 'configNvidia2.png', 'zSpuIM6QlRKSpTMzUTUxBwoOyYs3N8VjcGWCzjf4.png', 'png', 'zSpuIM6QlRKSpTMzUTUxBwoOyYs3N8VjcGWCzjf4.png', 22, '2022-08-03 18:25:10', '2022-08-03 18:25:10'),
+(13, 'configNvidia1.png', 'Rzhw3pz1hr1L77EZA8GAablHo8JdbEgcaOdcWkAA.png', 'png', 'Rzhw3pz1hr1L77EZA8GAablHo8JdbEgcaOdcWkAA.png', 22, '2022-08-03 18:25:10', '2022-08-03 18:25:10'),
+(14, 'armorycrate.png', 'WyUtlNS6BsWLL3BUz6PL4tmz60HgsJnFzOZFwWLI.png', 'png', 'WyUtlNS6BsWLL3BUz6PL4tmz60HgsJnFzOZFwWLI.png', 22, '2022-08-03 18:26:04', '2022-08-03 18:26:04');
 
 -- --------------------------------------------------------
 
@@ -1100,7 +1104,7 @@ ALTER TABLE `report_lines`
 -- AUTO_INCREMENT de la tabla `repository_files`
 --
 ALTER TABLE `repository_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
