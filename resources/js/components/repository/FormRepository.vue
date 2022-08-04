@@ -7,7 +7,7 @@
             
                 </div>
                 <div class="col-2">
-                    <a href="#" class="btn btn-success btn-block " @click.prevent="fileUploadProcess">SUBIR</a>
+                    <a href="#" class="btn btn-success btn-block " @click.prevent="fileUploadProcess" :disabled="messageSubmit ? true : false ">SUBIR</a>
 
                 </div>
             </div>
@@ -18,7 +18,10 @@
                     </div>
                 </div>
             </div>
-             <div v-if="errors.length > 0" class="alert alert-danger">
+            <div class="alert alert-info" v-if="messageSubmit">
+                Subiendo imagenes un momento por favor....
+            </div>
+            <div v-if="errors.length > 0" class="alert alert-danger">
 	      		<p v-for="(item,index) in errors" :key="index" class="mb-0">*{{item.item}}</p>
 	      	</div>
             <div v-if="filesData.length > 0">
@@ -55,6 +58,8 @@ export default {
             processFiles:[],
             errors:[],
             assetPublic:app_base_asset,
+            filesTotSuccess:0,
+            messageSubmit: false
 
         }
     },
@@ -106,18 +111,14 @@ export default {
         },
         async fileUploadProcess(){
 
-            let fileTot = 0;
+
+            this.messageSubmit = true
             for (var i = 0; i < this.filesData.length; i++) {
                 // Here we create unique key 'files[i]' in our response dict
-                let resultFile = await  this.submitFile(i)
-                fileTot +=1
+                await  this.submitFile(i)
 
             }
-            if(fileTot ==  this.filesData.length){
-                this.$emit('uploadSuccess',true)
-            }
-           
-            //console.log(countSuccess)
+          
         },
         async submitFile(file){
             this.errors = []
@@ -125,7 +126,6 @@ export default {
             let formData = new FormData();
             let processFileChange = this.processFiles.find(item => item.idFile ===  this.filesData[file].idFile)
             if(processFileChange.upload ){
-                console.log('este archivo ya se subio ')
                 return;
             }
              
@@ -146,6 +146,15 @@ export default {
                 processFileChange.uploadPercent = 100
                 processFileChange.upload = true
                 processFileChange.uploadError = false
+                me.filesTotSuccess += 1
+                
+                if(me.filesData.length == me.filesTotSuccess){
+                    me.$emit('uploadSuccess',true)
+                    me.messageSubmit = false
+
+                }
+
+                
 
             })
             .catch(function(error){
