@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-08-2022 a las 21:48:14
--- Versión del servidor: 10.4.24-MariaDB
--- Versión de PHP: 7.4.29
+-- Tiempo de generación: 04-08-2022 a las 18:03:31
+-- Versión del servidor: 10.4.21-MariaDB
+-- Versión de PHP: 7.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -740,16 +740,6 @@ CREATE TABLE `repository_files` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `repository_files`
---
-
-INSERT INTO `repository_files` (`id`, `original_name`, `name_file`, `type_file`, `type_file_case`, `src_file`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Comprobante.pdf', 'jYpZpGRT6Pyd7R9SwVJQ466ZvIKaGR2fzidKVpwI.pdf', 'pdf', 'file', 'jYpZpGRT6Pyd7R9SwVJQ466ZvIKaGR2fzidKVpwI.pdf', 22, '2022-08-03 19:35:36', '2022-08-03 19:35:36'),
-(2, 'baselaptopmousepad.png', 'kQ4CawWvtof3TBQ2bNp1sFMGRenjmmc9L2anXaH3.png', 'png', 'img', 'kQ4CawWvtof3TBQ2bNp1sFMGRenjmmc9L2anXaH3.png', 22, '2022-08-03 19:35:36', '2022-08-03 19:35:36'),
-(3, 'armorycrate.png', 'j1A0G4fPr4aa3Dr6kU2rzzsjsOnxiCeEo7rxanoo.png', 'png', 'img', 'j1A0G4fPr4aa3Dr6kU2rzzsjsOnxiCeEo7rxanoo.png', 22, '2022-08-03 19:35:36', '2022-08-03 19:35:36'),
-(4, 'Libro12.xlsx', 'YxO45VIewPKJGHXtHjq1V9t9sAuPaYvxKgPqrkiN.xlsx', 'xlsx', 'file', 'YxO45VIewPKJGHXtHjq1V9t9sAuPaYvxKgPqrkiN.xlsx', 22, '2022-08-03 19:45:24', '2022-08-03 19:47:03');
-
 -- --------------------------------------------------------
 
 --
@@ -1100,7 +1090,7 @@ ALTER TABLE `report_lines`
 -- AUTO_INCREMENT de la tabla `repository_files`
 --
 ALTER TABLE `repository_files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
