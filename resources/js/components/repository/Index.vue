@@ -169,7 +169,7 @@ export default {
                 url: route('repository.destroy',repositoryId),
                 })
                 .then(function (response) {
-                    me.results.splice(eventIndex,1)
+                    me.results.data.splice(eventIndex,1)
                 })
                 .catch(function (error) {
                     
@@ -209,7 +209,6 @@ export default {
 			})
 		    .then(function (response) {
                 me.results = response.data
-                console.log(me.results)
 		    	$.ajaxunblock();
 		    })
 		   .catch(function (error) {
@@ -245,7 +244,6 @@ export default {
 			})
 		    .then(function (response) {
                 me.results = response.data
-                console.log(response)
 
 		    }).catch(function (error) {
 			  

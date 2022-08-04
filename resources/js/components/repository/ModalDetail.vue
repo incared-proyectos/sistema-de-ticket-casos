@@ -24,8 +24,8 @@
             <hr>
             <input type="file" class="form-control" ref="inputfile" multiple  @change.prevent="showPreview"  >
 
-            <img v-if="detail.type_file_case == 'img'" :src="srcImg" ref="imgDetail" alt="">
-            <div v-else v-html="detailActions(detail)" class="text-center mt-2">
+            <img  :src="srcImg" ref="imgDetail" alt="">
+            <div v-if="detail.type_file_case !== 'img'" v-html="detailActions(detail)" class="text-center mt-2">
   
             </div>
             <hr>
@@ -62,13 +62,13 @@ export default {
                 case 'pdf':
 
                         return `
-                            <a href="https://docs.google.com/viewer?url=${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" class="btn btn-danger"> Ver</a>
-                            <a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-danger"> Descargar</a>
+                            <a href="https://docs.google.com/viewer?url=${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" class="btn btn-danger"><i class="fas fa-eye"></i> Ver</a>
+                            <a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-danger"><i class="fas fa-download"></i> Descargar</a>
                         `
                     break;
             
                 default:
-                    return `<a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-danger"> Descargar</a>`  
+                    return `<a href="${app_base_asset}/repository/${detail.user_id}/${detail.src_file}" target="_blank" class="btn btn-primary"><i class="fas fa-download"></i> Descargar</a>`  
                     break;
             }
         },
@@ -77,7 +77,7 @@ export default {
                 this.fileData = event.target.files[0]
                 this.srcImg = URL.createObjectURL(event.target.files[0]) 
             }
-            this.$refs.inputfile.value = ''
+            //this.$refs.inputfile.value = ''
         },
         submitSave(event){
             $.ajaxblock(event.currentTarget);
@@ -101,6 +101,8 @@ export default {
             ).then(function(){
                 $.ajaxunblock()
                 me.rps_success = 'Repositorio actualizado con exito'
+                
+                me.detail.original_name = me.fileData.name
                 me.$emit('uploadReload',true)
           
 

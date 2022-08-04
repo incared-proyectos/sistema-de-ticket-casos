@@ -60,7 +60,6 @@ export default {
     },
     methods:{
         fileObjectURl(itemImg){
-            console.log(itemImg.type)
             switch (itemImg.type) {
                 case 'application/pdf':
                     return `${app_base_asset_public}/img/pdf_icon.png`
